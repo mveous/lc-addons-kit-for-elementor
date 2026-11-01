@@ -241,6 +241,63 @@ class LCAKE_Kit_Utils {
 		}
 	}
 
+	/**
+	 * Force-enqueues the default style/script dependencies for every widget
+	 * used inside a given Elementor document (e.g. a header/footer template).
+	 *
+	 * render_elementor_content_css() only enqueues that document's *custom*
+	 * per-post CSS (Style tab overrides) — it does not load a widget's
+	 * default stylesheet (e.g. widget-icon-list.min.css). Elementor normally
+	 * loads those default files only when it scans the page being rendered
+	 * through the main WP loop, which never happens for our header/footer
+	 * templates since they're injected via get_header/get_footer instead.
+	 * This walks the document's own element tree and enqueues each used
+	 * widget's declared dependencies directly, so it stays correct for any
+	 * widget added to the header/footer in future — not just icon-list.
+	 *
+	 * @since 1.2.1
+	 * @param int $content_id The Elementor document/template post ID.
+	 * @return void
+	 */
+	public static function enqueue_elementor_widget_depends( $content_id ) {
+		if ( ! class_exists( '\Elementor\Plugin' ) ) {
+			return;
+		}
+
+		$document = \Elementor\Plugin::$instance->documents->get( $content_id );
+		if ( ! $document ) {
+			return;
+		}
+
+		self::enqueue_widget_depends_recursive( $document->get_elements_data() );
+	}
+
+	private static function enqueue_widget_depends_recursive( $elements ) {
+		if ( empty( $elements ) || ! is_array( $elements ) ) {
+			return;
+		}
+
+		$widgets_manager = \Elementor\Plugin::$instance->widgets_manager;
+
+		foreach ( $elements as $element ) {
+			if ( ! empty( $element['widgetType'] ) ) {
+				$widget = $widgets_manager->get_widget_types( $element['widgetType'] );
+				if ( $widget ) {
+					foreach ( (array) $widget->get_style_depends() as $style_handle ) {
+						wp_enqueue_style( $style_handle );
+					}
+					foreach ( (array) $widget->get_script_depends() as $script_handle ) {
+						wp_enqueue_script( $script_handle );
+					}
+				}
+			}
+
+			if ( ! empty( $element['elements'] ) ) {
+				self::enqueue_widget_depends_recursive( $element['elements'] );
+			}
+		}
+	}
+
 	public static function render_elementor_content( $content_id ) {
 		$elementor_instance = \Elementor\Plugin::instance();
 		$has_css            = false;
@@ -440,20 +497,110 @@ class LCAKE_Kit_Utils {
 	}
 
 	/**
+	 * @return array Public post type slug => label, excluding attachments — the
+	 *               `post_type` SELECT options shared by every post-query widget (Post
+	 *               Grid, Post List, Post Carousel, Blog Posts, Post Timeline).
+	 */
+	public static function get_public_post_type_options() {
+		$options = array();
+
+		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
+			if ( 'attachment' === $post_type->name ) {
+				continue;
+			}
+			$options[ $post_type->name ] = $post_type->label;
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Registers the "Columns" and "Rows" repeater controls shared by the Data Table and
+	 * Advanced Data Table widgets — same column_label/comma-separated-row_cells shape in
+	 * both, differing only in each widget's own sample defaults.
+	 *
+	 * @param \Elementor\Widget_Base $widget
+	 * @param array  $columns_default          Default `columns` repeater rows.
+	 * @param array  $rows_default             Default `rows` repeater rows.
+	 * @param string $row_cells_field_default  Default value of a freshly added row's
+	 *                                         `row_cells` field (shown in the editor
+	 *                                         before the site owner fills it in).
+	 */
+	public static function add_table_columns_rows_controls( \Elementor\Widget_Base $widget, array $columns_default, array $rows_default, $row_cells_field_default = '' ) {
+		$col_repeater = new \Elementor\Repeater();
+		$col_repeater->add_control(
+			'column_label',
+			array(
+				'label'   => esc_html__( 'Column Label', 'lc-addons-kit-for-elementor' ),
+				'type'    => \Elementor\Controls_Manager::TEXT,
+				'default' => esc_html__( 'Column', 'lc-addons-kit-for-elementor' ),
+			)
+		);
+
+		$widget->add_control(
+			'columns',
+			array(
+				'label'       => esc_html__( 'Columns', 'lc-addons-kit-for-elementor' ),
+				'type'        => \Elementor\Controls_Manager::REPEATER,
+				'fields'      => $col_repeater->get_controls(),
+				'default'     => $columns_default,
+				'title_field' => '{{{ column_label }}}',
+			)
+		);
+
+		$row_repeater = new \Elementor\Repeater();
+		$row_repeater->add_control(
+			'row_cells',
+			array(
+				'label'       => esc_html__( 'Row Cells (comma separated)', 'lc-addons-kit-for-elementor' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => $row_cells_field_default,
+				'label_block' => true,
+			)
+		);
+
+		$widget->add_control(
+			'rows',
+			array(
+				'label'       => esc_html__( 'Rows', 'lc-addons-kit-for-elementor' ),
+				'type'        => \Elementor\Controls_Manager::REPEATER,
+				'fields'      => $row_repeater->get_controls(),
+				'default'     => $rows_default,
+				'title_field' => '{{{ row_cells }}}',
+			)
+		);
+	}
+
+	/**
+	 * @param array $row One `rows` repeater item ({row_cells: 'a, b, c'}).
+	 * @return string[] Trimmed cell values, in column order.
+	 */
+	public static function split_table_row_cells( array $row ) {
+		return array_map( 'trim', explode( ',', $row['row_cells'] ?? '' ) );
+	}
+
+	/**
 	 * A helper method to register and optionally enqueue a list of styles or scripts.
 	 *
 	 * @since 1.0.0
-	 * @param array  $scripts An associative array of script/style data arrays.
-	 * @param string $file    The type of file ('script' for JS, 'style' for CSS).
+	 * @param array  $scripts  An associative array of script/style data arrays.
+	 * @param string $file     The type of file ('script' for JS, 'style' for CSS).
+	 * @param string $base_url Base URL assets are relative to. Defaults to this plugin's
+	 *                         own URL for backward compatibility; pass another plugin's
+	 *                         URL (e.g. a Pro add-on's `plugin_dir_url()`) to reuse this
+	 *                         helper for that plugin's own assets instead of duplicating
+	 *                         this loop.
+	 * @since 1.3.0 Added the `$base_url` parameter.
 	 * @return void
 	 */
-	public static function lcake_file_enqueue( $scripts, $file ) {
+	public static function lcake_file_enqueue( $scripts, $file, $base_url = null ) {
 		$register_func = 'wp_register_' . $file;
 		$enqueue_func  = 'wp_enqueue_' . $file;
 		$folder        = ( $file === 'script' ) ? 'js' : 'css';
+		$base_url      = null === $base_url ? LCAKE_EAK_URL : $base_url;
 
 		foreach ( $scripts as $handle => $data ) {
-			$url = LCAKE_EAK_URL . ( $data['path'] === '' ? 'assets/' . $folder : $data['path'] ) . '/' . $data['file'];
+			$url = $base_url . ( $data['path'] === '' ? 'assets/' . $folder : $data['path'] ) . '/' . $data['file'];
 
 			$deps               = $data['deps'] ?? array();
 			$in_footer_or_media = $file === 'script' ? true : ( $data['media'] ?? 'all' );

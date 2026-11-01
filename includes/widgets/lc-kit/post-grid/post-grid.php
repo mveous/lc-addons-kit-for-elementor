@@ -45,14 +45,7 @@ class LCAKE_Kit_Post_Grid extends \Elementor\Widget_Base {
 			)
 		);
 
-		$post_types        = get_post_types( array( 'public' => true ), 'objects' );
-		$post_type_options = array();
-		foreach ( $post_types as $post_type ) {
-			if ( 'attachment' === $post_type->name ) {
-				continue;
-			}
-			$post_type_options[ $post_type->name ] = $post_type->label;
-		}
+		$post_type_options = LCAKE_Kit_Utils::get_public_post_type_options();
 
 		$this->add_control(
 			'post_type',
@@ -576,15 +569,29 @@ class LCAKE_Kit_Post_Grid extends \Elementor\Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$query = new \WP_Query(
+		/**
+		 * Filters the WP_Query args this widget queries with. Lets an add-on (e.g. an
+		 * "Advanced Filtering" extension adding taxonomy/author/meta controls) apply
+		 * extra query args without forking this widget's render() — the add-on's
+		 * controls land in the same $settings array Free already builds args from.
+		 *
+		 * @since 1.3.0
+		 * @param array $args
+		 * @param array $settings This widget's settings_for_display().
+		 */
+		$args = apply_filters(
+			'lcake_kit_post_grid_query_args',
 			array(
 				'post_type'           => $settings['post_type'],
 				'posts_per_page'      => (int) $settings['posts_per_page'],
 				'orderby'             => $settings['order_by'],
 				'order'               => $settings['order'],
 				'ignore_sticky_posts' => true,
-			)
+			),
+			$settings
 		);
+
+		$query = new \WP_Query( $args );
 
 		if ( ! $query->have_posts() ) {
 			return;

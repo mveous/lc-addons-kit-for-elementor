@@ -45,55 +45,19 @@ class LCAKE_Kit_Data_Table extends \Elementor\Widget_Base {
 			)
 		);
 
-		$col_repeater = new \Elementor\Repeater();
-		$col_repeater->add_control(
-			'column_label',
+		LCAKE_Kit_Utils::add_table_columns_rows_controls(
+			$this,
 			array(
-				'label'   => esc_html__( 'Column Label', 'lc-addons-kit-for-elementor' ),
-				'type'    => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'Column', 'lc-addons-kit-for-elementor' ),
-			)
-		);
-
-		$this->add_control(
-			'columns',
+				array( 'column_label' => esc_html__( 'Plan', 'lc-addons-kit-for-elementor' ) ),
+				array( 'column_label' => esc_html__( 'Price', 'lc-addons-kit-for-elementor' ) ),
+				array( 'column_label' => esc_html__( 'Storage', 'lc-addons-kit-for-elementor' ) ),
+			),
 			array(
-				'label'       => esc_html__( 'Columns', 'lc-addons-kit-for-elementor' ),
-				'type'        => \Elementor\Controls_Manager::REPEATER,
-				'fields'      => $col_repeater->get_controls(),
-				'default'     => array(
-					array( 'column_label' => esc_html__( 'Plan', 'lc-addons-kit-for-elementor' ) ),
-					array( 'column_label' => esc_html__( 'Price', 'lc-addons-kit-for-elementor' ) ),
-					array( 'column_label' => esc_html__( 'Storage', 'lc-addons-kit-for-elementor' ) ),
-				),
-				'title_field' => '{{{ column_label }}}',
-			)
-		);
-
-		$row_repeater = new \Elementor\Repeater();
-		$row_repeater->add_control(
-			'row_cells',
-			array(
-				'label'       => esc_html__( 'Row Cells (comma separated)', 'lc-addons-kit-for-elementor' ),
-				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => esc_html__( 'Basic, $10, 10GB', 'lc-addons-kit-for-elementor' ),
-				'label_block' => true,
-			)
-		);
-
-		$this->add_control(
-			'rows',
-			array(
-				'label'       => esc_html__( 'Rows', 'lc-addons-kit-for-elementor' ),
-				'type'        => \Elementor\Controls_Manager::REPEATER,
-				'fields'      => $row_repeater->get_controls(),
-				'default'     => array(
-					array( 'row_cells' => esc_html__( 'Basic, $10/mo, 10GB', 'lc-addons-kit-for-elementor' ) ),
-					array( 'row_cells' => esc_html__( 'Pro, $25/mo, 100GB', 'lc-addons-kit-for-elementor' ) ),
-					array( 'row_cells' => esc_html__( 'Enterprise, $50/mo, 1TB', 'lc-addons-kit-for-elementor' ) ),
-				),
-				'title_field' => '{{{ row_cells }}}',
-			)
+				array( 'row_cells' => esc_html__( 'Basic, $10/mo, 10GB', 'lc-addons-kit-for-elementor' ) ),
+				array( 'row_cells' => esc_html__( 'Pro, $25/mo, 100GB', 'lc-addons-kit-for-elementor' ) ),
+				array( 'row_cells' => esc_html__( 'Enterprise, $50/mo, 1TB', 'lc-addons-kit-for-elementor' ) ),
+			),
+			esc_html__( 'Basic, $10, 10GB', 'lc-addons-kit-for-elementor' )
 		);
 
 		$this->add_control(
@@ -169,7 +133,7 @@ class LCAKE_Kit_Data_Table extends \Elementor\Widget_Base {
 				<tbody>
 					<?php
 					foreach ( $rows as $row ) :
-						$cells = array_map( 'trim', explode( ',', $row['row_cells'] ?? '' ) );
+						$cells = LCAKE_Kit_Utils::split_table_row_cells( $row );
 						?>
 						<tr>
 							<?php foreach ( $columns as $index => $col ) : ?>

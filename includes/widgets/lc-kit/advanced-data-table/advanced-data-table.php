@@ -49,59 +49,22 @@ class LCAKE_Kit_Advanced_Data_Table extends \Elementor\Widget_Base {
 			)
 		);
 
-		$col_repeater = new \Elementor\Repeater();
-		$col_repeater->add_control(
-			'column_label',
+		LCAKE_Kit_Utils::add_table_columns_rows_controls(
+			$this,
 			array(
-				'label'   => esc_html__( 'Column Label', 'lc-addons-kit-for-elementor' ),
-				'type'    => \Elementor\Controls_Manager::TEXT,
-				'default' => esc_html__( 'Column', 'lc-addons-kit-for-elementor' ),
-			)
-		);
-
-		$this->add_control(
-			'columns',
+				array( 'column_label' => esc_html__( 'Status', 'lc-addons-kit-for-elementor' ) ),
+				array( 'column_label' => esc_html__( 'Signal Name', 'lc-addons-kit-for-elementor' ) ),
+				array( 'column_label' => esc_html__( 'Severity', 'lc-addons-kit-for-elementor' ) ),
+				array( 'column_label' => esc_html__( 'Stage', 'lc-addons-kit-for-elementor' ) ),
+				array( 'column_label' => esc_html__( 'Schedule', 'lc-addons-kit-for-elementor' ) ),
+				array( 'column_label' => esc_html__( 'Team Lead', 'lc-addons-kit-for-elementor' ) ),
+			),
 			array(
-				'label'       => esc_html__( 'Columns', 'lc-addons-kit-for-elementor' ),
-				'type'        => \Elementor\Controls_Manager::REPEATER,
-				'fields'      => $col_repeater->get_controls(),
-				'default'     => array(
-					array( 'column_label' => esc_html__( 'Status', 'lc-addons-kit-for-elementor' ) ),
-					array( 'column_label' => esc_html__( 'Signal Name', 'lc-addons-kit-for-elementor' ) ),
-					array( 'column_label' => esc_html__( 'Severity', 'lc-addons-kit-for-elementor' ) ),
-					array( 'column_label' => esc_html__( 'Stage', 'lc-addons-kit-for-elementor' ) ),
-					array( 'column_label' => esc_html__( 'Schedule', 'lc-addons-kit-for-elementor' ) ),
-					array( 'column_label' => esc_html__( 'Team Lead', 'lc-addons-kit-for-elementor' ) ),
-				),
-				'title_field' => '{{{ column_label }}}',
-			)
-		);
-
-		$row_repeater = new \Elementor\Repeater();
-		$row_repeater->add_control(
-			'row_cells',
-			array(
-				'label'       => esc_html__( 'Row Cells (comma separated)', 'lc-addons-kit-for-elementor' ),
-				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => '',
-				'label_block' => true,
-			)
-		);
-
-		$this->add_control(
-			'rows',
-			array(
-				'label'       => esc_html__( 'Rows', 'lc-addons-kit-for-elementor' ),
-				'type'        => \Elementor\Controls_Manager::REPEATER,
-				'fields'      => $row_repeater->get_controls(),
-				'default'     => array(
-					array( 'row_cells' => 'No signal, Astrid: NE shared managed, Medium, Triaged, 0:33, Chase Nguyen' ),
-					array( 'row_cells' => 'Offline, Cosmo: prod shared ares, Huge, Triaged, 0:39, Brie Furman' ),
-					array( 'row_cells' => 'Online, Phoenix: prod shared lyra-lists, Minor, Not triaged, 3:12, Jeremy Lake' ),
-					array( 'row_cells' => 'Online, Sirius: NW prod shared locations, Negligible, Triaged, 13:18, Angelica Howards' ),
-					array( 'row_cells' => 'Online, Sirius: prod independent account, Negligible, Triaged, 22:06, Diane Okuma' ),
-				),
-				'title_field' => '{{{ row_cells }}}',
+				array( 'row_cells' => 'No signal, Astrid: NE shared managed, Medium, Triaged, 0:33, Chase Nguyen' ),
+				array( 'row_cells' => 'Offline, Cosmo: prod shared ares, Huge, Triaged, 0:39, Brie Furman' ),
+				array( 'row_cells' => 'Online, Phoenix: prod shared lyra-lists, Minor, Not triaged, 3:12, Jeremy Lake' ),
+				array( 'row_cells' => 'Online, Sirius: NW prod shared locations, Negligible, Triaged, 13:18, Angelica Howards' ),
+				array( 'row_cells' => 'Online, Sirius: prod independent account, Negligible, Triaged, 22:06, Diane Okuma' ),
 			)
 		);
 
@@ -284,6 +247,19 @@ class LCAKE_Kit_Advanced_Data_Table extends \Elementor\Widget_Base {
 		$columns  = $settings['columns'] ?? array();
 		$rows     = $settings['rows'] ?? array();
 
+		/**
+		 * Filters the table's row data right before render. Lets an add-on (e.g. a
+		 * "Dynamic Data Source" extension that pulls rows from a WP_Query instead of
+		 * this widget's manually-authored Rows repeater) replace $rows without forking
+		 * render() — same shape the widget already builds ({row_cells: 'a, b, c'}).
+		 *
+		 * @since 1.3.0
+		 * @param array $rows
+		 * @param array $columns
+		 * @param array $settings This widget's settings_for_display().
+		 */
+		$rows = apply_filters( 'lcake_kit_advanced_data_table_rows', $rows, $columns, $settings );
+
 		if ( empty( $columns ) || empty( $rows ) ) {
 			return;
 		}
@@ -329,7 +305,7 @@ class LCAKE_Kit_Advanced_Data_Table extends \Elementor\Widget_Base {
 					<tbody>
 						<?php
 						foreach ( $rows as $row ) :
-							$cells = array_map( 'trim', explode( ',', $row['row_cells'] ?? '' ) );
+							$cells = LCAKE_Kit_Utils::split_table_row_cells( $row );
 							?>
 							<tr>
 								<?php if ( $show_checkboxes ) : ?>
