@@ -36,6 +36,10 @@ class LCAKE_Kit_Social_Icons extends \Elementor\Widget_Base {
 		return array( 'social', 'icons', 'facebook', 'twitter', 'instagram', 'linkedin' );
 	}
 
+	public function get_style_depends() {
+		return array( 'lcake-kit-social-icons' );
+	}
+
 	protected function register_controls() {
 		$this->add_content_controls();
 		$this->add_style_controls();

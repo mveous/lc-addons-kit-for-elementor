@@ -278,13 +278,13 @@ class LCAKE_Kit_Widget_Loader {
 			'lcake-kit-faq-js'                  => array(
 				'file'    => 'lcake-kit-faq.js',
 				'deps'    => array( 'jquery' ),
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-pie-chart-js'            => array(
 				'file'    => 'lcake-kit-pie-chart.js',
-				'deps'    => array( 'jquery' ),
-				'enqueue' => true,
+				'deps'    => array( 'jquery', 'elementor-frontend' ),
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-testimonial-js'          => array(
@@ -308,7 +308,7 @@ class LCAKE_Kit_Widget_Loader {
 			'lcake-chart-js'                    => array(
 				'file'    => 'lcake-chart.min.js',
 				'deps'    => array( 'jquery' ),
-				'enqueue' => true,
+				'enqueue' => false, // Loaded only as a dependency (e.g. the Pro Chart widget).
 				'path'    => '',
 				'module'  => true,
 			),
@@ -321,7 +321,7 @@ class LCAKE_Kit_Widget_Loader {
 			'lcake-dialog-js'                   => array(
 				'file'    => 'lc-dialog.min.js',
 				'deps'    => array( 'jquery' ),
-				'enqueue' => true,
+				'enqueue' => false, // Not used by any widget; kept registered for compatibility.
 				'path'    => '',
 			),
 			'lcake-kit-image-accordion'         => array(
@@ -339,25 +339,25 @@ class LCAKE_Kit_Widget_Loader {
 			'lcake-kit-funfact-js'              => array(
 				'file'    => 'lcake-kit-funfact.js',
 				'deps'    => array( 'jquery', 'elementor-frontend' ),
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-countdown-timer-js'      => array(
 				'file'    => 'lcake-kit-countdown-timer.js',
 				'deps'    => array( 'jquery', 'elementor-frontend', 'lcake-kit-countdown-js' ),
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-countdown-js'            => array(
 				'file'    => 'lc-jquery.countdown.min.js',
 				'deps'    => array( 'jquery' ),
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-lottie-js'               => array(
 				'file'    => 'lcake-kit-lottie.js',
 				'deps'    => array( 'jquery', 'elementor-frontend' ),
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-fancy-text-js'           => array(
@@ -490,37 +490,37 @@ class LCAKE_Kit_Widget_Loader {
 			),
 			'lcake-kit-button'                            => array(
 				'file'    => 'lcake-kit-button.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-business-hours'                    => array(
 				'file'    => 'lcake-kit-business-hours.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-price-table'                       => array(
 				'file'    => 'lcake-kit-price-table.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-social-icons'                      => array(
 				'file'    => 'lcake-kit-social-icons.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-image-comparison'                  => array(
 				'file'    => 'lcake-kit-image-comparison.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-faq-css'                           => array(
 				'file'    => 'lcake-kit-faq.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-pie-chart-css'                     => array(
 				'file'    => 'lceak-kit-pie-chart.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-testimonial-css'                   => array(
@@ -550,7 +550,7 @@ class LCAKE_Kit_Widget_Loader {
 			),
 			'lcake-swiper-css'                            => array(
 				'file'    => 'lc-swiper-bundle.min.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcakeicons'                                  => array(
@@ -565,37 +565,37 @@ class LCAKE_Kit_Widget_Loader {
 			),
 			'lcake-kit-countdown-timer-css'               => array(
 				'file'    => 'lcake-kit-countdown-timer.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-drop-caps-css'                     => array(
 				'file'    => 'lcake-kit-drop-caps.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-heading-css'                       => array(
 				'file'    => 'lcake-kit-heading.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-image-box-css'                     => array(
 				'file'    => 'lcake-kit-image-box.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-icon-box-css'                      => array(
 				'file'    => 'lcake-kit-icon-box.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-lottie-css'                        => array(
 				'file'    => 'lcake-kit-lottie.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-video-css'                         => array(
 				'file'    => 'lcake-kit-video.css',
-				'enqueue' => true,
+				'enqueue' => false,
 				'path'    => '',
 			),
 			'lcake-kit-breadcrumbs-css'                   => array(

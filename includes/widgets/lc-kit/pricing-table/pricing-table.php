@@ -37,7 +37,7 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return array( 'lcake-kit-pricing-table' );
+		return array( 'lcake-kit-price-table' );
 	}
 
 	protected function register_controls() {

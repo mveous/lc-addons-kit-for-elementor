@@ -31,6 +31,10 @@ class LCAKE_Kit_Countdown_Timer extends Widget_Base {
 		return array( 'lcake-kit-countdown-js', 'lcake-kit-countdown-timer-js' );
 	}
 
+	public function get_style_depends() {
+		return array( 'lcake-kit-countdown-timer-css' );
+	}
+
 	public function get_name() {
 		return 'lcake-kit-countdown-timer';
 	}

@@ -36,6 +36,14 @@ class LCAKE_Kit_FAQ extends \Elementor\Widget_Base {
 		return array( 'faq', 'questions', 'answers', 'accordion', 'help' );
 	}
 
+	public function get_style_depends() {
+		return array( 'lcake-kit-faq-css' );
+	}
+
+	public function get_script_depends() {
+		return array( 'lcake-kit-faq-js' );
+	}
+
 	protected function register_controls() {
 		$this->add_content_controls();
 		$this->add_style_controls();
@@ -72,32 +80,6 @@ class LCAKE_Kit_FAQ extends \Elementor\Widget_Base {
 			)
 		);
 
-		// Removed the icon and active icon controls
-		/*
-		$repeater->add_control(
-		'icon',
-		[
-			'label' => esc_html__('Icon', 'lc-addons-kit-for-elementor'),
-			'type' => \Elementor\Controls_Manager::ICONS,
-			'default' => [
-				'value' => 'fas fa-plus',
-				'library' => 'fa-solid',
-			],
-		]
-		);
-
-		$repeater->add_control(
-		'active_icon',
-		[
-			'label' => esc_html__('Active Icon', 'lc-addons-kit-for-elementor'),
-			'type' => \Elementor\Controls_Manager::ICONS,
-			'default' => [
-				'value' => 'fas fa-minus',
-				'library' => 'fa-solid',
-			],
-		]
-		);
-		*/
 
 		$this->add_control(
 			'lc_faq_content_items',

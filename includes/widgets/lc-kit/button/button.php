@@ -38,6 +38,10 @@ class LCAKE_Kit_Button extends \Elementor\Widget_Base {
 		return array( 'button', 'link', 'cta' );
 	}
 
+	public function get_style_depends() {
+		return array( 'lcake-kit-button' );
+	}
+
 	public function register_controls() {
 		// === Content Section ===
 		$this->start_controls_section(
@@ -668,15 +672,18 @@ class LCAKE_Kit_Button extends \Elementor\Widget_Base {
 			);
 			$icon_html = ob_get_clean();
 
-			if ( stripos( $icon_html, '<svg' ) !== false ) {
+			if ( false !== stripos( $icon_html, '<svg' ) ) {
+				// Drop hard-coded SVG dimensions so assets/css/lcake-kit-button.css
+				// and the "Icon Size" control can size the icon.
 				$icon_html = preg_replace( '/\s(?:width|height)=["\'][^"\']*["\']/', '', $icon_html );
-				if ( preg_match( '/<svg\b[^>]*\bstyle=["\']([^"\']*)["\']/i', $icon_html, $m ) ) {
-					$new_style  = preg_replace( array( '/width:\s*[^;]+;?/i', '/height:\s*[^;]+;?/i' ), array( 'width:1em;', 'height:1em;' ), $m[1] );
-					$new_style .= ( substr( trim( $new_style ), -1 ) !== ';' ? ';' : '' ) . 'vertical-align:middle;';
-					$icon_html  = preg_replace( '/(<svg\b[^>]*\bstyle=["\'])([^"\']*)(["\'])/i', '$1' . $new_style . '$3', $icon_html, 1 );
-				} else {
-					$icon_html = preg_replace( '/<svg\b([^>]*)>/i', '<svg$1 style="width:1em;height:1em;vertical-align:middle;">', $icon_html, 1 );
-				}
+				$icon_html = preg_replace_callback(
+					'/(<svg\b[^>]*\bstyle=["\'])([^"\']*)(["\'])/i',
+					function ( $m ) {
+						return $m[1] . preg_replace( '/(?:^|;)\s*(?:width|height)\s*:[^;]*/i', '', $m[2] ) . $m[3];
+					},
+					$icon_html,
+					1
+				);
 			}
 		}
 
