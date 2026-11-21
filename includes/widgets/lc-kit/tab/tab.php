@@ -2175,11 +2175,12 @@ class LCAKE_Kit_Tab extends \Elementor\Widget_Base {
 						),
 					);
 				}
-				?>
-				<script type="application/ld+json">
-					<?php echo wp_json_encode( $json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?>
-				</script>
-				<?php
+
+				// JSON_HEX_TAG keeps "</script>" in tab content from breaking out of the tag.
+				wp_print_inline_script_tag(
+					wp_json_encode( $json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG ),
+					array( 'type' => 'application/ld+json' )
+				);
 			}
 			?>
 		</div>
