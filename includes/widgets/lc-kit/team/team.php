@@ -43,7 +43,8 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 	public function get_script_depends() {
 
-		return array( 'lcake-team-js' );
+		// Bootstrap powers the profile popup modal.
+		return array( 'lcake-btsp-js', 'lcake-team-js' );
 	}
 
 	public function get_style_depends() {
@@ -3758,7 +3759,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 								<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
 
-									<a aria-label="profile" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
+									<a aria-label="profile" href="#" role="button" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
 
 									<?php endif; ?>
 
@@ -3829,7 +3830,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 										<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
 
-											<a aria-label="profile" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
+											<a aria-label="profile" href="#" role="button" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
 
 												<?php echo esc_html( $lcake_team_name ); ?>
 
@@ -3882,12 +3883,9 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 													$this->add_render_attribute( $link_key, 'aria-label', esc_attr( $icon['lcake_team_label'] ) );
 												}
 
+												// Without a URL the anchor has no href, so it renders as a non-navigating placeholder.
 												if ( ! empty( $icon['lcake_team_link']['url'] ) ) {
-
 													$this->add_render_attribute( $link_key, 'href', esc_url( $icon['lcake_team_link']['url'] ) );
-												} else {
-
-													$this->add_render_attribute( $link_key, 'href', 'javascript:void(0)' );
 												}
 
 												if ( ! empty( $icon['lcake_team_link']['is_external'] ) ) {
@@ -3977,7 +3975,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 														<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
 
-															<a aria-label="profile" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
+															<a aria-label="profile" href="#" role="button" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
 
 																<?php echo esc_html( $lcake_team_name ); ?>
 
@@ -4022,12 +4020,9 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 																	$this->add_render_attribute( $link_key, 'aria-label', esc_attr( $icon['lcake_team_label'] ) );
 																}
 
+																// Without a URL the anchor has no href, so it renders as a non-navigating placeholder.
 																if ( ! empty( $icon['lcake_team_link']['url'] ) ) {
-
 																	$this->add_render_attribute( $link_key, 'href', esc_url( $icon['lcake_team_link']['url'] ) );
-																} else {
-
-																	$this->add_render_attribute( $link_key, 'href', 'javascript:void(0)' );
 																}
 
 																if ( ! empty( $icon['lcake_team_link']['is_external'] ) ) {
@@ -4095,7 +4090,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 													<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
 
-														<a aria-label="profile" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
+														<a aria-label="profile" href="#" role="button" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
 
 															<?php echo esc_html( $lcake_team_name ); ?>
 

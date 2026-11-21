@@ -49,10 +49,9 @@ if ( isset( $lcake_modal_close_align ) && 'left' === $lcake_modal_close_align ) 
 							if ( ! empty( $icon['lcake_team_label'] ) ) {
 								$this->add_render_attribute( $link_key, 'aria-label', esc_attr( $icon['lcake_team_label'] ) );
 							}
+							// Without a URL the anchor has no href, so it renders as a non-navigating placeholder.
 							if ( ! empty( $icon['lcake_team_link']['url'] ) ) {
 								$this->add_render_attribute( $link_key, 'href', esc_url( $icon['lcake_team_link']['url'] ) );
-							} else {
-								$this->add_render_attribute( $link_key, 'href', 'javascript:void(0)' );
 							}
 							if ( ! empty( $icon['lcake_team_link']['is_external'] ) ) {
 								$this->add_render_attribute( $link_key, 'target', '_blank' );
