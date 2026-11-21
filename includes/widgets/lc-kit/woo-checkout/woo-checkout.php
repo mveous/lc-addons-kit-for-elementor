@@ -59,10 +59,15 @@ class LCAKE_Kit_Woo_Checkout extends \Elementor\Widget_Base {
 			'notice',
 			array(
 				'type'            => \Elementor\Controls_Manager::RAW_HTML,
-				'raw'             => '<div style="background-color: #e0f2fe; border-left: 4px solid #0284c7; padding: 12px 15px; border-radius: 4px; font-size: 13px; color: #0369a1; line-height: 1.5; margin: 10px 0;">
-                    <strong style="display: block; margin-bottom: 4px;"><span class="dashicons dashicons-info" style="font-size: 16px; vertical-align: text-bottom; margin-right: 4px;"></span>Woo Checkout Page</strong>
-                    This widget displays the native WooCommerce checkout page content dynamically using the <code>[woocommerce_checkout]</code> shortcode. Use it on your Checkout page.
-                </div>',
+				'raw'             => sprintf(
+					'<div class="lcake-editor-notice"><strong class="lcake-editor-notice__title"><span class="dashicons dashicons-info"></span>%1$s</strong>%2$s</div>',
+					esc_html__( 'Woo Checkout Page', 'lc-addons-kit-for-elementor' ),
+					sprintf(
+						/* translators: %s: shortcode name. */
+						esc_html__( 'This widget displays the native WooCommerce checkout page content dynamically using the %s shortcode. Use it on your Checkout page.', 'lc-addons-kit-for-elementor' ),
+						'<code>[woocommerce_checkout]</code>'
+					)
+				),
 				'content_classes' => 'elementor-descriptor',
 			)
 		);

@@ -16,3 +16,26 @@
 .elementor-element:has(.lcake-mveous-badge) {
     position: relative;
 }
+
+/* Info notice shown in widget panels (e.g. Woo Cart / Woo Checkout). */
+.lcake-editor-notice {
+    margin: 10px 0;
+    padding: 12px 15px;
+    border-left: 4px solid #0284c7;
+    border-radius: 4px;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.lcake-editor-notice__title {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.lcake-editor-notice__title .dashicons {
+    margin-right: 4px;
+    font-size: 16px;
+    vertical-align: text-bottom;
+}
