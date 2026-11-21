@@ -434,9 +434,9 @@ class LCAKE_Kit_Betterdocs_Category_Grid extends \Elementor\Widget_Base {
 				}
 				?>
 				<div class="lcake-docs-category-grid-column">
-					<h3 class="lcake-docs-category-grid-title" style="display: flex; align-items: center;">
+					<h3 class="lcake-docs-category-grid-title">
 						<?php if ( 'yes' === $settings['show_icon'] && ! empty( $settings['category_icon']['value'] ) ) : ?>
-							<span class="lcake-docs-category-grid-icon" style="display: inline-flex; align-items: center; justify-content: center; line-height: 1;">
+							<span class="lcake-docs-category-grid-icon">
 								<?php \Elementor\Icons_Manager::render_icon( $settings['category_icon'], array( 'aria-hidden' => 'true' ) ); ?>
 							</span>
 						<?php endif; ?>

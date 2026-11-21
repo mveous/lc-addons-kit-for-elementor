@@ -530,7 +530,7 @@ class LCAKE_Kit_Betterdocs_Category_Box extends \Elementor\Widget_Base {
 			<?php foreach ( $terms as $term ) : ?>
 				<a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="lcake-docs-category-card lcake-hover-ani-<?php echo esc_attr( $settings['hover_animation_style'] ?? 'translate' ); ?>">
 					<?php if ( 'yes' === $settings['show_icon'] && ! empty( $settings['category_icon']['value'] ) ) : ?>
-						<span class="lcake-docs-category-icon" aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; line-height: 1;">
+						<span class="lcake-docs-category-icon" aria-hidden="true">
 							<?php \Elementor\Icons_Manager::render_icon( $settings['category_icon'], array( 'aria-hidden' => 'true' ) ); ?>
 						</span>
 					<?php endif; ?>

@@ -208,7 +208,7 @@ class LCAKE_Kit_Simple_Menu extends \Elementor\Widget_Base {
 		?>
 		<nav class="lcake-simple-menu-wrapper">
 			<?php if ( 'dropdown' === $layout ) : ?>
-				<input type="checkbox" id="lcake-menu-toggle-<?php echo esc_attr( $widget_id ); ?>" class="lcake-simple-menu-toggle-checkbox" style="display: none;">
+				<input type="checkbox" id="lcake-menu-toggle-<?php echo esc_attr( $widget_id ); ?>" class="lcake-simple-menu-toggle-checkbox">
 				<label for="lcake-menu-toggle-<?php echo esc_attr( $widget_id ); ?>" class="lcake-simple-menu-toggle-btn">
 					<span class="lcake-simple-menu-toggle-icon">
 						<span></span>

@@ -202,7 +202,7 @@ class LCAKE_Kit_Fancy_Text extends \Elementor\Widget_Base {
 		<div class="lcake-fancy-text-wrapper">
 			<div class="lcake-fancy-text">
 				<?php if ( ! empty( $settings['before_text'] ) ) : ?>
-					<span class="lcake-fancy-text-before" style="display: inline-block;"><?php echo wp_kses_post( $settings['before_text'] ); ?></span>
+					<span class="lcake-fancy-text-before"><?php echo wp_kses_post( $settings['before_text'] ); ?></span>
 				<?php endif; ?>
 				<span class="lcake-fancy-text-rotator" data-interval="<?php echo esc_attr( $settings['interval'] ); ?>">
 					<?php foreach ( $words as $index => $word ) : ?>
@@ -210,7 +210,7 @@ class LCAKE_Kit_Fancy_Text extends \Elementor\Widget_Base {
 					<?php endforeach; ?>
 				</span>
 				<?php if ( ! empty( $settings['after_text'] ) ) : ?>
-					<span class="lcake-fancy-text-after" style="display: inline-block;"><?php echo wp_kses_post( $settings['after_text'] ); ?></span>
+					<span class="lcake-fancy-text-after"><?php echo wp_kses_post( $settings['after_text'] ); ?></span>
 				<?php endif; ?>
 			</div>
 		</div>

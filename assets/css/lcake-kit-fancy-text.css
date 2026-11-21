@@ -19,6 +19,7 @@
 
 .lcake-fancy-text-before,
 .lcake-fancy-text-after {
+    display: inline-block;
     opacity: 1 !important;
     visibility: visible !important;
     color: inherit;

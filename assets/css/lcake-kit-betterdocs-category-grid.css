@@ -12,9 +12,18 @@
 }
 
 .lcake-docs-category-grid-title {
+    display: flex;
+    align-items: center;
     margin: 0 0 14px 0;
     font-size: 17px;
     font-weight: 800;
+}
+
+.lcake-docs-category-grid-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 
 .lcake-docs-category-grid-title a {

@@ -311,8 +311,13 @@
     cursor: not-allowed;
 }
 
-/* Empty State */
+.lcake-adv-table .lcake-adv-table-select-col {
+    width: 50px;
+}
+
+/* Empty State (hidden until the table script finds no matching rows) */
 .lcake-adv-table-empty {
+    display: none;
     text-align: center;
     color: var(--table-text-muted);
     padding: 30px 20px;

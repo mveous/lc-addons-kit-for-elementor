@@ -319,7 +319,7 @@ class LCAKE_Kit_Advanced_Data_Table extends \Elementor\Widget_Base {
 					<thead>
 						<tr>
 							<?php if ( $show_checkboxes ) : ?>
-								<th style="width: 50px;"><input type="checkbox" class="lcake-adv-table-select-all"></th>
+								<th class="lcake-adv-table-select-col"><input type="checkbox" class="lcake-adv-table-select-all"></th>
 							<?php endif; ?>
 							<?php foreach ( $columns as $col ) : ?>
 								<th><span><?php echo esc_html( $col['column_label'] ); ?></span></th>
@@ -366,7 +366,7 @@ class LCAKE_Kit_Advanced_Data_Table extends \Elementor\Widget_Base {
 					</div>
 				</div>
 			<?php endif; ?>
-			<p class="lcake-adv-table-empty" style="display:none;"><?php esc_html_e( 'No matching records found.', 'lc-addons-kit-for-elementor' ); ?></p>
+			<p class="lcake-adv-table-empty"><?php esc_html_e( 'No matching records found.', 'lc-addons-kit-for-elementor' ); ?></p>
 		</div>
 		<?php
 	}

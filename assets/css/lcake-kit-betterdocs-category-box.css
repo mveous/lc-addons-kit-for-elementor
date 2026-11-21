@@ -45,6 +45,10 @@
 }
 
 .lcake-docs-category-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
     font-size: 26px;
     color: #3b82f6;
 }

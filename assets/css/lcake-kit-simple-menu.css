@@ -1,3 +1,8 @@
+/* Hidden checkbox that drives the dropdown layout's open/close state. */
+.lcake-simple-menu-wrapper .lcake-simple-menu-toggle-checkbox {
+    display: none;
+}
+
 .lcake-simple-menu {
     display: flex;
     flex-wrap: wrap;

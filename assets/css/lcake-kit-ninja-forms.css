@@ -1,3 +1,34 @@
+/* Editor-only placeholder (Ninja Forms renders only on the live site). */
+.lcake-ninja-forms-placeholder {
+    border: 2px dashed #3b82f6;
+    padding: 30px;
+    text-align: center;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.lcake-ninja-forms-placeholder .lcake-ninja-forms-placeholder__icon {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 12px;
+    font-size: 36px;
+    color: #3b82f6;
+}
+
+.lcake-ninja-forms-placeholder .lcake-ninja-forms-placeholder__title {
+    margin: 0 0 6px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #1e293b;
+}
+
+.lcake-ninja-forms-placeholder .lcake-ninja-forms-placeholder__text {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+}
+
 .lcake-ninja-forms .nf-form-fields-required {
     color: #6b7280;
 }

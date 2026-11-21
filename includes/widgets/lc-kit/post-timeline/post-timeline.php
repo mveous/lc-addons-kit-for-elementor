@@ -922,7 +922,7 @@ class LCAKE_Kit_Post_Timeline extends \Elementor\Widget_Base {
 						<div class="lcake-post-timeline-content">
 							<span class="lcake-post-timeline-date"><?php echo esc_html( get_the_date() ); ?></span>
 							<h4 class="lcake-post-timeline-title">
-								<a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;"><?php the_title(); ?></a>
+								<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 							</h4>
 							<?php if ( 'yes' === $settings['show_excerpt'] ) : ?>
 								<p class="lcake-post-timeline-description">
