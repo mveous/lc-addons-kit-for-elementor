@@ -26,6 +26,7 @@ class LCAKE_Header_Footer_Builder {
 		add_action( 'admin_menu', array( $this, 'register_admin_menu' ), 20 );
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_meta_box_assets' ) );
 		add_action( 'save_post_' . self::POST_TYPE, array( $this, 'save_meta_box' ), 10, 1 );
 
 		add_filter( 'manage_' . self::POST_TYPE . '_posts_columns', array( $this, 'admin_columns' ) );
@@ -101,6 +102,45 @@ class LCAKE_Header_Footer_Builder {
 		);
 	}
 
+	/**
+	 * Enqueues the "Display Settings" meta box assets on the template edit screen only.
+	 *
+	 * @since 1.2.1
+	 * @param string $hook_suffix The current admin page hook suffix.
+	 * @return void
+	 */
+	public function enqueue_meta_box_assets( $hook_suffix ) {
+		if ( 'post.php' !== $hook_suffix && 'post-new.php' !== $hook_suffix ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+		if ( ! $screen || self::POST_TYPE !== $screen->post_type ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'lcake-hf-meta-box',
+			LCAKE_EAK_URL . 'admin/css/lcake-hf-meta-box.css',
+			array(),
+			LCAKE_EAK_VERSION
+		);
+
+		wp_enqueue_script(
+			'lcake-hf-meta-box',
+			LCAKE_EAK_URL . 'admin/js/lcake-hf-meta-box.js',
+			array(),
+			LCAKE_EAK_VERSION,
+			true
+		);
+	}
+
+	/**
+	 * Registers the "Display Settings" meta box.
+	 *
+	 * @since 1.2.0
+	 * @return void
+	 */
 	public function add_meta_boxes() {
 		add_meta_box(
 			'lcake_hf_settings',
@@ -155,7 +195,7 @@ class LCAKE_Header_Footer_Builder {
 		?>
 		<p>
 			<label for="lcake_hf_type"><strong><?php esc_html_e( 'Template Type', 'lc-addons-kit-for-elementor' ); ?></strong></label><br>
-			<select name="lcake_hf_type" id="lcake_hf_type" style="width:100%;">
+			<select name="lcake_hf_type" id="lcake_hf_type" class="lcake-hf-field-full">
 				<option value="header" <?php selected( $type, 'header' ); ?>><?php esc_html_e( 'Header', 'lc-addons-kit-for-elementor' ); ?></option>
 				<option value="footer" <?php selected( $type, 'footer' ); ?>><?php esc_html_e( 'Footer', 'lc-addons-kit-for-elementor' ); ?></option>
 			</select>
@@ -170,13 +210,13 @@ class LCAKE_Header_Footer_Builder {
 
 		<p>
 			<label for="lcake_hf_priority"><strong><?php esc_html_e( 'Priority', 'lc-addons-kit-for-elementor' ); ?></strong></label><br>
-			<input type="number" name="lcake_hf_priority" id="lcake_hf_priority" value="<?php echo esc_attr( $priority ); ?>" style="width:100%;">
+			<input type="number" name="lcake_hf_priority" id="lcake_hf_priority" value="<?php echo esc_attr( $priority ); ?>" class="lcake-hf-field-full">
 			<span class="description"><?php esc_html_e( 'Lower number = higher priority when more than one template matches.', 'lc-addons-kit-for-elementor' ); ?></span>
 		</p>
 
 		<p>
 			<label for="lcake_hf_condition"><strong><?php esc_html_e( 'Display On', 'lc-addons-kit-for-elementor' ); ?></strong></label><br>
-			<select name="lcake_hf_condition" id="lcake_hf_condition" style="width:100%;">
+			<select name="lcake_hf_condition" id="lcake_hf_condition" class="lcake-hf-field-full">
 				<?php foreach ( $this->get_condition_options() as $key => $label ) : ?>
 					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $condition, $key ); ?>><?php echo esc_html( $label ); ?></option>
 				<?php endforeach; ?>
@@ -185,7 +225,7 @@ class LCAKE_Header_Footer_Builder {
 
 		<p class="lcake-hf-condition-field" data-show-for="specific_pages">
 			<label for="lcake_hf_condition_pages"><strong><?php esc_html_e( 'Choose Page(s)', 'lc-addons-kit-for-elementor' ); ?></strong></label><br>
-			<select name="lcake_hf_condition_pages[]" id="lcake_hf_condition_pages" multiple style="width:100%;height:120px;">
+			<select name="lcake_hf_condition_pages[]" id="lcake_hf_condition_pages" multiple class="lcake-hf-field-full lcake-hf-field-multi">
 				<?php foreach ( $pages as $page ) : ?>
 					<option value="<?php echo esc_attr( $page->ID ); ?>" <?php echo in_array( (string) $page->ID, array_map( 'strval', $condition_pages ), true ) ? 'selected' : ''; ?>>
 						<?php echo esc_html( $page->post_title ); ?>
@@ -196,28 +236,12 @@ class LCAKE_Header_Footer_Builder {
 
 		<p class="lcake-hf-condition-field" data-show-for="specific_post_type">
 			<label for="lcake_hf_condition_post_type"><strong><?php esc_html_e( 'Choose Post Type', 'lc-addons-kit-for-elementor' ); ?></strong></label><br>
-			<select name="lcake_hf_condition_post_type" id="lcake_hf_condition_post_type" style="width:100%;">
+			<select name="lcake_hf_condition_post_type" id="lcake_hf_condition_post_type" class="lcake-hf-field-full">
 				<?php foreach ( $post_types as $pt ) : ?>
 					<option value="<?php echo esc_attr( $pt->name ); ?>" <?php selected( $condition_post_type, $pt->name ); ?>><?php echo esc_html( $pt->label ); ?></option>
 				<?php endforeach; ?>
 			</select>
 		</p>
-
-		<script>
-		(function () {
-			var select = document.getElementById('lcake_hf_condition');
-			var fields = document.querySelectorAll('.lcake-hf-condition-field');
-
-			function toggle() {
-				fields.forEach(function (field) {
-					field.style.display = (field.getAttribute('data-show-for') === select.value) ? '' : 'none';
-				});
-			}
-
-			select.addEventListener('change', toggle);
-			toggle();
-		})();
-		</script>
 		<?php
 	}
 

@@ -1,0 +1,17 @@
+/**
+ * LC Kit - Header / Footer Builder "Display Settings" meta box.
+ *
+ * @package LC_Addons_Kit_For_Elementor
+ */
+
+#lcake_hf_settings .lcake-hf-field-full {
+	width: 100%;
+}
+
+#lcake_hf_settings .lcake-hf-field-multi {
+	height: 120px;
+}
+
+#lcake_hf_settings .lcake-hf-condition-field[hidden] {
+	display: none;
+}
