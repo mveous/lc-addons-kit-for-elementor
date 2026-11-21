@@ -36,9 +36,12 @@ class LCAKE_Kit_Pie_Chart extends \Elementor\Widget_Base {
 		return array( 'pie', 'chart', 'graph', 'data', 'visualization' );
 	}
 
-	// This must match your registered script handle in enqueue code (see below)
 	public function get_script_depends() {
-		return array( 'lcake-kit-pie-chart' );
+		return array( 'lcake-kit-pie-chart-js' );
+	}
+
+	public function get_style_depends() {
+		return array( 'lcake-kit-pie-chart-css' );
 	}
 
 	protected function register_controls() {
@@ -80,9 +83,12 @@ class LCAKE_Kit_Pie_Chart extends \Elementor\Widget_Base {
 		$repeater->add_control(
 			'color',
 			array(
-				'label'   => esc_html__( 'Color', 'lc-addons-kit-for-elementor' ),
-				'type'    => \Elementor\Controls_Manager::COLOR,
-				'default' => '#61ce70',
+				'label'     => esc_html__( 'Color', 'lc-addons-kit-for-elementor' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'default'   => '#61ce70',
+				'selectors' => array(
+					'{{WRAPPER}} {{CURRENT_ITEM}} .lcake-pie-chart-legend-marker' => 'background-color: {{VALUE}};',
+				),
 			)
 		);
 
@@ -182,6 +188,9 @@ class LCAKE_Kit_Pie_Chart extends \Elementor\Widget_Base {
 				'default'    => array(
 					'unit' => 'px',
 					'size' => 180,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .lcake-pie-chart' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -367,19 +376,19 @@ class LCAKE_Kit_Pie_Chart extends \Elementor\Widget_Base {
 		if ( ! empty( $settings['lcake_content_chart_title'] ) ) {
 			echo '<h3 class="lcake-pie-chart-title">' . esc_html( $settings['lcake_content_chart_title'] ) . '</h3>';
 		}
-		$size = isset( $settings['lcake_content_chart_size']['size'] ) ? $settings['lcake_content_chart_size']['size'] : 180;
-		$unit = isset( $settings['lcake_content_chart_size']['unit'] ) ? $settings['lcake_content_chart_size']['unit'] : 'px';
+		// Size comes from the "Chart Size" control selectors; the slice gradient is
+		// applied by assets/js/lcake-kit-pie-chart.js from data-gradient.
+		echo '<div class="lcake-pie-chart" data-gradient="' . esc_attr( $gradient_css ) . '"></div>';
 
-		echo '<div class="lcake-pie-chart" style="width:' . esc_attr( $size . $unit ) . ';height:' . esc_attr( $size . $unit ) . ';background: conic-gradient(' . esc_attr( $gradient_css ) . ');"></div>';
-
-		if ( $settings['lcake_content_show_legend'] === 'yes' ) {
+		if ( 'yes' === $settings['lcake_content_show_legend'] ) {
 			echo '<div class="lcake-pie-chart-legend">';
 			foreach ( $labels as $index => $label ) {
 				$percentage = ( $total > 0 ) ? round( ( $values[ $index ] / $total ) * 100, 1 ) : 0;
-				echo '<div class="lcake-pie-chart-legend-item">';
-				echo '<span class="lcake-pie-chart-legend-marker" style="background-color:' . esc_attr( $colors[ $index ] ) . ';"></span>';
+				$item_id    = isset( $settings['lcake_content_chart_data'][ $index ]['_id'] ) ? $settings['lcake_content_chart_data'][ $index ]['_id'] : '';
+				echo '<div class="lcake-pie-chart-legend-item elementor-repeater-item-' . esc_attr( $item_id ) . '">';
+				echo '<span class="lcake-pie-chart-legend-marker"></span>';
 				echo '<span class="lcake-pie-chart-legend-label">' . esc_html( $label );
-				if ( $settings['lcake_content_show_percentage'] === 'yes' ) {
+				if ( 'yes' === $settings['lcake_content_show_percentage'] ) {
 					echo ' (' . esc_html( $percentage ) . '%)';
 				}
 				echo '</span>';

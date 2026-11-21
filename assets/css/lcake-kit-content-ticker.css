@@ -27,6 +27,7 @@
     display: flex;
     width: max-content;
     animation: lcake-ticker-scroll linear infinite;
+    animation-duration: 20s; /* Overridden by the widget's "Speed (seconds)" control. */
 }
 
 .lcake-content-ticker-item {

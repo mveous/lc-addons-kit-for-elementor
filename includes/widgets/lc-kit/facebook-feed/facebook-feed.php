@@ -109,9 +109,12 @@ class LCAKE_Kit_Facebook_Feed extends \Elementor\Widget_Base {
 						'max' => 500,
 					),
 				),
-				'default' => array(
+				'default'   => array(
 					'size' => 340,
 					'unit' => 'px',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .lcake-facebook-feed' => 'max-width: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -166,11 +169,11 @@ class LCAKE_Kit_Facebook_Feed extends \Elementor\Widget_Base {
 
 		$embed_src = add_query_arg( $args, 'https://www.facebook.com/plugins/page.php' );
 		?>
-		<div class="lcake-facebook-feed" style="max-width: <?php echo esc_attr( $width ); ?>px;">
+		<div class="lcake-facebook-feed">
 			<iframe src="<?php echo esc_url( $embed_src ); ?>"
 					width="<?php echo esc_attr( $width ); ?>"
 					height="<?php echo esc_attr( $height ); ?>"
-					style="border:none;overflow:hidden;max-width:100%;"
+					title="<?php esc_attr_e( 'Facebook page feed', 'lc-addons-kit-for-elementor' ); ?>"
 					scrolling="no"
 					frameborder="0"
 					allowfullscreen="true"

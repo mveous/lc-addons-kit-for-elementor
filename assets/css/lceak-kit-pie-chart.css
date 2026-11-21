@@ -19,8 +19,11 @@
 }
 
 .lcake-pie-chart {
+    width: 180px; /* Overridden by the "Chart Size" control. */
+    height: 180px;
     border-radius: 50%;
     margin-bottom: 20px;
+    background-color: #ccc;
 }
 
 .lcake-pie-chart-legend {
@@ -43,6 +46,7 @@
     border-radius: 50%;
     margin-right: 6px;
     display: inline-block;
+    background-color: #ccc; /* Overridden by each slice's "Color" control. */
 }
 
 

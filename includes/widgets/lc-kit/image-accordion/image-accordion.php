@@ -78,14 +78,17 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 			$repeater->add_control(
 				'lcake_img_accordion_bg',
 				array(
-					'label'   => esc_html__( 'Background Image', 'lc-addons-kit-for-elementor' ),
-					'type'    => \Elementor\Controls_Manager::MEDIA,
-					'dynamic' => array(
+					'label'     => esc_html__( 'Background Image', 'lc-addons-kit-for-elementor' ),
+					'type'      => \Elementor\Controls_Manager::MEDIA,
+					'dynamic'   => array(
 						'active' => true,
 					),
-					'default' => array(
+					'default'   => array(
 						'url' => \Elementor\Utils::get_placeholder_image_src(),
 						'id'  => -1,
+					),
+					'selectors' => array(
+						'{{WRAPPER}} {{CURRENT_ITEM}}.lcake-single-image-accordion' => 'background-image: url({{URL}});',
 					),
 				)
 			);
@@ -981,8 +984,8 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 					'wrap-link-' . $key,
 					array(
 						'for'   => 'lcake_ia_' . $this->get_id() . '_' . $key,
-						'class' => 'lcake-single-image-accordion lcake-image-accordion-item',
-						'style' => 'background-image: url(' . esc_url( $item['lcake_img_accordion_bg']['url'] ) . ')',
+						// Background image comes from the repeater control's selectors (Elementor CSS file).
+						'class' => 'lcake-single-image-accordion lcake-image-accordion-item elementor-repeater-item-' . $item['_id'],
 					)
 				);
 

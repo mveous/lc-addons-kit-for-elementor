@@ -91,11 +91,14 @@ class LCAKE_Kit_Content_Ticker extends \Elementor\Widget_Base {
 		$this->add_control(
 			'speed',
 			array(
-				'label'   => esc_html__( 'Speed (seconds)', 'lc-addons-kit-for-elementor' ),
-				'type'    => \Elementor\Controls_Manager::NUMBER,
-				'default' => 20,
-				'min'     => 5,
-				'max'     => 120,
+				'label'     => esc_html__( 'Speed (seconds)', 'lc-addons-kit-for-elementor' ),
+				'type'      => \Elementor\Controls_Manager::NUMBER,
+				'default'   => 20,
+				'min'       => 5,
+				'max'       => 120,
+				'selectors' => array(
+					'{{WRAPPER}} .lcake-content-ticker-track' => 'animation-duration: {{VALUE}}s;',
+				),
 			)
 		);
 
@@ -331,14 +334,13 @@ class LCAKE_Kit_Content_Ticker extends \Elementor\Widget_Base {
 		if ( empty( $items ) ) {
 			return;
 		}
-		$speed = ! empty( $settings['speed'] ) ? (int) $settings['speed'] : 20;
 		?>
 		<div class="lcake-content-ticker">
 			<?php if ( ! empty( $settings['label_text'] ) ) : ?>
 				<span class="lcake-content-ticker-label"><?php echo esc_html( $settings['label_text'] ); ?></span>
 			<?php endif; ?>
 			<div class="lcake-content-ticker-viewport">
-				<div class="lcake-content-ticker-track" style="animation-duration: <?php echo esc_attr( $speed ); ?>s;">
+				<div class="lcake-content-ticker-track">
 					<?php foreach ( array( 0, 1 ) as $repeat ) : ?>
 						<?php
 						foreach ( $items as $item ) :
