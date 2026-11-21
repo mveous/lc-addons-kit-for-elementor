@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Registers custom icon sets within the Elementor editor.
  *
@@ -14,8 +18,8 @@ class LCAKE_Lib {
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct() {
-		// Register custom icon set with Elementor
+	public function __construct() {
+		// Register custom icon set with Elementor.
 		add_filter( 'elementor/icons_manager/additional_tabs', array( $this, 'lcake_icon_tab' ) );
 	}
 
@@ -26,8 +30,8 @@ class LCAKE_Lib {
 	 * @param array $tabs The existing icon tabs array.
 	 * @return array The modified icon tabs array containing the new custom icons.
 	 */
-	function lcake_icon_tab( $tabs ) {
-		// Ensure constants exist
+	public function lcake_icon_tab( $tabs ) {
+		// Ensure constants exist.
 		if ( ! defined( 'LCAKE_EAK_URL' ) ) {
 			return $tabs;
 		}
