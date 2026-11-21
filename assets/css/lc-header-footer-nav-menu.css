@@ -257,6 +257,44 @@ ul.lc-hf-nav-menu--dropdown a:hover {
     }
 }
 
+/*
+ * Collapse breakpoint.
+ *
+ * Default (800px): handled in CSS via the "lc-hf-nav-bp-800" prefix class so the
+ * correct state is shown before JavaScript runs.
+ * Any custom value: the widget script toggles the "--is-mobile" / "--is-desktop"
+ * state classes using window.matchMedia().
+ */
+@media (max-width: 800px) {
+    .lc-hf-nav-bp-800 .lc-hf-nav-menu--main {
+        display: none !important;
+    }
+
+    .lc-hf-nav-bp-800 .lc-hf-menu-toggle {
+        display: flex !important;
+    }
+}
+
+@media (min-width: 801px) {
+    .lc-hf-nav-bp-800 .lc-hf-menu-toggle,
+    .lc-hf-nav-bp-800 .lc-hf-nav-menu--dropdown {
+        display: none !important;
+    }
+}
+
+.lc-hf-nav-menu--is-mobile .lc-hf-nav-menu--main {
+    display: none !important;
+}
+
+.lc-hf-nav-menu--is-mobile .lc-hf-menu-toggle {
+    display: flex !important;
+}
+
+.lc-hf-nav-menu--is-desktop .lc-hf-menu-toggle,
+.lc-hf-nav-menu--is-desktop .lc-hf-nav-menu--dropdown {
+    display: none !important;
+}
+
 /* Mobile Submenus (Accordion Style) */
 .lc-hf-nav-menu--dropdown .lc-hf-nav-submenu {
     position: static;

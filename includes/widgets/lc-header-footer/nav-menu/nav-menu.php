@@ -115,10 +115,12 @@ class LC_Header_Footer_Nav_Menu extends \Elementor\Widget_Base {
 		$this->add_control(
 			'mobile_breakpoint',
 			array(
-				'label'       => esc_html__( 'Collapse Below (px)', 'lc-addons-kit-for-elementor' ),
-				'type'        => \Elementor\Controls_Manager::NUMBER,
-				'default'     => 800,
-				'description' => esc_html__( 'The menu will turn into a hamburger toggle below this width.', 'lc-addons-kit-for-elementor' ),
+				'label'        => esc_html__( 'Collapse Below (px)', 'lc-addons-kit-for-elementor' ),
+				'type'         => \Elementor\Controls_Manager::NUMBER,
+				'default'      => 800,
+				'min'          => 0,
+				'prefix_class' => 'lc-hf-nav-bp-',
+				'description'  => esc_html__( 'The menu will turn into a hamburger toggle below this width.', 'lc-addons-kit-for-elementor' ),
 			)
 		);
 
@@ -515,7 +517,7 @@ class LC_Header_Footer_Nav_Menu extends \Elementor\Widget_Base {
 		$layout = $settings['layout'] ?? 'horizontal';
 
 		$main_args = $args;
-		if ( $layout === 'vertical' ) {
+		if ( 'vertical' === $layout ) {
 			$main_args['menu_class'] .= ' sm-vertical';
 		} else {
 			$main_args['menu_class'] .= ' sm-horizontal';
@@ -532,37 +534,18 @@ class LC_Header_Footer_Nav_Menu extends \Elementor\Widget_Base {
 			return;
 		}
 
-		$id                = $this->get_id();
-		$mobile_breakpoint = ! empty( $settings['mobile_breakpoint'] ) ? (int) $settings['mobile_breakpoint'] : 800;
-
-		// Output responsive breakpoint logic
+		// The collapse breakpoint is applied by assets/js/lc-header-footer-nav-menu.js (any value)
+		// and by assets/css/lc-header-footer-nav-menu.css (default 800px, before JS runs).
+		$mobile_breakpoint = ! empty( $settings['mobile_breakpoint'] ) ? absint( $settings['mobile_breakpoint'] ) : 800;
 		?>
-		<style>
-			@media (max-width: <?php echo absint( $mobile_breakpoint ); ?>px) {
-				.elementor-element-<?php echo esc_attr( $id ); ?> .lc-hf-nav-menu--main {
-					display: none !important;
-				}
-
-				.elementor-element-<?php echo esc_attr( $id ); ?> .lc-hf-menu-toggle {
-					display: flex !important;
-				}
-			}
-
-			@media (min-width: <?php echo absint( $mobile_breakpoint ) + 1; ?>px) {
-				.elementor-element-<?php echo esc_attr( $id ); ?> .lc-hf-menu-toggle,
-				.elementor-element-<?php echo esc_attr( $id ); ?> .lc-hf-nav-menu--dropdown {
-					display: none !important;
-				}
-			}
-		</style>
-
-		<?php if ( $layout !== 'dropdown' ) : ?>
+		<?php if ( 'dropdown' !== $layout ) : ?>
 			<nav class="lc-hf-nav-menu--main lc-hf-nav-menu__container lc-hf-nav-menu--layout-<?php echo esc_attr( $layout ); ?>">
 				<?php echo LCAKE_Kit_Utils::kses( $menu_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- output is sanitized via wp_kses() inside LCAKE_Kit_Utils::kses(). ?>
 			</nav>
 		<?php endif; ?>
 
 		<div class="lc-hf-menu-toggle" role="button" tabindex="0"
+			data-breakpoint="<?php echo esc_attr( $mobile_breakpoint ); ?>"
 			aria-label="<?php echo esc_attr__( 'Toggle menu', 'lc-addons-kit-for-elementor' ); ?>" aria-expanded="false">
 			<span class="lc-hf-menu-toggle-bar"></span>
 			<span class="lc-hf-menu-toggle-bar"></span>

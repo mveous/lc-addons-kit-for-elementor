@@ -27,6 +27,8 @@
         }
 
         bindEvents() {
+            this.initBreakpoint();
+
             if (this.elements.$menu.length) {
                 this.initSmartmenus();
             }
@@ -41,6 +43,48 @@
 
             if (this.$element.hasClass('lc-hf-nav-menu--stretch')) {
                 $(window).on('resize', this.onResize.bind(this));
+            }
+        }
+
+        /**
+         * Switches between the desktop menu and the hamburger toggle at the
+         * widget's "Collapse Below (px)" value.
+         */
+        initBreakpoint() {
+            const breakpoint = parseInt(this.elements.$menuToggle.attr('data-breakpoint'), 10);
+
+            if (!breakpoint || !window.matchMedia) {
+                return;
+            }
+
+            this.mobileQuery = window.matchMedia('(max-width: ' + breakpoint + 'px)');
+            this.onBreakpointChange = () => {
+                const isMobile = this.mobileQuery.matches;
+                this.$element
+                    .toggleClass('lc-hf-nav-menu--is-mobile', isMobile)
+                    .toggleClass('lc-hf-nav-menu--is-desktop', !isMobile);
+            };
+
+            if (this.mobileQuery.addEventListener) {
+                this.mobileQuery.addEventListener('change', this.onBreakpointChange);
+            } else {
+                this.mobileQuery.addListener(this.onBreakpointChange);
+            }
+
+            this.onBreakpointChange();
+        }
+
+        onDestroy() {
+            if (this.mobileQuery && this.onBreakpointChange) {
+                if (this.mobileQuery.removeEventListener) {
+                    this.mobileQuery.removeEventListener('change', this.onBreakpointChange);
+                } else {
+                    this.mobileQuery.removeListener(this.onBreakpointChange);
+                }
+            }
+
+            if (super.onDestroy) {
+                super.onDestroy();
             }
         }
 
