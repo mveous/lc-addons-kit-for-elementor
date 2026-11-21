@@ -21,7 +21,7 @@
 				?>
 				<div class="swiper-slide">
 					<div class="swiper-slide-inner">
-						<<?php echo esc_attr( $wrapTag ); ?> class="lcake-testimonial-card" style="background-image: url(<?php echo esc_url( $clientPhoto ); ?>);" 
+						<<?php echo esc_attr( $wrapTag ); ?> class="lcake-testimonial-card" data-bg-image="<?php echo esc_url( $clientPhoto ); ?>"
 						<?php
 						echo $this->get_render_attribute_string( 'link-' . esc_attr( $testimonial['_id'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped by elementor 
 						?>

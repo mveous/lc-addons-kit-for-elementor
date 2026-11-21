@@ -9,6 +9,14 @@ class LCTestimonialSlider {
         // Prevent re-initialization
         if (this.containerEl.swiper) this.containerEl.swiper.destroy(true, true);
 
+        // Card background photos (style 3). Applied before Swiper clones loop slides.
+        widgetEl.querySelectorAll(".lcake-testimonial-card[data-bg-image]").forEach((card) => {
+            const url = card.getAttribute("data-bg-image");
+            if (url) {
+                card.style.backgroundImage = 'url("' + url.replace(/["\\]/g, "\\$&") + '")';
+            }
+        });
+
         // Parse config
         let config = {};
         const configEl = widgetEl.querySelector(".lcake-testimonial-slider") || widgetEl;
