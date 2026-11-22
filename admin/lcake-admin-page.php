@@ -299,12 +299,26 @@ class LCAKE_Kit_Admin_Settings {
 		 * case leaves rendering solely to Pro's submenu registration.
 		 */
 		$is_pro_active = class_exists( 'LCAKE_Pro_Admin_Settings' );
-		$top_callback   = $is_pro_active ? '' : array( $this, 'render_settings_page' );
+		$top_callback  = $is_pro_active ? '' : array( $this, 'render_settings_page' );
 
-		add_menu_page( 'LC Kit', 'LC Kit', 'manage_options', $this->menu_slug, $top_callback, 'dashicons-screenoptions' );
+		add_menu_page(
+			esc_html__( 'LC Kit', 'lc-addons-kit-for-elementor' ),
+			esc_html__( 'LC Kit', 'lc-addons-kit-for-elementor' ),
+			'manage_options',
+			$this->menu_slug,
+			$top_callback,
+			'dashicons-screenoptions'
+		);
 
 		if ( ! $is_pro_active ) {
-			$this->page_hook = add_submenu_page( $this->menu_slug, 'LC Kit Widget Manager', 'Widget Manager', 'manage_options', $this->menu_slug, array( $this, 'render_settings_page' ) );
+			$this->page_hook = add_submenu_page(
+				$this->menu_slug,
+				esc_html__( 'LC Kit Widget Manager', 'lc-addons-kit-for-elementor' ),
+				esc_html__( 'Widget Manager', 'lc-addons-kit-for-elementor' ),
+				'manage_options',
+				$this->menu_slug,
+				array( $this, 'render_settings_page' )
+			);
 		}
 	}
 
@@ -442,29 +456,6 @@ class LCAKE_Kit_Admin_Settings {
 				<p><?php esc_html_e( 'Loading Widget Manager…', 'lc-addons-kit-for-elementor' ); ?></p>
 			</div>
 		</div>
-		<style>
-			.lcake-kit-loading {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				gap: 16px;
-				padding: 120px 20px;
-				color: #646970;
-				font-size: 14px;
-			}
-			.lcake-kit-spinner {
-				width: 32px;
-				height: 32px;
-				border: 3px solid #dcdcde;
-				border-top-color: #2271b1;
-				border-radius: 50%;
-				animation: lcake-kit-spin 0.8s linear infinite;
-			}
-			@keyframes lcake-kit-spin {
-				to { transform: rotate( 360deg ); }
-			}
-		</style>
 		<?php
 	}
 }

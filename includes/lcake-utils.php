@@ -255,7 +255,7 @@ class LCAKE_Kit_Utils {
 	 * widget's declared dependencies directly, so it stays correct for any
 	 * widget added to the header/footer in future — not just icon-list.
 	 *
-	 * @since 1.2.1
+	 * @since 1.3.0
 	 * @param int $content_id The Elementor document/template post ID.
 	 * @return void
 	 */
@@ -272,6 +272,14 @@ class LCAKE_Kit_Utils {
 		self::enqueue_widget_depends_recursive( $document->get_elements_data() );
 	}
 
+	/**
+	 * Walks an Elementor element tree and enqueues every widget's declared
+	 * style and script dependencies.
+	 *
+	 * @since 1.3.0
+	 * @param array $elements Elementor elements data (nested via 'elements').
+	 * @return void
+	 */
 	private static function enqueue_widget_depends_recursive( $elements ) {
 		if ( empty( $elements ) || ! is_array( $elements ) ) {
 			return;
