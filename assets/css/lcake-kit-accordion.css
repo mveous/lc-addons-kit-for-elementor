@@ -40,13 +40,13 @@
     background-color: #f9fafb;
 }
 
-.lcake-accordion-header:focus {
+.lcake-accordion-header:focus-visible {
     outline: 2px solid #3b82f6;
     background-color: rgba(59, 130, 246, 0.06);
 }
 
 .lcake-accordion-header:hover .lcake-accordion-icon,
-.lcake-accordion-header:focus .lcake-accordion-icon {
+.lcake-accordion-header:focus-visible .lcake-accordion-icon {
     color: #3b82f6;
     transform: scale(1.1);
 }

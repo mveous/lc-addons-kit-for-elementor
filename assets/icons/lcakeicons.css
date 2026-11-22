@@ -259,3 +259,10 @@
 .lcake-iconinstagram:before { content: '\f32d'; } /* '' */
 .lcake-iconskype-circled:before { content: '\f33a'; } /* '' */
 .lcake-iconspinner2:before { content: '\f529'; } /* '' */
+
+/* Suppress pointer focus rings on LC Kit widget actions. */
+.elementor-widget:is([class*="elementor-widget-lcake-"], [class*="elementor-widget-lc-header-footer-"])
+	:is(a, button, input:is([type="button"], [type="submit"], [type="reset"]), [role="button"], [role="tab"]):focus:not(:focus-visible) {
+	outline: none;
+	box-shadow: none;
+}

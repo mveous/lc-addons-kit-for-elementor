@@ -27,8 +27,10 @@ class LCAKE_Kit_Admin_Settings {
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
+		add_action( 'admin_menu', array( $this, 'add_get_pro_link' ), 999 );
 		add_action( 'admin_init', array( $this, 'remove_wordpress_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_menu_styles' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 	}
@@ -335,6 +337,61 @@ class LCAKE_Kit_Admin_Settings {
 			'manage_options',
 			$this->menu_slug,
 			array( $this, 'render_settings_page' )
+		);
+	}
+
+	/**
+	 * Whether LC Addons Kit Pro is active.
+	 *
+	 * @since 1.3.0
+	 * @return bool
+	 */
+	private function is_pro_active() {
+		return defined( 'LCAKE_PRO_VERSION' );
+	}
+
+	/**
+	 * Adds a "Get Pro" link as the last item of the LC Kit menu when Pro is not active.
+	 *
+	 * Runs late on admin_menu so it sits below every other LC Kit item
+	 * (Header / Footer, etc.). A full URL as the menu slug makes WordPress
+	 * output it as a plain external link.
+	 *
+	 * @since 1.3.0
+	 * @return void
+	 */
+	public function add_get_pro_link() {
+		if ( $this->is_pro_active() ) {
+			return;
+		}
+
+		add_submenu_page(
+			$this->menu_slug,
+			esc_html__( 'Get LC Kit Pro', 'lc-addons-kit-for-elementor' ),
+			'<span class="lcake-get-pro-link">' . esc_html__( 'Get Pro', 'lc-addons-kit-for-elementor' ) . '</span>',
+			'manage_options',
+			LCAKE_EAK_PRO_URL
+		);
+	}
+
+	/**
+	 * Loads styles for LC Kit admin links and controls.
+	 *
+	 * The LC Kit menu is visible across wp-admin.
+	 *
+	 * @since 1.3.0
+	 * @return void
+	 */
+	public function enqueue_menu_styles() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'lcake-kit-admin-menu',
+			LCAKE_EAK_URL . 'admin/css/admin-menu.css',
+			array(),
+			LCAKE_EAK_VERSION
 		);
 	}
 

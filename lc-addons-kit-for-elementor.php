@@ -9,7 +9,6 @@
  * Author URI: https://mveous.com
  * Text Domain: lc-addons-kit-for-elementor
  * Requires at least: 6.5
- * Tested up to: 7.1
  * Requires PHP: 7.4
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -41,6 +40,29 @@ class LCAKE_Elementor_Addons_Kit {
 	public function __construct() {
 		$this->define_constants();
 		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_action_links' ) );
+	}
+
+	/**
+	 * Adds a "Buy Pro" link to this plugin's row on the Plugins screen while
+	 * LC Addons Kit Pro is not active.
+	 *
+	 * @since 1.3.0
+	 * @param string[] $links Existing action links.
+	 * @return string[]
+	 */
+	public function add_action_links( $links ) {
+		if ( defined( 'LCAKE_PRO_VERSION' ) ) {
+			return $links;
+		}
+
+		$links['lcake_buy_pro'] = sprintf(
+			'<a href="%1$s" class="lcake-buy-pro" target="_blank" rel="noopener noreferrer">%2$s</a>',
+			esc_url( LCAKE_EAK_PRO_URL ),
+			esc_html__( 'Buy Pro', 'lc-addons-kit-for-elementor' )
+		);
+
+		return $links;
 	}
 
 	/**
@@ -53,6 +75,7 @@ class LCAKE_Elementor_Addons_Kit {
 		define( 'LCAKE_EAK_VERSION', '1.2.1' );
 		define( 'LCAKE_EAK_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'LCAKE_EAK_URL', plugin_dir_url( __FILE__ ) );
+		define( 'LCAKE_EAK_PRO_URL', 'https://www.mveous.com' ); // "Get Pro" / "Buy Pro" destination.
 	}
 
 	/**
@@ -77,8 +100,10 @@ class LCAKE_Elementor_Addons_Kit {
 		require_once LCAKE_EAK_PATH . 'includes/lcake-widget-loader.php';
 		require_once LCAKE_EAK_PATH . 'includes/lcake-header-footer-builder.php';
 		require_once LCAKE_EAK_PATH . 'admin/lcake-admin-page.php';
+		require_once LCAKE_EAK_PATH . 'admin/lcake-free-vs-pro.php';
 		new LCAKE_Kit_Widget_Loader();
 		new LCAKE_Kit_Admin_Settings();
+		new LCAKE_Kit_Free_Vs_Pro();
 		new LCAKE_Lib();
 		new LCAKE_Header_Footer_Builder();
 	}

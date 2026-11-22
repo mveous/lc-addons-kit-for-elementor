@@ -1,0 +1,54 @@
+/**
+ * LC Kit - admin menu.
+ *
+ * Shows the "Get Pro" item in the LC Kit submenu as a button and highlights
+ * the "Buy Pro" link on the Plugins screen.
+ *
+ * @package LC_Addons_Kit_For_Elementor
+ */
+
+#adminmenu .wp-submenu a:has(.lcake-get-pro-link) {
+	display: block;
+	margin: 6px 10px 4px;
+	padding: 6px 12px;
+	border-radius: 4px;
+	background-color: #f0b849;
+	color: #1d2327;
+	font-weight: 600;
+	text-align: center;
+	transition: background-color 0.15s ease;
+}
+
+#adminmenu .wp-submenu a:has(.lcake-get-pro-link):hover {
+	background-color: #ffd27a;
+	color: #1d2327;
+}
+
+#adminmenu .wp-submenu a:has(.lcake-get-pro-link) .lcake-get-pro-link {
+	color: inherit;
+}
+
+/* "Buy Pro" link in the plugin's row on the Plugins screen. */
+.plugins .row-actions .lcake-buy-pro {
+	color: #b26200;
+	font-weight: 600;
+}
+
+.plugins .row-actions .lcake-buy-pro:hover,
+.plugins .row-actions .lcake-buy-pro:focus {
+	color: #8a4d00;
+}
+
+/* Collapsed sidebar: the submenu becomes a fly-out, keep the button readable. */
+.folded #adminmenu .wp-submenu a:has(.lcake-get-pro-link) {
+	margin: 6px 8px;
+}
+
+/* Suppress the WordPress focus ring on pointer clicks inside LC Kit. */
+#adminmenu #toplevel_page_lcake_menu a:focus:not(:focus-visible),
+.plugins .row-actions .lcake-buy-pro:focus:not(:focus-visible),
+.wp-core-ui :is(#lcake-kit-react-root, .lcake-fvp, .post-type-lcake_hf_template #wpbody-content)
+	:is(a, button, input:is([type="button"], [type="submit"], [type="reset"]), [role="button"]):focus:not(:focus-visible) {
+	outline: none;
+	box-shadow: none;
+}
