@@ -655,11 +655,11 @@ class LCAKE_Kit_Contact_Form_7 extends \Elementor\Widget_Base {
 
 		echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor pre-sanitizes render attribute strings.
 
-		if ( $settings['show_form_title'] === 'yes' && ! empty( $settings['form_title'] ) ) {
+		if ( 'yes' === $settings['show_form_title'] && ! empty( $settings['form_title'] ) ) {
 			echo '<h3 class="lcake-contact-form-7-title">' . esc_html( $settings['form_title'] ) . '</h3>';
 		}
 
-		if ( $settings['show_form_description'] === 'yes' && ! empty( $settings['form_description'] ) ) {
+		if ( 'yes' === $settings['show_form_description'] && ! empty( $settings['form_description'] ) ) {
 			echo '<div class="lcake-contact-form-7-description">' . esc_html( $settings['form_description'] ) . '</div>';
 		}
 

@@ -49,7 +49,7 @@ class LCAKE_Kit_Dependency_Checker {
 
 		// Extension hook
 		$pre_check = apply_filters( "lcake_kit_check_dependency_{$type}", null, $dependency );
-		if ( $pre_check !== null ) {
+		if ( null !== $pre_check ) {
 			return (bool) $pre_check;
 		}
 

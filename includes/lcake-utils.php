@@ -281,7 +281,7 @@ class LCAKE_Kit_Utils {
 		$size = $image_size_key;
 
 		$html = '';
-		if ( ! empty( $image['id'] ) && $image['id'] != '-1' && get_post( $image['id'] ) ) {
+		if ( ! empty( $image['id'] ) && -1 !== (int) $image['id'] && get_post( $image['id'] ) ) {
 			$html .= wp_get_attachment_image( $image['id'], $size, false, $image_attr );
 		} else {
 			$html .= sprintf(
@@ -303,7 +303,7 @@ class LCAKE_Kit_Utils {
 	}
 
 	public static function remove_special_chars( $string ) {
-		return preg_replace( '/[^A-Za-z0-9 ]/', '', $string );
+		return preg_replace( '/[^A-Za-z0-9 ]/', '', (string) $string );
 	}
 
 	public static function is_woo_active() {
@@ -450,13 +450,13 @@ class LCAKE_Kit_Utils {
 	public static function lcake_file_enqueue( $scripts, $file ) {
 		$register_func = 'wp_register_' . $file;
 		$enqueue_func  = 'wp_enqueue_' . $file;
-		$folder        = ( $file === 'script' ) ? 'js' : 'css';
+		$folder        = ( 'script' === $file ) ? 'js' : 'css';
 
 		foreach ( $scripts as $handle => $data ) {
-			$url = LCAKE_EAK_URL . ( $data['path'] === '' ? 'assets/' . $folder : $data['path'] ) . '/' . $data['file'];
+			$url = LCAKE_EAK_URL . ( '' === $data['path'] ? 'assets/' . $folder : $data['path'] ) . '/' . $data['file'];
 
 			$deps               = $data['deps'] ?? array();
-			$in_footer_or_media = $file === 'script' ? true : ( $data['media'] ?? 'all' );
+			$in_footer_or_media = 'script' === $file ? true : ( $data['media'] ?? 'all' );
 
 			$register_func( $handle, $url, $deps, LCAKE_EAK_VERSION, $in_footer_or_media );
 

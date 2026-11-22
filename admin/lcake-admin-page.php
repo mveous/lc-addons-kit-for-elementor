@@ -197,7 +197,7 @@ class LCAKE_Kit_Admin_Settings {
 			foreach ( $all_files as $file ) {
 				$base  = basename( $file, '.php' ); // file name without .php
 				$label = ucwords( str_replace( array( '-', '_' ), ' ', $base ) ); // convert to "Accordion" style
-				if ( $base === 'twitter-feed' ) {
+				if ( 'twitter-feed' === $base ) {
 					$label = 'X (Twitter) Feed';
 				}
 
@@ -213,35 +213,35 @@ class LCAKE_Kit_Admin_Settings {
 				$plugin_name = '';
 				$plugin_link = '';
 
-				if ( $category === 'WooCommerce' ) {
+				if ( 'WooCommerce' === $category ) {
 					$plugin_name = 'WooCommerce';
 					$plugin_link = 'https://wordpress.org/plugins/woocommerce/';
-				} elseif ( $category === 'Forms' ) {
-					if ( $base === 'contact-form-7' ) {
+				} elseif ( 'Forms' === $category ) {
+					if ( 'contact-form-7' === $base ) {
 						$plugin_name = 'Contact Form 7';
 						$plugin_link = 'https://wordpress.org/plugins/contact-form-7/';
-					} elseif ( $base === 'mailchimp' ) {
+					} elseif ( 'mailchimp' === $base ) {
 						$plugin_name = 'Mailchimp for WP';
 						$plugin_link = 'https://wordpress.org/plugins/mailchimp-for-wp/';
-					} elseif ( $base === 'gravity-forms' ) {
+					} elseif ( 'gravity-forms' === $base ) {
 						$plugin_name = 'Gravity Forms';
 						$plugin_link = 'https://www.gravityforms.com/';
-					} elseif ( $base === 'ninja-forms' ) {
+					} elseif ( 'ninja-forms' === $base ) {
 						$plugin_name = 'Ninja Forms';
 						$plugin_link = 'https://wordpress.org/plugins/ninja-forms/';
-					} elseif ( $base === 'wp-forms' ) {
+					} elseif ( 'wp-forms' === $base ) {
 						$plugin_name = 'WPForms';
 						$plugin_link = 'https://wordpress.org/plugins/wpforms-lite/';
-					} elseif ( $base === 'fluent-form' ) {
+					} elseif ( 'fluent-form' === $base ) {
 						$plugin_name = 'Fluent Forms';
 						$plugin_link = 'https://wordpress.org/plugins/fluentform/';
-					} elseif ( $base === 'we-forms' ) {
+					} elseif ( 'we-forms' === $base ) {
 						$plugin_name = 'weForms';
 						$plugin_link = 'https://wordpress.org/plugins/weforms/';
-					} elseif ( $base === 'formstack' ) {
+					} elseif ( 'formstack' === $base ) {
 						$plugin_name = 'Formstack';
 						$plugin_link = 'https://www.formstack.com/';
-					} elseif ( $base === 'type-form' ) {
+					} elseif ( 'type-form' === $base ) {
 						$plugin_name = 'Typeform';
 						$plugin_link = 'https://www.typeform.com/';
 					}
@@ -252,7 +252,7 @@ class LCAKE_Kit_Admin_Settings {
 
 				$icon         = 'eicon-editor-list-bullet'; // default fallback icon
 				$file_content = file_get_contents( $file );
-				if ( $file_content !== false ) {
+				if ( false !== $file_content ) {
 					if ( preg_match( '/function\s+get_icon\s*\(\s*\)\s*\{?\s*return\s+[\'"]([^\'"]+)[\'"]/i', $file_content, $matches ) ) {
 						$icon = $matches[1];
 					}
@@ -292,7 +292,7 @@ class LCAKE_Kit_Admin_Settings {
 	}
 
 	public function remove_wordpress_notices() {
-		if ( isset( $_GET['page'] ) && $_GET['page'] === $this->menu_slug ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only check to conditionally suppress admin notices; no data is saved or processed.
+		if ( isset( $_GET['page'] ) && sanitize_key( wp_unslash( $_GET['page'] ) ) === $this->menu_slug ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only check to conditionally suppress admin notices; no data is saved or processed.
 			remove_all_actions( 'admin_notices' );
 			remove_all_actions( 'all_admin_notices' );
 		}
@@ -401,7 +401,7 @@ class LCAKE_Kit_Admin_Settings {
 		wp_enqueue_style( 'elementor-icons' );
 
 		$enabled_widgets = get_option( 'lcake_kit_enabled_widgets', null );
-		if ( $enabled_widgets === null ) {
+		if ( null === $enabled_widgets ) {
 			$enabled_widgets = array_keys( $this->widgets );
 		}
 

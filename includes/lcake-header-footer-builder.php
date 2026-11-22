@@ -153,6 +153,20 @@ class LCAKE_Header_Footer_Builder {
 	}
 
 	/**
+	 * Returns a template's meta value, or a default when it is empty.
+	 *
+	 * @since 1.2.1
+	 * @param int        $post_id  Template post ID.
+	 * @param string     $key      Meta key.
+	 * @param string|int $fallback Value used when the meta is empty.
+	 * @return mixed
+	 */
+	private static function get_meta( $post_id, $key, $fallback ) {
+		$value = get_post_meta( $post_id, $key, true );
+		return empty( $value ) ? $fallback : $value;
+	}
+
+	/**
 	 * Retrieves the available display condition options.
 	 *
 	 * @since 1.2.0
@@ -176,14 +190,14 @@ class LCAKE_Header_Footer_Builder {
 	public function render_meta_box( $post ) {
 		wp_nonce_field( 'lcake_hf_save_meta', 'lcake_hf_nonce' );
 
-		$type                = get_post_meta( $post->ID, '_lcake_hf_type', true ) ?: 'header';
+		$type                = self::get_meta( $post->ID, '_lcake_hf_type', 'header' );
 		$enabled             = get_post_meta( $post->ID, '_lcake_hf_enabled', true );
 		$enabled             = '' === $enabled ? '1' : $enabled;
 		$priority            = get_post_meta( $post->ID, '_lcake_hf_priority', true );
 		$priority            = '' === $priority ? 10 : (int) $priority;
-		$condition           = get_post_meta( $post->ID, '_lcake_hf_condition', true ) ?: 'entire_site';
+		$condition           = self::get_meta( $post->ID, '_lcake_hf_condition', 'entire_site' );
 		$condition_pages     = (array) get_post_meta( $post->ID, '_lcake_hf_condition_pages', true );
-		$condition_post_type = get_post_meta( $post->ID, '_lcake_hf_condition_post_type', true ) ?: 'post';
+		$condition_post_type = self::get_meta( $post->ID, '_lcake_hf_condition_post_type', 'post' );
 
 		$pages      = get_pages(
 			array(
@@ -256,26 +270,26 @@ class LCAKE_Header_Footer_Builder {
 			return;
 		}
 
-		$type = isset( $_POST['lcake_hf_type'] ) && 'footer' === $_POST['lcake_hf_type'] ? 'footer' : 'header';
+		$type = isset( $_POST['lcake_hf_type'] ) && 'footer' === sanitize_key( wp_unslash( $_POST['lcake_hf_type'] ) ) ? 'footer' : 'header';
 		update_post_meta( $post_id, '_lcake_hf_type', $type );
 
 		update_post_meta( $post_id, '_lcake_hf_enabled', ! empty( $_POST['lcake_hf_enabled'] ) ? '1' : '' );
 
-		$priority = isset( $_POST['lcake_hf_priority'] ) ? (int) $_POST['lcake_hf_priority'] : 10;
+		$priority = isset( $_POST['lcake_hf_priority'] ) ? (int) wp_unslash( $_POST['lcake_hf_priority'] ) : 10;
 		update_post_meta( $post_id, '_lcake_hf_priority', $priority );
 
-		$condition = isset( $_POST['lcake_hf_condition'] ) ? sanitize_key( $_POST['lcake_hf_condition'] ) : 'entire_site';
+		$condition = isset( $_POST['lcake_hf_condition'] ) ? sanitize_key( wp_unslash( $_POST['lcake_hf_condition'] ) ) : 'entire_site';
 		if ( ! array_key_exists( $condition, $this->get_condition_options() ) ) {
 			$condition = 'entire_site';
 		}
 		update_post_meta( $post_id, '_lcake_hf_condition', $condition );
 
 		$pages = isset( $_POST['lcake_hf_condition_pages'] ) && is_array( $_POST['lcake_hf_condition_pages'] )
-			? array_map( 'absint', $_POST['lcake_hf_condition_pages'] )
+			? array_map( 'absint', wp_unslash( $_POST['lcake_hf_condition_pages'] ) )
 			: array();
 		update_post_meta( $post_id, '_lcake_hf_condition_pages', $pages );
 
-		$post_type = isset( $_POST['lcake_hf_condition_post_type'] ) ? sanitize_key( $_POST['lcake_hf_condition_post_type'] ) : 'post';
+		$post_type = isset( $_POST['lcake_hf_condition_post_type'] ) ? sanitize_key( wp_unslash( $_POST['lcake_hf_condition_post_type'] ) ) : 'post';
 		if ( ! post_type_exists( $post_type ) ) {
 			$post_type = 'post';
 		}
@@ -297,19 +311,19 @@ class LCAKE_Header_Footer_Builder {
 
 	public function render_admin_column( $column, $post_id ) {
 		if ( 'lcake_hf_type' === $column ) {
-			$type = get_post_meta( $post_id, '_lcake_hf_type', true ) ?: 'header';
+			$type = self::get_meta( $post_id, '_lcake_hf_type', 'header' );
 			echo esc_html( 'footer' === $type ? __( 'Footer', 'lc-addons-kit-for-elementor' ) : __( 'Header', 'lc-addons-kit-for-elementor' ) );
 		}
 
 		if ( 'lcake_hf_condition' === $column ) {
-			$condition = get_post_meta( $post_id, '_lcake_hf_condition', true ) ?: 'entire_site';
+			$condition = self::get_meta( $post_id, '_lcake_hf_condition', 'entire_site' );
 			$options   = $this->get_condition_options();
 			echo esc_html( $options[ $condition ] ?? $condition );
 		}
 
 		if ( 'lcake_hf_status' === $column ) {
 			$enabled  = get_post_meta( $post_id, '_lcake_hf_enabled', true );
-			$priority = get_post_meta( $post_id, '_lcake_hf_priority', true ) ?: 10;
+			$priority = self::get_meta( $post_id, '_lcake_hf_priority', 10 );
 			if ( '1' === $enabled || '' === $enabled ) {
 				printf(
 					/* translators: %d: priority number */
@@ -390,8 +404,8 @@ class LCAKE_Header_Footer_Builder {
 		usort(
 			$templates,
 			function ( $a, $b ) {
-				$priority_a = (int) ( get_post_meta( $a->ID, '_lcake_hf_priority', true ) ?: 10 );
-				$priority_b = (int) ( get_post_meta( $b->ID, '_lcake_hf_priority', true ) ?: 10 );
+				$priority_a = (int) self::get_meta( $a->ID, '_lcake_hf_priority', 10 );
+				$priority_b = (int) self::get_meta( $b->ID, '_lcake_hf_priority', 10 );
 				return $priority_a <=> $priority_b;
 			}
 		);
@@ -402,9 +416,9 @@ class LCAKE_Header_Footer_Builder {
 				continue;
 			}
 
-			$condition           = get_post_meta( $template->ID, '_lcake_hf_condition', true ) ?: 'entire_site';
+			$condition           = self::get_meta( $template->ID, '_lcake_hf_condition', 'entire_site' );
 			$condition_pages     = (array) get_post_meta( $template->ID, '_lcake_hf_condition_pages', true );
-			$condition_post_type = get_post_meta( $template->ID, '_lcake_hf_condition_post_type', true ) ?: 'post';
+			$condition_post_type = self::get_meta( $template->ID, '_lcake_hf_condition_post_type', 'post' );
 
 			if ( $this->condition_matches( $condition, $condition_pages, $condition_post_type ) ) {
 				return $template;
@@ -448,7 +462,7 @@ class LCAKE_Header_Footer_Builder {
 			return true;
 		}
 		if ( class_exists( '\Elementor\Plugin' ) && isset( \Elementor\Plugin::$instance->preview ) && \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
-			if ( isset( $_GET['elementor-preview'] ) && (int) $_GET['elementor-preview'] === get_the_ID() && get_post_type() === self::POST_TYPE ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only Elementor preview check; no data is saved or processed.
+			if ( isset( $_GET['elementor-preview'] ) && absint( wp_unslash( $_GET['elementor-preview'] ) ) === get_the_ID() && get_post_type() === self::POST_TYPE ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only Elementor preview check; no data is saved or processed.
 				return true;
 			}
 		}
@@ -475,14 +489,14 @@ class LCAKE_Header_Footer_Builder {
 	 * @return void
 	 */
 	public function get_header( $name = null ) {
-		$template = $this->matching_header ?: $this->get_matching_template( 'header' );
+		$template = $this->matching_header ? $this->matching_header : $this->get_matching_template( 'header' );
 		if ( ! $template ) {
 			return;
 		}
 
 		// Enqueue Header & Footer Elementor CSS in <head>
 		LCAKE_Kit_Utils::render_elementor_content_css( $template->ID );
-		$footer_template = $this->matching_footer ?: $this->get_matching_template( 'footer' );
+		$footer_template = $this->matching_footer ? $this->matching_footer : $this->get_matching_template( 'footer' );
 		if ( $footer_template ) {
 			LCAKE_Kit_Utils::render_elementor_content_css( $footer_template->ID );
 		}
@@ -500,13 +514,7 @@ class LCAKE_Header_Footer_Builder {
 </head>
 <body <?php body_class(); ?>>
 		<?php
-		if ( function_exists( 'wp_body_open' ) ) {
-			// phpcs:disable
-			wp_body_open();
-			// phpcs:enable
-		} else {
-			do_action( 'wp_body_open' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		}
+		wp_body_open();
 		$this->render_template( $template );
 
 		// Suppress the theme's header.php
@@ -535,7 +543,7 @@ class LCAKE_Header_Footer_Builder {
 	 * @return void
 	 */
 	public function get_footer( $name = null ) {
-		$template = $this->matching_footer ?: $this->get_matching_template( 'footer' );
+		$template = $this->matching_footer ? $this->matching_footer : $this->get_matching_template( 'footer' );
 		if ( ! $template ) {
 			return;
 		}

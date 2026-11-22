@@ -102,7 +102,7 @@ class LCAKE_Kit_Code_Snippet extends \Elementor\Widget_Base {
 			array(
 				'label'     => esc_html__( 'Text Color', 'lc-addons-kit-for-elementor' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
-				'default'   => '#000000ff',
+				'default'   => '#e2e8f0',
 				'selectors' => array( '{{WRAPPER}} .lcake-code-snippet-code' => 'color: {{VALUE}};' ),
 			)
 		);

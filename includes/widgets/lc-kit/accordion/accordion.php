@@ -799,7 +799,7 @@ class LCAKE_Kit_Accordion extends \Elementor\Widget_Base {
 			return;
 		}
 
-		$multiple = ( $settings['multiple'] === 'yes' ) ? 'yes' : 'no';
+		$multiple = ( 'yes' === $settings['multiple'] ) ? 'yes' : 'no';
 
 		$this->add_render_attribute( 'wrapper', 'class', 'lcake-elementor-addons-kit' );
 		$this->add_render_attribute( 'wrapper', 'data-multiple', $multiple );
@@ -809,12 +809,12 @@ class LCAKE_Kit_Accordion extends \Elementor\Widget_Base {
 
 		foreach ( $settings['accordion_items'] as $index => $item ) {
 			$item_class = 'lcake-accordion-item';
-			if ( $index + 1 == $settings['active_item'] ) {
+			if ( (int) $settings['active_item'] === $index + 1 ) {
 				$item_class .= ' active';
 			}
 
 			echo '<div class="' . esc_attr( $item_class ) . '">';
-			$icon_position_class = ( $settings['icon_position'] === 'left' ) ? 'icon-left' : '';
+			$icon_position_class = ( 'left' === $settings['icon_position'] ) ? 'icon-left' : '';
 			echo '<div class="lcake-accordion-header ' . esc_attr( $icon_position_class ) . '">';
 			echo '<div class="lcake-accordion-title">' . esc_html( $item['title'] ) . '</div>';
 

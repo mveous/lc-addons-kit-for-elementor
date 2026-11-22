@@ -3,7 +3,7 @@ class LCTestimonialSlider {
         this.widgetEl = widgetEl;
         this.containerEl = widgetEl.querySelector(".swiper");
 
-        if (!this.containerEl) return console.warn("No swiper container in:", widgetEl);
+        if (!this.containerEl) return;
         if (typeof Swiper === "undefined") return console.error("Swiper not loaded");
 
         // Prevent re-initialization
@@ -55,7 +55,6 @@ class LCTestimonialSlider {
 
 function initLCTestimonialSliders(scope = document) {
     if (typeof Swiper === "undefined") {
-        console.warn("Swiper not ready, retrying...");
         return setTimeout(() => initLCTestimonialSliders(scope), 100);
     }
 

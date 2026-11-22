@@ -212,7 +212,7 @@ class LCAKE_Kit_Heading extends \Elementor\Widget_Base {
 		$this->add_render_attribute( 'wrapper', 'class', 'lcake-heading' );
 
 		$title_classes = array( 'lcake-heading-title' );
-		if ( $settings['lcake_heading_gradient_effect'] === 'yes' ) {
+		if ( 'yes' === $settings['lcake_heading_gradient_effect'] ) {
 			$title_classes[] = 'lcake-heading-gradient';
 		}
 		$this->add_render_attribute( 'title', 'class', $title_classes );

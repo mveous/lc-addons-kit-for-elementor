@@ -1321,15 +1321,15 @@ class LCAKE_Kit_Funfact extends \Elementor\Widget_Base {
 		$modern_design        = '';
 		$enable_border_bottom = '';
 
-		if ( isset( $settings['lcake_funfact_show_overly'] ) && $settings['lcake_funfact_show_overly'] == 'yes' ) {
+		if ( isset( $settings['lcake_funfact_show_overly'] ) && 'yes' === $settings['lcake_funfact_show_overly'] ) {
 			$enable_ovelry_color = '<div class="elementor-background-overlay lcake-funfact-overlay"></div>';
 		}
-		if ( isset( $settings['lcake_funfact_hover_border_bottom'] ) && $settings['lcake_funfact_hover_border_bottom'] == 'yes' ) {
+		if ( isset( $settings['lcake_funfact_hover_border_bottom'] ) && 'yes' === $settings['lcake_funfact_hover_border_bottom'] ) {
 			$enable_border_bottom          = 'style-border-bottom';
 			$hover_border_bottom_direction = isset( $settings['lcake_funfact_hover_border_bottom_direction'] ) ? $settings['lcake_funfact_hover_border_bottom_direction'] : '';
 		}
 
-		if ( isset( $settings['lcake_funfact_enable_vertical_border'] ) && $settings['lcake_funfact_enable_vertical_border'] == 'yes' ) {
+		if ( isset( $settings['lcake_funfact_enable_vertical_border'] ) && 'yes' === $settings['lcake_funfact_enable_vertical_border'] ) {
 			$divider_funfact             = 'divider_funfact';
 			$vertically_devider_position = isset( $settings['lcake_funfact_enable_vertical_border_position'] ) ? $settings['lcake_funfact_enable_vertical_border_position'] : '';
 		}
@@ -1352,19 +1352,19 @@ class LCAKE_Kit_Funfact extends \Elementor\Widget_Base {
 		?>
 
 		<div <?php echo $this->get_render_attribute_string( 'funfact_wrapper' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor pre-sanitizes render attribute strings. ?>>
-			<?php if ( isset( $settings['lcake_funfact_enable_vertical_border'] ) && $settings['lcake_funfact_enable_vertical_border'] == 'yes' ) : ?>
+			<?php if ( isset( $settings['lcake_funfact_enable_vertical_border'] ) && 'yes' === $settings['lcake_funfact_enable_vertical_border'] ) : ?>
 				<div class="vertical-bar <?php echo esc_attr( isset( $settings['lcake_funfact_enable_vertical_border_position'] ) ? $settings['lcake_funfact_enable_vertical_border_position'] : '' ); ?>"></div>
 			<?php endif; ?>
 
 			<div class="lcake-funfact-inner <?php echo ! empty( $settings['lcake_funfact_icon_position'] ) ? esc_attr( $settings['lcake_funfact_icon_position'] ) : ''; ?>">
-				<?php if ( ( ( isset( $settings['lcake_funfact_icon_type'] ) ? $settings['lcake_funfact_icon_type'] : '' ) == 'image_icon' ) || ( ( isset( $settings['lcake_funfact_icon_type'] ) ? $settings['lcake_funfact_icon_type'] : '' ) == 'icon' ) ) : ?>
+				<?php if ( ( ( isset( $settings['lcake_funfact_icon_type'] ) ? $settings['lcake_funfact_icon_type'] : '' ) === 'image_icon' ) || ( ( isset( $settings['lcake_funfact_icon_type'] ) ? $settings['lcake_funfact_icon_type'] : '' ) === 'icon' ) ) : ?>
 					<div class="funfact-icon">
 						<?php
-						if ( isset( $settings['lcake_funfact_icon_type'] ) && $settings['lcake_funfact_icon_type'] == 'image_icon' ) :
+						if ( isset( $settings['lcake_funfact_icon_type'] ) && 'image_icon' === $settings['lcake_funfact_icon_type'] ) :
 							echo wp_kses_post( $image_html );
 						endif;
 
-						if ( isset( $settings['lcake_funfact_icon_type'] ) && $settings['lcake_funfact_icon_type'] == 'icon' && isset( $settings['lcake_funfact_icons'] ) ) :
+						if ( isset( $settings['lcake_funfact_icon_type'] ) && 'icon' === $settings['lcake_funfact_icon_type'] && isset( $settings['lcake_funfact_icons'] ) ) :
 							\Elementor\Icons_Manager::render_icon(
 								$settings['lcake_funfact_icons'],
 								array(
@@ -1385,7 +1385,7 @@ class LCAKE_Kit_Funfact extends \Elementor\Widget_Base {
 								data-animation-duration="<?php echo esc_attr( isset( $settings['lcake_funfact_animation_duration'] ) ? $settings['lcake_funfact_animation_duration'] : '' ); ?>"
 								data-style="<?php echo esc_attr( isset( $settings['lcake_funfact_style'] ) ? $settings['lcake_funfact_style'] : '' ); ?>">0</span>
 						<?php echo esc_html( isset( $settings['lcake_funfact_number_suffix'] ) ? $settings['lcake_funfact_number_suffix'] : '' ); ?>
-						<?php if ( isset( $settings['lcake_funfact_super'] ) && $settings['lcake_funfact_super'] == 'yes' ) : ?>
+						<?php if ( isset( $settings['lcake_funfact_super'] ) && 'yes' === $settings['lcake_funfact_super'] ) : ?>
 							<span class="super"><?php echo wp_kses_post( isset( $settings['lcake_funfact_super_text'] ) ? $settings['lcake_funfact_super_text'] : '' ); ?></span>
 						<?php endif; ?>
 					</div>

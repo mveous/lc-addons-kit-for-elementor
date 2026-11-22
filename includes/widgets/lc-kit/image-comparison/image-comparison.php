@@ -651,15 +651,15 @@ class LCAKE_Kit_Image_Comparison extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		// Wrapper class based on orientation
-		if ( $settings['lcake_img_comparison_container_style'] == 'vertical' ) {
+		if ( 'vertical' === $settings['lcake_img_comparison_container_style'] ) {
 			$this->add_render_attribute( 'image_comparison_wrapper', 'class', 'lcake-image-comparison image-comparison-container-vertical' );
 		} else {
 			$this->add_render_attribute( 'image_comparison_wrapper', 'class', 'lcake-image-comparison image-comparison-container' );
 		}
 
-		// Sanitize labels
-		$label_after  = LCAKE_Kit_Utils::remove_special_chars( $settings['lcake_img_comparison_label_after'] );
-		$label_before = LCAKE_Kit_Utils::remove_special_chars( $settings['lcake_img_comparison_label_before'] );
+		// Sanitize labels.
+		$label_after  = LCAKE_Kit_Utils::remove_special_chars( $settings['lcake_img_comparison_label_after'] ?? '' );
+		$label_before = LCAKE_Kit_Utils::remove_special_chars( $settings['lcake_img_comparison_label_before'] ?? '' );
 
 		// Add data attributes for JS
 		$offset_pct = isset( $settings['lcake_img_comparison_offset']['size'] ) ? floatval( $settings['lcake_img_comparison_offset']['size'] ) / 100 : 0.5;

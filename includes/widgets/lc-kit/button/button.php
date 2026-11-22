@@ -659,7 +659,7 @@ class LCAKE_Kit_Button extends \Elementor\Widget_Base {
 		}
 
 		$icon_html = '';
-		if ( ! empty( $settings['lcake_button_icon_switch'] ) && $settings['lcake_button_icon_switch'] === 'yes' && ! empty( $settings['lcake_button_icon']['value'] ) ) {
+		if ( ! empty( $settings['lcake_button_icon_switch'] ) && 'yes' === $settings['lcake_button_icon_switch'] && ! empty( $settings['lcake_button_icon']['value'] ) ) {
 			\Elementor\Icons_Manager::enqueue_shim();
 			ob_start();
 			\Elementor\Icons_Manager::render_icon(
@@ -693,7 +693,7 @@ class LCAKE_Kit_Button extends \Elementor\Widget_Base {
 
 		// Button inner content
 		$content_parts = array();
-		if ( $icon_html && $position === 'left' ) {
+		if ( $icon_html && 'left' === $position ) {
 			$content_parts[] = $icon_html;
 		}
 		if ( $button_text ) {
@@ -702,7 +702,7 @@ class LCAKE_Kit_Button extends \Elementor\Widget_Base {
 		if ( $badge_html ) {
 			$content_parts[] = $badge_html;
 		}
-		if ( $icon_html && $position === 'right' ) {
+		if ( $icon_html && 'right' === $position ) {
 			$content_parts[] = $icon_html;
 		}
 		$button_inner = implode( '', $content_parts );

@@ -400,7 +400,7 @@ class LCAKE_Kit_FAQ extends \Elementor\Widget_Base {
 			return;
 		}
 
-		$multiple = ( ! empty( $settings['lc_faq_active_multiple'] ) && $settings['lc_faq_active_multiple'] === 'yes' );
+		$multiple = ( ! empty( $settings['lc_faq_active_multiple'] ) && 'yes' === $settings['lc_faq_active_multiple'] );
 
 		$active_index = null;
 		if ( ! empty( $settings['lc_faq_active_item'] ) ) {
@@ -416,7 +416,7 @@ class LCAKE_Kit_FAQ extends \Elementor\Widget_Base {
 		echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor pre-sanitizes render attribute strings.
 
 		foreach ( $settings['lc_faq_content_items'] as $index => $item ) {
-			$is_active    = ( $active_index !== null && $index === $active_index );
+			$is_active    = ( null !== $active_index && $index === $active_index );
 			$item_classes = 'lc-faq-item' . ( $is_active ? ' active' : '' );
 
 			$question_id = 'lc-faq-q-' . esc_attr( $this->get_id() ) . '-' . $index;

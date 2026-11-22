@@ -340,11 +340,11 @@ class LCAKE_Kit_Lottie extends \Elementor\Widget_Base {
 		$config = array(
 			'container_id'   => 'lcake-lottie-' . $this->get_id(),
 			'path'           => esc_url( $lottie_data ),
-			'autoplay'       => $settings['autoplay'] === 'yes',
-			'loop'           => $settings['loop'] === 'yes',
+			'autoplay'       => 'yes' === $settings['autoplay'],
+			'loop'           => 'yes' === $settings['loop'],
 			'speed'          => $settings['speed']['size'] ?? 1,
 			'direction'      => intval( $settings['direction'] ?? 1 ),
-			'pause_on_hover' => $settings['pause_on_hover'] === 'yes',
+			'pause_on_hover' => 'yes' === $settings['pause_on_hover'],
 		);
 
 		// Output lottie container with config dataset
@@ -353,7 +353,7 @@ class LCAKE_Kit_Lottie extends \Elementor\Widget_Base {
 		echo '<div class="lcake-lottie-container" id="' . esc_attr( $config['container_id'] ) . '" data-lottie-config="' . esc_attr( json_encode( $config ) ) . '"></div>';
 
 		// Custom Player Controls
-		if ( $settings['show_controls'] === 'yes' ) {
+		if ( 'yes' === $settings['show_controls'] ) {
 			echo '<div class="lcake-lottie-controls" data-target="' . esc_attr( $config['container_id'] ) . '">';
 			echo '<button class="lcake-lottie-play" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>';
 			echo '<button class="lcake-lottie-pause" aria-label="Pause"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button>';

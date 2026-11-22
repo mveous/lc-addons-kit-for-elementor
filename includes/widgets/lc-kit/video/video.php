@@ -360,7 +360,7 @@ class LCAKE_Kit_Video extends \Elementor\Widget_Base {
 	private function get_video_url( $settings ) {
 		$video_url = '';
 
-		if ( $settings['video_type'] === 'hosted' && ! empty( $settings['video_file']['url'] ) ) {
+		if ( 'hosted' === $settings['video_type'] && ! empty( $settings['video_file']['url'] ) ) {
 			$video_url = $settings['video_file']['url'];
 		} elseif ( ! empty( $settings['video_url'] ) ) {
 			$video_url = $settings['video_url'];
@@ -372,41 +372,41 @@ class LCAKE_Kit_Video extends \Elementor\Widget_Base {
 	private function get_embed_url( $video_url, $settings ) {
 		$embed_url = '';
 
-		if ( $settings['video_type'] === 'youtube' ) {
+		if ( 'youtube' === $settings['video_type'] ) {
 			// Updated regex to support shortlinks, direct links, and standard links.
 			$pattern = '/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/';
 			if ( preg_match( $pattern, $video_url, $matches ) ) {
 				$video_id   = $matches[1];
 				$embed_url  = 'https://www.youtube.com/embed/' . $video_id;
-				$embed_url .= '?autoplay=' . ( $settings['autoplay'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&mute=' . ( $settings['mute'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&loop=' . ( $settings['loop'] === 'yes' ? '1' : '0' );
-				if ( $settings['loop'] === 'yes' ) {
+				$embed_url .= '?autoplay=' . ( 'yes' === $settings['autoplay'] ? '1' : '0' );
+				$embed_url .= '&mute=' . ( 'yes' === $settings['mute'] ? '1' : '0' );
+				$embed_url .= '&loop=' . ( 'yes' === $settings['loop'] ? '1' : '0' );
+				if ( 'yes' === $settings['loop'] ) {
 					$embed_url .= '&playlist=' . $video_id; // Loop requires playlist parameter in YT natively
 				}
-				$embed_url .= '&controls=' . ( $settings['controls'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&modestbranding=' . ( $settings['modestbranding'] === 'yes' ? '1' : '0' );
+				$embed_url .= '&controls=' . ( 'yes' === $settings['controls'] ? '1' : '0' );
+				$embed_url .= '&modestbranding=' . ( 'yes' === $settings['modestbranding'] ? '1' : '0' );
 				$embed_url .= '&rel=0';
 			}
-		} elseif ( $settings['video_type'] === 'vimeo' ) {
+		} elseif ( 'vimeo' === $settings['video_type'] ) {
 			$pattern = '/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(?:\d+)\/video\/|video\/|)(\d+)(?:[a-zA-Z0-9_\-]+)?/i';
 			if ( preg_match( $pattern, $video_url, $matches ) ) {
 				$video_id   = $matches[1];
 				$embed_url  = 'https://player.vimeo.com/video/' . $video_id;
-				$embed_url .= '?autoplay=' . ( $settings['autoplay'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&muted=' . ( $settings['mute'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&loop=' . ( $settings['loop'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&controls=' . ( $settings['controls'] === 'yes' ? '1' : '0' );
+				$embed_url .= '?autoplay=' . ( 'yes' === $settings['autoplay'] ? '1' : '0' );
+				$embed_url .= '&muted=' . ( 'yes' === $settings['mute'] ? '1' : '0' );
+				$embed_url .= '&loop=' . ( 'yes' === $settings['loop'] ? '1' : '0' );
+				$embed_url .= '&controls=' . ( 'yes' === $settings['controls'] ? '1' : '0' );
 			}
-		} elseif ( $settings['video_type'] === 'dailymotion' ) {
+		} elseif ( 'dailymotion' === $settings['video_type'] ) {
 			$pattern = '/^.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/';
 			if ( preg_match( $pattern, $video_url, $matches ) ) {
 				$video_id   = isset( $matches[4] ) ? $matches[4] : $matches[2];
 				$embed_url  = 'https://www.dailymotion.com/embed/video/' . $video_id;
-				$embed_url .= '?autoplay=' . ( $settings['autoplay'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&mute=' . ( $settings['mute'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&loop=' . ( $settings['loop'] === 'yes' ? '1' : '0' );
-				$embed_url .= '&controls=' . ( $settings['controls'] === 'yes' ? '1' : '0' );
+				$embed_url .= '?autoplay=' . ( 'yes' === $settings['autoplay'] ? '1' : '0' );
+				$embed_url .= '&mute=' . ( 'yes' === $settings['mute'] ? '1' : '0' );
+				$embed_url .= '&loop=' . ( 'yes' === $settings['loop'] ? '1' : '0' );
+				$embed_url .= '&controls=' . ( 'yes' === $settings['controls'] ? '1' : '0' );
 			}
 		}
 
@@ -430,19 +430,19 @@ class LCAKE_Kit_Video extends \Elementor\Widget_Base {
 		echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor pre-sanitizes render attribute strings.
 
 		echo '<div class="lcake-video-container">';
-		if ( $settings['video_type'] === 'hosted' ) {
+		if ( 'hosted' === $settings['video_type'] ) {
 			// Self-hosted video
 			echo '<video';
-			if ( $settings['autoplay'] === 'yes' ) {
+			if ( 'yes' === $settings['autoplay'] ) {
 				echo ' autoplay playsinline';
 			}
-			if ( $settings['mute'] === 'yes' ) {
+			if ( 'yes' === $settings['mute'] ) {
 				echo ' muted';
 			}
-			if ( $settings['loop'] === 'yes' ) {
+			if ( 'yes' === $settings['loop'] ) {
 				echo ' loop';
 			}
-			if ( $settings['controls'] === 'yes' ) {
+			if ( 'yes' === $settings['controls'] ) {
 				echo ' controls';
 			}
 			if ( ! empty( $settings['poster']['url'] ) ) {

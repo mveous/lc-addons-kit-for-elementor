@@ -459,7 +459,7 @@ class LCAKE_Kit_Social_Icons extends \Elementor\Widget_Base {
 			}
 
 			// Title (if enabled)
-			if ( ! empty( $settings['lcake_content_show_title'] ) && $settings['lcake_content_show_title'] === 'yes' && ! empty( $icon['title'] ) ) {
+			if ( ! empty( $settings['lcake_content_show_title'] ) && 'yes' === $settings['lcake_content_show_title'] && ! empty( $icon['title'] ) ) {
 				echo '<span class="lcake-social-icon-title">' . esc_html( $icon['title'] ) . '</span>';
 			}
 

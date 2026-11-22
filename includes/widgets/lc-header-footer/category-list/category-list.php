@@ -238,7 +238,7 @@ class LC_Header_Footer_Category_List extends \Elementor\Widget_Base {
 					<?php foreach ( $categories as $category ) : ?>
 						<li class="lc-category-item">
 							<?php echo esc_html( $category->name ); ?>
-							<?php if ( $show_count === 'yes' ) : ?>
+							<?php if ( 'yes' === $show_count ) : ?>
 								<span class="lc-category-count">(<?php echo esc_html( $category->count ); ?>)</span>
 							<?php endif; ?>
 						</li>

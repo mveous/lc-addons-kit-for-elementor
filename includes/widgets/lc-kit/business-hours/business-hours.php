@@ -487,14 +487,14 @@ class LCAKE_Kit_Business_Hours extends \Elementor\Widget_Base {
 			$item_class = 'lcake-business-hours-item';
 
 			// Highlight today check with new setting name
-			if ( $settings['lcake_content_highlight_today'] === 'yes' && $this->is_today( $hour['day'] ) ) {
+			if ( 'yes' === $settings['lcake_content_highlight_today'] && $this->is_today( $hour['day'] ) ) {
 				$item_class .= ' today';
 			}
 
 			echo '<div class="' . esc_attr( $item_class ) . '" data-day="' . esc_attr( $hour['day'] ) . '">';
 			echo '<span class="lcake-business-hours-day">' . esc_html( $this->get_day_name( $hour['day'] ) ) . '</span>';
 
-			if ( ! empty( $hour['closed'] ) && $hour['closed'] === 'yes' ) {
+			if ( ! empty( $hour['closed'] ) && 'yes' === $hour['closed'] ) {
 				echo '<span class="lcake-business-hours-time closed">' . esc_html( $hour['closed_text'] ) . '</span>';
 			} else {
 				// Format times based on lcake_content_time_format
@@ -519,7 +519,7 @@ class LCAKE_Kit_Business_Hours extends \Elementor\Widget_Base {
 		}
 		$timestamp = strtotime( $time );
 
-		return ( $format_type === '12' )
+		return ( '12' === $format_type )
 			? gmdate( 'h:i A', $timestamp ) // 12-hour format
 			: gmdate( 'H:i', $timestamp );  // 24-hour format
 	}

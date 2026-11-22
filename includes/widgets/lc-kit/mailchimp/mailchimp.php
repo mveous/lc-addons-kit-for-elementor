@@ -561,9 +561,11 @@ class LCAKE_Kit_Mailchimp extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$this->add_render_attribute( 'wrapper', 'class', 'lcake-mailchimp-wrapper' );
-		$this->add_render_attribute( 'wrapper', 'class', 'lcake-mailchimp--' . $settings['layout'] );
+		$this->add_render_attribute( 'wrapper', 'class', 'lcake-mailchimp--' . ( $settings['layout'] ?? 'inline' ) );
 
-		echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor pre-sanitizes render attribute strings.
+		echo '<div ';
+		$this->print_render_attribute_string( 'wrapper' );
+		echo '>';
 
 		if ( ! empty( $settings['title'] ) ) {
 			echo '<h3 class="lcake-mailchimp-title">' . esc_html( $settings['title'] ) . '</h3>';
@@ -578,7 +580,7 @@ class LCAKE_Kit_Mailchimp extends \Elementor\Widget_Base {
 		echo '<input type="hidden" name="lcake_mailchimp_list_id" value="' . esc_attr( $settings['list_id'] ) . '">';
 		echo '<input type="hidden" name="lcake_mailchimp_nonce" value="' . esc_attr( wp_create_nonce( 'lcake_mailchimp_nonce' ) ) . '">';
 
-		if ( $settings['show_name_field'] === 'yes' ) {
+		if ( 'yes' === $settings['show_name_field'] ) {
 			echo '<input type="text" name="lcake_mailchimp_name" class="lcake-mailchimp-input lcake-mailchimp-name" placeholder="' . esc_attr( $settings['name_placeholder'] ) . '" required>';
 		}
 
