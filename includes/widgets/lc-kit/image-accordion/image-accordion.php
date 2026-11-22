@@ -960,7 +960,9 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 
 	protected function render_raw() {
 		$settings = $this->get_settings_for_display();
-		extract( $settings );
+		// Settings used by the template below (explicit instead of extract()).
+		$active_behavior           = $settings['active_behavior'] ?? null;
+		$lcake_img_accordion_items = $settings['lcake_img_accordion_items'] ?? null;
 		?>
 		<div class="lcake-image-accordion lcake-image-accordion-wraper">
 			<?php
@@ -976,7 +978,7 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 					)
 				);
 
-				if ( $item['lcake_img_accordion_active'] == 'yes' ) {
+				if ( 'yes' === $item['lcake_img_accordion_active'] ) {
 					$this->add_render_attribute( 'wrap-input-' . $key, 'checked', 'checked' );
 				}
 
@@ -990,7 +992,7 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 				);
 
 				// enabling wrap link
-				if ( isset( $item['lcake_img_accordion_enable_wrap_link'] ) && $item['lcake_img_accordion_enable_wrap_link'] == 'yes' ) {
+				if ( isset( $item['lcake_img_accordion_enable_wrap_link'] ) && 'yes' === $item['lcake_img_accordion_enable_wrap_link'] ) {
 					$wrap_link        = $item['lcake_img_accordion_wrap_link_url'] ?? array();
 					$wrap_link['url'] = ! empty( $wrap_link['url'] ) ? esc_url( $wrap_link['url'] ) : '';
 
@@ -1003,14 +1005,14 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 				<label <?php $this->print_render_attribute_string( 'wrap-link-' . $key ); ?>>
 					<span class="lcake-accordion-content">
 						<?php
-						if ( $item['lcake_img_accordion_enable_pupup'] == 'yes' || $item['lcake_img_accordion_enable_project_link'] == 'yes' ) {
+						if ( 'yes' === $item['lcake_img_accordion_enable_pupup'] || 'yes' === $item['lcake_img_accordion_enable_project_link'] ) {
 							if ( ! empty( $item['lcake_img_accordion_project_link']['url'] ) ) {
 								$this->add_link_attributes( 'projectlink', $item['lcake_img_accordion_project_link'] );
 							}
 							?>
 							<span class="lcake-icon-wraper lcake-image-accordion-actions">
 							<?php
-							if ( $item['lcake_img_accordion_enable_pupup'] == 'yes' ) {
+							if ( 'yes' === $item['lcake_img_accordion_enable_pupup'] ) {
 
 								$this->add_lightbox_data_attributes(
 									'link' . $key,
@@ -1046,7 +1048,7 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 									</a>
 							<?php } ?>
 							<?php
-							if ( $item['lcake_img_accordion_enable_project_link'] == 'yes' && ! empty( $item['lcake_img_accordion_project_link']['url'] ) ) {
+							if ( 'yes' === $item['lcake_img_accordion_enable_project_link'] && ! empty( $item['lcake_img_accordion_project_link']['url'] ) ) {
 									$this->add_link_attributes( 'button-2' . $key, $item['lcake_img_accordion_project_link'] );
 									$this->add_render_attribute(
 										'button-2' . $key,
@@ -1076,9 +1078,9 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 							</span>
 							<?php } ?>
 							<span class="lcake-accordion-title-wraper">
-								<span class="lcake-accordion-title <?php echo esc_attr( $item['lcake_img_accordion_title_icons'] != '' ) ? 'icon-title' : ''; ?>">
-								<?php if ( $item['lcake_img_accordion_enable_icon'] == 'yes' ) : ?>
-									<?php if ( $item['lcake_img_accordion_title_icon_position'] == 'left' ) : ?>
+								<span class="lcake-accordion-title <?php echo esc_attr( ! empty( $item['lcake_img_accordion_title_icons'] ) ? 'icon-title' : '' ); ?>">
+								<?php if ( 'yes' === $item['lcake_img_accordion_enable_icon'] ) : ?>
+									<?php if ( 'left' === $item['lcake_img_accordion_title_icon_position'] ) : ?>
 										<!-- same-1 -->
 										<?php
 
@@ -1100,8 +1102,8 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 
 								<?php echo esc_html( $item['lcake_img_accordion_title'] ); ?>
 
-								<?php if ( $item['lcake_img_accordion_enable_icon'] == 'yes' ) : ?>
-									<?php if ( $item['lcake_img_accordion_title_icon_position'] == 'right' ) : ?>
+								<?php if ( 'yes' === $item['lcake_img_accordion_enable_icon'] ) : ?>
+									<?php if ( 'right' === $item['lcake_img_accordion_title_icon_position'] ) : ?>
 										<!-- same-1 -->
 										<?php
 
@@ -1123,7 +1125,7 @@ class LCAKE_Kit_Image_Accordion extends Widget_Base {
 								</span>
 							</span>
 							<?php
-							if ( $item['lcake_img_accordion_enable_button'] == 'yes' ) :
+							if ( 'yes' === $item['lcake_img_accordion_enable_button'] ) :
 								if ( ! empty( $item['lcake_img_accordion_button_url']['url'] ) ) {
 									$this->add_link_attributes( 'button-' . $key, $item['lcake_img_accordion_button_url'] );
 								}

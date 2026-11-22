@@ -44,7 +44,7 @@ class LCAKE_Kit_Tab extends \Elementor\Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return array( 'lcake-kit-tab-css' );
+		return array( 'lcake-btsp-css', 'lcake-kit-tab-css' );
 	}
 
 	protected function register_controls() {
@@ -2061,23 +2061,31 @@ class LCAKE_Kit_Tab extends \Elementor\Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-		extract( $settings );
+		// Settings used by the template below (explicit instead of extract()).
+		$lcake_tab_caret_style           = $settings['lcake_tab_caret_style'] ?? null;
+		$lcake_tab_caret_style_choose    = $settings['lcake_tab_caret_style_choose'] ?? null;
+		$lcake_tab_fill_full_width       = $settings['lcake_tab_fill_full_width'] ?? null;
+		$lcake_tab_header_icon_pos_style = $settings['lcake_tab_header_icon_pos_style'] ?? null;
+		$lcake_tab_items                 = $settings['lcake_tab_items'] ?? null;
+		$lcake_tab_nav_wrapper_width     = $settings['lcake_tab_nav_wrapper_width'] ?? null;
+		$lcake_tab_style                 = $settings['lcake_tab_style'] ?? null;
+		$lcake_tab_trigger_type          = $settings['lcake_tab_trigger_type'] ?? null;
 
 		$nav_wrapper_class = 'nav nav-tabs lcake-tab-nav ';
 
-		if ( $lcake_tab_caret_style_choose == 'yes' ) {
+		if ( 'yes' === $lcake_tab_caret_style_choose ) {
 			$nav_wrapper_class .= ' ' . $lcake_tab_caret_style;
 		}
 
-		if ( $lcake_tab_caret_style_choose == 'yes' ) {
+		if ( 'yes' === $lcake_tab_caret_style_choose ) {
 			$nav_wrapper_class .= ' ' . $lcake_tab_caret_style;
 		}
 
-		if ( $lcake_tab_fill_full_width == 'yes' ) {
+		if ( 'yes' === $lcake_tab_fill_full_width ) {
 			$nav_wrapper_class .= ' lcake-fullwidth-tab';
 		}
 
-		if ( $lcake_tab_nav_wrapper_width == 'yes' ) {
+		if ( 'yes' === $lcake_tab_nav_wrapper_width ) {
 			$nav_wrapper_class .= ' tab-nav-fluid';
 		}
 
@@ -2085,22 +2093,22 @@ class LCAKE_Kit_Tab extends \Elementor\Widget_Base {
 
 		$has_user_defined_active_tab = false;
 		foreach ( $lcake_tab_items as $tab ) {
-			if ( $tab['lcake_tab_title_is_active'] == 'yes' ) {
+			if ( 'yes' === $tab['lcake_tab_title_is_active'] ) {
 				$has_user_defined_active_tab = true;
 			}
 		}
 
 		?>
-		<div class="lcake-tab-wraper <?php echo esc_attr( $lcake_tab_style == 'vertical' ? 'vertical' : '' ); ?>
+		<div class="lcake-tab-wraper <?php echo esc_attr( 'vertical' === $lcake_tab_style ? 'vertical' : '' ); ?>
 		<?php
-		if ( $lcake_tab_fill_full_width != 'yes' ) :
+		if ( 'yes' !== $lcake_tab_fill_full_width ) :
 			?>
 			lcake-fitcontent-tab <?php endif; ?>">
 			<ul class="<?php echo esc_attr( $nav_wrapper_class ); ?>">
 				<?php
 				foreach ( $lcake_tab_items as $i => $tab ) :
-					$is_active = ( $tab['lcake_tab_title_is_active'] == 'yes' ) ? ' active show' : '';
-					$is_active = ( $has_user_defined_active_tab == false && $i == 0 ) ? ' active show' : $is_active;
+					$is_active = ( 'yes' === $tab['lcake_tab_title_is_active'] ) ? ' active show' : '';
+					$is_active = ( ! $has_user_defined_active_tab && 0 === $i ) ? ' active show' : $is_active;
 
 					// new icon
 					$migrated = isset( $tab['__fa4_migrated']['lcake_tab_title_icons'] );
@@ -2112,12 +2120,12 @@ class LCAKE_Kit_Tab extends \Elementor\Widget_Base {
 						Elementor\Icons_Manager::render_icon( $tab['lcake_tab_title_icons'], array( 'aria-hidden' => 'true' ) );
 						$rendered_icon = ob_get_clean();
 
-						$icon_html = ! empty( $tab['lcake_tab_title_icons'] ) ? ( $tab['lcake_tab_title_icons']['library'] === 'svg' ? '<span class="lcake-tab-icon">' . $rendered_icon . '</span>' : '<span class="' . $tab['lcake_tab_title_icons']['value'] . ' lcake-tab-icon"></span>' ) : '';
+						$icon_html = ! empty( $tab['lcake_tab_title_icons'] ) ? ( 'svg' === $tab['lcake_tab_title_icons']['library'] ? '<span class="lcake-tab-icon">' . $rendered_icon . '</span>' : '<span class="' . $tab['lcake_tab_title_icons']['value'] . ' lcake-tab-icon"></span>' ) : '';
 					} else {
 						$icon_html = '<span class="' . $tab['lcake_tab_title_icon'] . ' lcake-tab-icon"></span>';
 					}
 
-					$img_html = isset( $tab['lcake_tab_title_icon_type'] ) && ( $tab['lcake_tab_title_icon_type'] == 'image' && ! empty( $tab['lcake_tab_title_image']['url'] ) ) ?
+					$img_html = isset( $tab['lcake_tab_title_icon_type'] ) && ( 'image' === $tab['lcake_tab_title_icon_type'] && ! empty( $tab['lcake_tab_title_image']['url'] ) ) ?
 						'<div class="lcake-icon-image">' . LCAKE_Kit_Utils::get_attachment_image_html(
 							$tab,
 							'lcake_tab_title_image',
@@ -2128,7 +2136,7 @@ class LCAKE_Kit_Tab extends \Elementor\Widget_Base {
 						) . '</div>' : '';
 
 					// URL Hash id
-					$handler_id = ( ( $tab['lcake_tab_title'] ) != '' ? strtolower( preg_replace( '![^a-z0-9]+!i', '-', $tab['lcake_tab_title'] ) ) : ( 'tab-' . $tab['_id'] ) );
+					$handler_id = ( ! empty( $tab['lcake_tab_title'] ) ? strtolower( preg_replace( '![^a-z0-9]+!i', '-', $tab['lcake_tab_title'] ) ) : ( 'tab-' . $tab['_id'] ) );
 					?>
 					<li class="lcake-nav-item elementor-repeater-item-<?php echo esc_attr( $tab['_id'] ); ?>">
 						<a class="lcake-nav-link <?php echo esc_attr( $is_active ); ?> <?php echo esc_attr( $lcake_tab_header_icon_pos_style ); ?>" id="content-<?php echo esc_attr( $tab['_id'] . $tab_id ); ?>-tab" data-lcake-handler-id="<?php echo esc_html( $handler_id ); ?>" data-lcake-toggle="tab" data-target="#content-<?php echo esc_attr( $tab['_id'] . $tab_id ); ?>" href="#Content-<?php echo esc_attr( $tab['_id'] . $tab_id ); ?>"
@@ -2144,8 +2152,8 @@ class LCAKE_Kit_Tab extends \Elementor\Widget_Base {
 			<div class="tab-content lcake-tab-content">
 				<?php
 				foreach ( $lcake_tab_items as $i => $tab ) :
-					$is_active = ( $tab['lcake_tab_title_is_active'] == 'yes' ) ? ' active show' : '';
-					$is_active = ( $has_user_defined_active_tab == false && $i == 0 ) ? ' active show' : $is_active;
+					$is_active = ( 'yes' === $tab['lcake_tab_title_is_active'] ) ? ' active show' : '';
+					$is_active = ( ! $has_user_defined_active_tab && 0 === $i ) ? ' active show' : $is_active;
 					?>
 					<div class="tab-pane lcake-tab-pane elementor-repeater-item-<?php echo esc_attr( $tab['_id'] ); ?> <?php echo esc_attr( $is_active ); ?>" id="content-<?php echo esc_attr( $tab['_id'] . $tab_id ); ?>" role="tabpanel"
 						aria-labelledby="content-<?php echo esc_attr( $tab['_id'] . $tab_id ); ?>-tab">

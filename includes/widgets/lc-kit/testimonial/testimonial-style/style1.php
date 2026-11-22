@@ -1,5 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) { exit; } // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound ?>
-<div class="lcake-testimonial-slider arrow_inside lcake_testimonial_style_1 lcake-default-testimonial <?php echo ( ! empty( $lcake_testimonial_show_dot ) && $lcake_testimonial_show_dot === 'yes' ) ? 'lcake-slider-dotted' : ''; ?>" <?php $this->print_render_attribute_string( 'wrapper' ); ?>>
+<div class="lcake-testimonial-slider arrow_inside lcake_testimonial_style_1 lcake-default-testimonial <?php echo ( ! empty( $lcake_testimonial_show_dot ) && 'yes' === $lcake_testimonial_show_dot ) ? 'lcake-slider-dotted' : ''; ?>" <?php $this->print_render_attribute_string( 'wrapper' ); ?>>
 	<div <?php $this->print_render_attribute_string( 'swiper-container' ); ?>>
 		<div class="swiper-wrapper">
 			<?php
@@ -27,7 +27,7 @@
 											if ( isset( $testimonial['client_logo'] ) && ! empty( $testimonial['client_logo']['url'] ) && sizeof( $testimonial['client_logo'] ) > 0 ) {
 												?>
 													<div class="lcake-client-logo">
-														<?php if ( isset( $testimonial['client_logo_active'] ) && ! empty( $testimonial['client_logo_active']['url'] ) && sizeof( $testimonial['client_logo_active'] ) > 0 && ! empty( $testimonial['use_hover_logo'] ) && $testimonial['use_hover_logo'] === 'yes' ) : ?>
+														<?php if ( isset( $testimonial['client_logo_active'] ) && ! empty( $testimonial['client_logo_active']['url'] ) && sizeof( $testimonial['client_logo_active'] ) > 0 && ! empty( $testimonial['use_hover_logo'] ) && 'yes' === $testimonial['use_hover_logo'] ) : ?>
 															<?php
 															echo wp_kses(
 																\LCAKE_Kit_Utils::get_attachment_image_html(
@@ -62,7 +62,7 @@
 											<?php if ( isset( $testimonial['review'] ) && ! empty( $testimonial['review'] ) ) : ?>
 												<p><?php echo isset( $testimonial['review'] ) ? wp_kses( $testimonial['review'], \LCAKE_Kit_Utils::get_kses_array() ) : ''; ?></p>
 											<?php endif; ?>
-											<?php if ( 'yes' == $lcake_testimonial_title_separetor ) : ?>
+											<?php if ( 'yes' === $lcake_testimonial_title_separetor ) : ?>
 												<span class="lcake-border-hr"></span>
 											<?php endif; ?>
 											<span class="lcake-profile-info">
@@ -94,11 +94,11 @@
 			?>
 		</div>
 
-		<?php if ( ! empty( $lcake_testimonial_show_dot ) && $lcake_testimonial_show_dot === 'yes' ) : ?>
+		<?php if ( ! empty( $lcake_testimonial_show_dot ) && 'yes' === $lcake_testimonial_show_dot ) : ?>
 			<div class="swiper-pagination"></div>
 		<?php endif; ?>
 
-		<?php if ( ! empty( $lcake_testimonial_show_arrow ) && $lcake_testimonial_show_arrow === 'yes' ) : ?>
+		<?php if ( ! empty( $lcake_testimonial_show_arrow ) && 'yes' === $lcake_testimonial_show_arrow ) : ?>
 			<div class="swiper-navigation-button swiper-button-prev">
 				<?php \Elementor\Icons_Manager::render_icon( $lcake_testimonial_left_arrows, array( 'aria-hidden' => 'true' ) ); ?>
 			</div>

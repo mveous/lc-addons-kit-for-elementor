@@ -41,7 +41,7 @@ if ( isset( $lcake_modal_close_align ) && 'left' === $lcake_modal_close_align ) 
 					<?php } ?>
 
 					<?php
-					if ( isset( $lcake_team_social_enable ) && $lcake_team_social_enable == 'yes' && ! empty( $lcake_team_social_icons ) && is_array( $lcake_team_social_icons ) ) {
+					if ( isset( $lcake_team_social_enable ) && 'yes' === $lcake_team_social_enable && ! empty( $lcake_team_social_icons ) && is_array( $lcake_team_social_icons ) ) {
 						foreach ( $lcake_team_social_icons as $icon ) {
 							$item_key = 'social_item_' . $icon['_id'];
 							$link_key = 'social_link_' . $icon['_id'];

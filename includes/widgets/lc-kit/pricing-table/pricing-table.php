@@ -37,7 +37,7 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return array( 'lcake-kit-price-table' );
+		return array( 'lcake-btsp-css', 'lcake-kit-price-table' );
 	}
 
 	protected function register_controls() {
@@ -2499,7 +2499,12 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 	protected function render_raw() {
 
 		$settings = $this->get_settings_for_display();
-		extract( $settings );
+		// Settings used by the template below (explicit instead of extract()).
+		$lcake_pricing_order_button   = $settings['lcake_pricing_order_button'] ?? null;
+		$lcake_pricing_order_features = $settings['lcake_pricing_order_features'] ?? null;
+		$lcake_pricing_order_header   = $settings['lcake_pricing_order_header'] ?? null;
+		$lcake_pricing_order_price    = $settings['lcake_pricing_order_price'] ?? null;
+		$lcake_pricing_title_size     = $settings['lcake_pricing_title_size'] ?? null;
 
 		$options_lcake_pricing_title_size = array_keys(
 			array(
@@ -2528,8 +2533,8 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 
 		// For button
 		$btn_text   = $settings['lcake_pricing_btn_text'];
-		$btn_class  = ( $settings['lcake_pricing_button_class'] != '' ) ? $settings['lcake_pricing_button_class'] : '';
-		$btn_id     = ( $settings['lcake_pricing_button_id'] != '' ) ? $settings['lcake_pricing_button_id'] : '';
+		$btn_class  = ! empty( $settings['lcake_pricing_button_class'] ) ? $settings['lcake_pricing_button_class'] : '';
+		$btn_id     = ! empty( $settings['lcake_pricing_button_id'] ) ? $settings['lcake_pricing_button_id'] : '';
 		$icon_align = $settings['lcake_pricing_icon_align'];
 
 		if ( ! empty( $settings['lcake_pricing_btn_link']['url'] ) ) {
@@ -2558,12 +2563,12 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 		?>
 
 
-		<div class="lcake-single-pricing <?php echo esc_attr( $settings['lcake_pricing_order_enable'] == 'yes' ? 'd-flex flex-column' : '' ); ?>" >
+		<div class="lcake-single-pricing <?php echo esc_attr( 'yes' === $settings['lcake_pricing_order_enable'] ? 'd-flex flex-column' : '' ); ?>" >
 			<div class="lcake-pricing-header <?php echo esc_attr( $header_order ? 'order-' . $header_order : '' ); ?>">
-				<?php if ( $settings['lcake_pricing_icon_type'] == 'image' ) : ?>
+				<?php if ( 'image' === $settings['lcake_pricing_icon_type'] ) : ?>
 					<?php echo wp_kses( $image, \LCAKE_Kit_Utils::get_kses_array() ); ?>
 				<?php endif; ?>
-				<?php if ( $settings['lcake_pricing_icon_type'] == 'icon' ) : ?>					
+				<?php if ( 'icon' === $settings['lcake_pricing_icon_type'] ) : ?>					
 					<?php
 						// new icon
 						$migrated = isset( $settings['__fa4_migrated']['lcake_pricing_icons'] );
@@ -2590,28 +2595,28 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 									
 				<?php endif; ?>
 
-				<?php if ( $table_title != '' ) : ?>
+				<?php if ( ! empty( $table_title ) ) : ?>
 					<<?php echo wp_kses( $lcake_pricing_title_size_validate, \LCAKE_Kit_Utils::get_kses_array() ); ?>
 					class=" lcake-pricing-title"><?php echo esc_html( $table_title ); ?>
 					</<?php echo wp_kses( $lcake_pricing_title_size_validate, \LCAKE_Kit_Utils::get_kses_array() ); ?>>
 				<?php endif; ?>
-				<?php if ( $table_subtitle != '' ) : ?>
+				<?php if ( ! empty( $table_subtitle ) ) : ?>
 					<p class=" lcake-pricing-subtitle"><?php echo esc_html( $table_subtitle ); ?></p>
 				<?php endif; ?>
 			</div>
-			<?php if ( $currency_icon != '' && $table_price !== '' ) { ?>
+			<?php if ( ! empty( $currency_icon ) && '' !== $table_price ) { ?>
 			<div class=" lcake-pricing-price-wraper has-tag <?php echo esc_attr( $price_order ? 'order-' . $price_order : '' ); ?>">
 				<div class="lcake-pricing-tag"></div>
 				<span class="lcake-pricing-price">
-					<?php if ( $currency_position == 'before' ) : ?>
+					<?php if ( 'before' === $currency_position ) : ?>
 						<sup class="currency"><?php echo esc_html( $currency_icon ); ?></sup>
 					<?php endif; ?>
 					<span><?php echo esc_html( $table_price ); ?></span>
-					<?php if ( $currency_position == 'after' ) : ?>
+					<?php if ( 'after' === $currency_position ) : ?>
 						<sup class="currency"><?php echo esc_html( $currency_icon ); ?></sup>
 					<?php endif; ?>
 
-					<?php if ( $table_duration !== '' ) : ?>
+					<?php if ( '' !== $table_duration ) : ?>
 					<sub class="period"><?php echo esc_html( $table_duration ); ?></sub>
 					<?php endif; ?>
 				</span>
@@ -2619,10 +2624,10 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 			<?php } ?>
 			<div class="lcake-pricing-content <?php echo esc_attr( $features_order ? 'order-' . $features_order : '' ); ?>">
 
-				<?php if ( $content_style == 'paragraph' ) { ?>
+				<?php if ( 'paragraph' === $content_style ) { ?>
 					<p> <?php echo wp_kses( $table_content, \LCAKE_Kit_Utils::get_kses_array() ); ?></p>
 				<?php } ?>
-				<?php if ( $content_style == 'list' ) { ?>
+				<?php if ( 'list' === $content_style ) { ?>
 					<ul class="lcake-pricing-lists">
 						<?php foreach ( $table_content_repeater as $repeat ) { ?>
 							<li class="elementor-repeater-item-<?php echo esc_attr( $repeat['_id'] ); ?>">
@@ -2646,11 +2651,11 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 			<div class="lcake-pricing-btn-wraper <?php echo esc_attr( $button_order ? 'order-' . $button_order : '' ); ?>">
 				<a <?php echo $this->get_render_attribute_string( 'button' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped by elementor ?> class="lcake-pricing-btn <?php echo esc_attr( $btn_class ); ?> lcake-pricing-btn-icon-pos-<?php echo esc_attr( $icon_align ); ?>" 
 				<?php
-				if ( $settings['lcake_pricing_button_id'] != '' ) {
+				if ( ! empty( $settings['lcake_pricing_button_id'] ) ) {
 					?>
 					id="<?php echo esc_attr( $btn_id ); ?>" <?php } ?>>
 					<?php
-					if ( $settings['lcake_pricing_btn_icons'] != '' && $icon_align == 'left' ) :
+					if ( ! empty( $settings['lcake_pricing_btn_icons'] ) && 'left' === $icon_align ) :
 						// new icon
 						$migrated = isset( $settings['__fa4_migrated']['lcake_pricing_btn_icons'] );
 						// Check if its a new widget without previously selected icon using the old Icon control
@@ -2667,7 +2672,7 @@ class LCAKE_Kit_Pricing_Table extends \Elementor\Widget_Base {
 
 					echo esc_html( $btn_text );
 
-					if ( $settings['lcake_pricing_btn_icons'] != '' && $icon_align == 'right' ) :
+					if ( ! empty( $settings['lcake_pricing_btn_icons'] ) && 'right' === $icon_align ) :
 						// new icon
 						$migrated = isset( $settings['__fa4_migrated']['lcake_pricing_btn_icons'] );
 						// Check if its a new widget without previously selected icon using the old Icon control

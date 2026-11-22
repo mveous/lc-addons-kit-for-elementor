@@ -49,7 +49,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 	public function get_style_depends() {
 
-		return array( 'lcake-team-css' );
+		return array( 'lcake-btsp-css', 'lcake-team-css' );
 	}
 
 	protected function register_controls() {
@@ -3699,7 +3699,26 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-		extract( $settings );
+		// Settings used by the template below (explicit instead of extract()).
+		$lcake_team_chose_popup            = $settings['lcake_team_chose_popup'] ?? null;
+		$lcake_team_close_icon_alignment   = $settings['lcake_team_close_icon_alignment'] ?? null;
+		$lcake_team_close_icon_changes     = $settings['lcake_team_close_icon_changes'] ?? null;
+		$lcake_team_content_text_align     = $settings['lcake_team_content_text_align'] ?? null;
+		$lcake_team_description            = $settings['lcake_team_description'] ?? null;
+		$lcake_team_email                  = $settings['lcake_team_email'] ?? null;
+		$lcake_team_image                  = $settings['lcake_team_image'] ?? null;
+		$lcake_team_name                   = $settings['lcake_team_name'] ?? null;
+		$lcake_team_phone                  = $settings['lcake_team_phone'] ?? null;
+		$lcake_team_position               = $settings['lcake_team_position'] ?? null;
+		$lcake_team_short_description      = $settings['lcake_team_short_description'] ?? null;
+		$lcake_team_show_short_description = $settings['lcake_team_show_short_description'] ?? null;
+		$lcake_team_social_enable          = $settings['lcake_team_social_enable'] ?? null;
+		$lcake_team_social_icons           = $settings['lcake_team_social_icons'] ?? null;
+		$lcake_team_style                  = $settings['lcake_team_style'] ?? null;
+		$lcake_team_toggle_icon            = $settings['lcake_team_toggle_icon'] ?? null;
+		$lcake_team_top_icon_align         = $settings['lcake_team_top_icon_align'] ?? null;
+		$lcake_team_top_icons              = $settings['lcake_team_top_icons'] ?? null;
+		$team_hover_animation              = $settings['team_hover_animation'] ?? null;
 
 		// Image sectionn
 
@@ -3730,22 +3749,22 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 			?>
 
 			<?php
-			if ( $lcake_team_style == 'centered_style' ) :
+			if ( 'centered_style' === $lcake_team_style ) :
 				?>
 				<div class="lcake-profile-square-v"> <?php endif; ?>
 
 				<?php
-				if ( $lcake_team_style == 'centered_style_details' ) :
+				if ( 'centered_style_details' === $lcake_team_style ) :
 					?>
 					<div class="lcake-profile-square-v square-v5 no_gutters"> <?php endif; ?>
 
 					<?php
-					if ( $lcake_team_style == 'long_height_details' ) :
+					if ( 'long_height_details' === $lcake_team_style ) :
 						?>
 						<div class="lcake-profile-square-v square-v6 no_gutters"> <?php endif; ?>
 
 						<?php
-						if ( $lcake_team_style == 'long_height_details_hover' ) :
+						if ( 'long_height_details_hover' === $lcake_team_style ) :
 							?>
 							<div class="lcake-profile-square-v square-v6 square-v6-v2 no_gutters"><?php endif; ?>
 
@@ -3757,7 +3776,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 							?>
 							>
 
-								<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
+								<?php if ( 'yes' === $settings['lcake_team_chose_popup'] ) : ?>
 
 									<a aria-label="profile" href="#" role="button" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
 
@@ -3765,9 +3784,9 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 
 
-									<div class="lcake-profile-header lcake-team-img <?php echo esc_attr( $lcake_team_style == 'default' ? 'lcake-img-overlay lcake-team-img-block' : '' ); ?>" 
+									<div class="lcake-profile-header lcake-team-img <?php echo esc_attr( 'default' === $lcake_team_style ? 'lcake-img-overlay lcake-team-img-block' : '' ); ?>" 
 									<?php
-									if ( ( isset( $settings['lcake_team_chose_popup'] ) ? $lcake_team_chose_popup : 'no' ) == 'yes' ) :
+									if ( ( isset( $settings['lcake_team_chose_popup'] ) ? $lcake_team_chose_popup : 'no' ) === 'yes' ) :
 										?>
 										data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" <?php endif; ?>>
 
@@ -3775,7 +3794,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 									</div><!-- .profile-header END -->
 
-									<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
+									<?php if ( 'yes' === $settings['lcake_team_chose_popup'] ) : ?>
 
 									</a>
 
@@ -3787,7 +3806,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 								<div class="lcake-profile-body">
 
-									<?php if ( 'default' == $lcake_team_style && 'yes' == $lcake_team_toggle_icon && ! empty( $lcake_team_top_icons ) ) : ?>
+									<?php if ( 'default' === $lcake_team_style && 'yes' === $lcake_team_toggle_icon && ! empty( $lcake_team_top_icons ) ) : ?>
 
 										<div class="lcake-profile-icon<?php echo esc_attr( $lcake_team_top_icon_align ) ? ' icon-align-' . esc_attr( $lcake_team_top_icon_align ) : ''; ?>">
 
@@ -3828,7 +3847,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 									<h2 class="lcake-profile-title">
 
-										<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
+										<?php if ( 'yes' === $settings['lcake_team_chose_popup'] ) : ?>
 
 											<a aria-label="profile" href="#" role="button" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
 
@@ -3846,7 +3865,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 									<p class="lcake-profile-designation"><?php echo esc_html( $lcake_team_position ); ?></p>
 
-									<?php if ( $lcake_team_show_short_description == 'yes' && $lcake_team_short_description != '' ) : ?>
+									<?php if ( 'yes' === $lcake_team_show_short_description && ! empty( $lcake_team_short_description ) ) : ?>
 
 										<p class="lcake-profile-content"><?php echo wp_kses( $lcake_team_short_description, \LCAKE_Kit_Utils::get_kses_array() ); ?></p>
 
@@ -3862,7 +3881,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 								<?php
 
-								if ( isset( $lcake_team_social_enable ) && $lcake_team_social_enable == 'yes' ) {
+								if ( isset( $lcake_team_social_enable ) && 'yes' === $lcake_team_social_enable ) {
 									?>
 
 									<div class="lcake-profile-footer">
@@ -3921,22 +3940,22 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 					<?php if ( in_array( $lcake_team_style, array( 'overlay', 'overlay_details', 'long_height_hover', 'overlay_circle', 'overlay_circle_hover' ) ) ) : ?>
 
 						<?php
-						if ( $lcake_team_style == 'overlay_details' ) :
+						if ( 'overlay_details' === $lcake_team_style ) :
 							?>
 							<div class="lcake-image-card-v2"> <?php endif; ?>
 
 							<?php
-							if ( $lcake_team_style == 'long_height_hover' ) :
+							if ( 'long_height_hover' === $lcake_team_style ) :
 								?>
-								<div class="<?php echo esc_attr( $settings['lcake_team_remove_gutters'] == 'yes' ? '' : 'small-gutters' ); ?> lcake-image-card-v3"> <?php endif; ?>
+								<div class="<?php echo esc_attr( 'yes' === $settings['lcake_team_remove_gutters'] ? '' : 'small-gutters' ); ?> lcake-image-card-v3"> <?php endif; ?>
 
 								<?php
-								if ( $lcake_team_style == 'overlay_circle' ) :
+								if ( 'overlay_circle' === $lcake_team_style ) :
 									?>
 									<div class="lcake-style-circle lcake-team-img-fit"> <?php endif; ?>
 
 									<?php
-									if ( $lcake_team_style == 'overlay_circle_hover' ) :
+									if ( 'overlay_circle_hover' === $lcake_team_style ) :
 										?>
 										<div class="lcake-image-card-v2 lcake-style-circle"> <?php endif; ?>
 
@@ -3950,7 +3969,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 
 
-											<?php if ( $lcake_team_style == 'long_height_hover' ) { ?>
+											<?php if ( 'long_height_hover' === $lcake_team_style ) { ?>
 
 												<?php echo wp_kses( $image_html, \LCAKE_Kit_Utils::get_kses_array() ); ?>
 
@@ -3973,7 +3992,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 													<h2 class="lcake-profile-title">
 
-														<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
+														<?php if ( 'yes' === $settings['lcake_team_chose_popup'] ) : ?>
 
 															<a aria-label="profile" href="#" role="button" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
 
@@ -3991,7 +4010,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 													<p class="lcake-profile-designation"><?php echo esc_html( $lcake_team_position ); ?></p>
 
-													<?php if ( $lcake_team_show_short_description == 'yes' && $lcake_team_short_description != '' ) : ?>
+													<?php if ( 'yes' === $lcake_team_show_short_description && ! empty( $lcake_team_short_description ) ) : ?>
 
 														<p class="lcake-profile-content"><?php echo wp_kses( $lcake_team_short_description, \LCAKE_Kit_Utils::get_kses_array() ); ?></p>
 
@@ -3999,7 +4018,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 												</div>
 
-												<?php if ( isset( $lcake_team_social_enable ) && $lcake_team_social_enable == 'yes' ) { ?>
+												<?php if ( isset( $lcake_team_social_enable ) && 'yes' === $lcake_team_social_enable ) { ?>
 
 													<div class="lcake-profile-footer">
 
@@ -4059,7 +4078,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 							endif;
 
-					if ( 'hover_info' == $lcake_team_style ) :
+					if ( 'hover_info' === $lcake_team_style ) :
 
 						?>
 
@@ -4076,7 +4095,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 											<div class="lcake-profile-header lcake-team-img" 
 											<?php
-											if ( $settings['lcake_team_chose_popup'] == 'yes' ) :
+											if ( 'yes' === $settings['lcake_team_chose_popup'] ) :
 												?>
 												data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" <?php endif; ?>>
 
@@ -4088,7 +4107,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 												<h2 class="lcake-profile-title">
 
-													<?php if ( $settings['lcake_team_chose_popup'] == 'yes' ) : ?>
+													<?php if ( 'yes' === $settings['lcake_team_chose_popup'] ) : ?>
 
 														<a aria-label="profile" href="#" role="button" data-bs-toggle="modal" data-bs-target="#lcake_team_modal_<?php echo esc_attr( $this->get_id() . '_' . get_the_ID() ); ?>" class="lcake-team-popup">
 
@@ -4106,7 +4125,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 												<p class="lcake-profile-designation"><?php echo esc_html( $lcake_team_position ); ?></p>
 
-												<?php if ( $lcake_team_show_short_description == 'yes' && $lcake_team_short_description != '' ) : ?>
+												<?php if ( 'yes' === $lcake_team_show_short_description && ! empty( $lcake_team_short_description ) ) : ?>
 
 													<p class="lcake-profile-content"><?php echo wp_kses( $lcake_team_short_description, \LCAKE_Kit_Utils::get_kses_array() ); ?></p>
 
@@ -4114,7 +4133,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 												<?php
 
-												if ( isset( $lcake_team_social_enable ) && $lcake_team_social_enable == 'yes' ) {
+												if ( isset( $lcake_team_social_enable ) && 'yes' === $lcake_team_social_enable ) {
 
 													require LCAKE_EAK_PATH . 'includes/widgets/lc-kit/team/parts/social-list.php';
 												}
@@ -4132,7 +4151,7 @@ class LCAKE_Kit_Team extends \Elementor\Widget_Base {
 
 
 						<?php
-						if ( $lcake_team_chose_popup == 'yes' ) :
+						if ( 'yes' === $lcake_team_chose_popup ) :
 							$lcake_modal_close_align = isset( $lcake_team_close_icon_alignment ) ? $lcake_team_close_icon_alignment : 'right';
 							require_once LCAKE_EAK_PATH . 'includes/widgets/lc-kit/team/components/popup.php';
 

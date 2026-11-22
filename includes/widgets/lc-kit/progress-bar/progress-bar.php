@@ -512,13 +512,17 @@ class LCAKE_Kit_Progress_Bar extends \Elementor\Widget_Base {
 
 	protected function render_raw() {
 		$settings = $this->get_settings_for_display();
-		extract( $settings );
+		// Settings used by the template below (explicit instead of extract()).
+		$lcake_progressbar_data_duration = $settings['lcake_progressbar_data_duration'] ?? null;
+		$lcake_progressbar_percentage    = $settings['lcake_progressbar_percentage'] ?? null;
+		$lcake_progressbar_style         = $settings['lcake_progressbar_style'] ?? null;
+		$lcake_progressbar_title         = $settings['lcake_progressbar_title'] ?? null;
 
 		?>
 		<div class="lcake-bar-trigger">
 			<div class="lcake-bar-group <?php echo esc_attr( $lcake_progressbar_style ); ?>" data-progress-bar="">
 				<div class="lcake-single-skill-bar">
-					<?php if ( 'style-switch' != $lcake_progressbar_style ) : ?>
+					<?php if ( 'style-switch' !== $lcake_progressbar_style ) : ?>
 						<div class="lcake-bar-content">
 							<span class="lcake-skill-title"><?php echo esc_html( $lcake_progressbar_title ); ?></span>
 						</div>
@@ -526,7 +530,7 @@ class LCAKE_Kit_Progress_Bar extends \Elementor\Widget_Base {
 						<div class="lcake-bar">
 							<div class="lcake-bar-track">
 								<?php
-								if ( 'inner-content skill-big' == $lcake_progressbar_style ) :
+								if ( 'inner-content skill-big' === $lcake_progressbar_style ) :
 
 									// new icon
 									$migrated = isset( $settings['__fa4_migrated']['lcake_progressbar_icons'] );
@@ -549,7 +553,7 @@ class LCAKE_Kit_Progress_Bar extends \Elementor\Widget_Base {
 								<div class="lcake-percentage-wrapper">
 									<span class="lcake-number-percentage" data-value="<?php echo esc_attr( $lcake_progressbar_percentage ); ?>" data-animation-duration="<?php echo esc_attr( $lcake_progressbar_data_duration['size'] ); ?>">0</span>%
 
-									<?php if ( 'tooltip-style' == $lcake_progressbar_style ) : ?>
+									<?php if ( 'tooltip-style' === $lcake_progressbar_style ) : ?>
 										<div class="lcake-svg-content">
 											<svg version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" preserveAspectRatio="none" viewBox="0 0 116 79.6">
 												<g>
@@ -557,7 +561,7 @@ class LCAKE_Kit_Progress_Bar extends \Elementor\Widget_Base {
 												</g>
 											</svg>
 										</div>
-									<?php elseif ( 'style-stripe skill-medium tooltip-style' == $lcake_progressbar_style ) : ?>
+									<?php elseif ( 'style-stripe skill-medium tooltip-style' === $lcake_progressbar_style ) : ?>
 										<div class="lcake-svg-content">
 											<svg version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" preserveAspectRatio="none" viewBox="0 0 116 79.6">
 												<g>

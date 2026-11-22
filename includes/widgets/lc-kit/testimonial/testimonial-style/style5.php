@@ -1,5 +1,5 @@
 <?php if ( ! defined( 'ABSPATH' ) ) { exit; } // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound ?>
-<div class="lcake-testimonial-slider lcake_testimonial_style_5 arrow_inside <?php echo ( ! empty( $lcake_testimonial_show_dot ) && $lcake_testimonial_show_dot === 'yes' ) ? 'lcake-slider-dotted' : ''; ?>" <?php $this->print_render_attribute_string( 'wrapper' ); ?>>
+<div class="lcake-testimonial-slider lcake_testimonial_style_5 arrow_inside <?php echo ( ! empty( $lcake_testimonial_show_dot ) && 'yes' === $lcake_testimonial_show_dot ) ? 'lcake-slider-dotted' : ''; ?>" <?php $this->print_render_attribute_string( 'wrapper' ); ?>>
 	<div <?php $this->print_render_attribute_string( 'swiper-container' ); ?>>
 		<div class="swiper-wrapper">
 			<?php
@@ -22,7 +22,7 @@
 						?>
 						>
 							<div class="lcake-commentor-header">
-								<?php if ( $lcake_testimonial_rating_enable == 'yes' ) : ?>
+								<?php if ( 'yes' === $lcake_testimonial_rating_enable ) : ?>
 									<ul class="lcake-stars">
 										<?php
 										$reviewData = isset( $testimonial['rating'] ) ? $testimonial['rating'] : 0;
@@ -38,7 +38,7 @@
 										<?php } ?>
 									</ul>
 								<?php endif; ?>
-								<?php if ( isset( $lcake_testimonial_wartermark_enable ) && ( $lcake_testimonial_wartermark_enable == 'yes' ) ) : ?>
+								<?php if ( isset( $lcake_testimonial_wartermark_enable ) && ( 'yes' === $lcake_testimonial_wartermark_enable ) ) : ?>
 									<div class="lcake-icon-content lcake-watermark-icon ">
 										<?php \Elementor\Icons_Manager::render_icon( $settings['lcake_testimonial_wartermarks'], array( 'aria-hidden' => 'true' ) ); ?>
 									</div>
@@ -96,11 +96,11 @@
 			<?php endforeach; ?>
 		</div>
 
-		<?php if ( ! empty( $lcake_testimonial_show_dot ) && $lcake_testimonial_show_dot === 'yes' ) : ?>
+		<?php if ( ! empty( $lcake_testimonial_show_dot ) && 'yes' === $lcake_testimonial_show_dot ) : ?>
 			<div class="swiper-pagination"></div>
 		<?php endif; ?>
 
-		<?php if ( ! empty( $lcake_testimonial_show_arrow ) && $lcake_testimonial_show_arrow === 'yes' ) : ?>
+		<?php if ( ! empty( $lcake_testimonial_show_arrow ) && 'yes' === $lcake_testimonial_show_arrow ) : ?>
 			<div class="swiper-navigation-button swiper-button-prev">
 				<?php \Elementor\Icons_Manager::render_icon( $lcake_testimonial_left_arrows, array( 'aria-hidden' => 'true' ) ); ?>
 			</div>

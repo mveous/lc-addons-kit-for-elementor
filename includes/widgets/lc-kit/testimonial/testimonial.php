@@ -489,7 +489,7 @@ class LCAKE_Kit_Testimonial extends \Elementor\Widget_Base {
 				),
 				'render_type'     => 'template',
 				'selectors'       => array(
-					'{{WRAPPER}} .lcake-testimonial-slider' => '--lcake_testimonial_left_right_spacing: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .lcake-testimonial-slider' => '--lcake-testimonial-spacing: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -2331,7 +2331,33 @@ class LCAKE_Kit_Testimonial extends \Elementor\Widget_Base {
 
 		$testimonials = array();
 		$settings     = $this->get_settings_for_display();
-		extract( $settings );
+		// Settings used by the template below (explicit instead of extract()).
+		$lcake_testimonial_autoplay                   = $settings['lcake_testimonial_autoplay'] ?? null;
+		$lcake_testimonial_client_area_alignment      = $settings['lcake_testimonial_client_area_alignment'] ?? null;
+		$lcake_testimonial_client_image_size          = $settings['lcake_testimonial_client_image_size'] ?? null;
+		$lcake_testimonial_data                       = $settings['lcake_testimonial_data'] ?? null;
+		$lcake_testimonial_left_arrows                = $settings['lcake_testimonial_left_arrows'] ?? null;
+		$lcake_testimonial_left_right_spacing         = $settings['lcake_testimonial_left_right_spacing'] ?? null;
+		$lcake_testimonial_left_right_spacing_mobile  = $settings['lcake_testimonial_left_right_spacing_mobile'] ?? null;
+		$lcake_testimonial_left_right_spacing_tablet  = $settings['lcake_testimonial_left_right_spacing_tablet'] ?? null;
+		$lcake_testimonial_loop                       = $settings['lcake_testimonial_loop'] ?? null;
+		$lcake_testimonial_pause_on_hover             = $settings['lcake_testimonial_pause_on_hover'] ?? null;
+		$lcake_testimonial_rating_enable              = $settings['lcake_testimonial_rating_enable'] ?? null;
+		$lcake_testimonial_right_arrows               = $settings['lcake_testimonial_right_arrows'] ?? null;
+		$lcake_testimonial_show_arrow                 = $settings['lcake_testimonial_show_arrow'] ?? null;
+		$lcake_testimonial_show_dot                   = $settings['lcake_testimonial_show_dot'] ?? null;
+		$lcake_testimonial_slidesToScroll             = $settings['lcake_testimonial_slidesToScroll'] ?? null;
+		$lcake_testimonial_slidesToScroll_mobile      = $settings['lcake_testimonial_slidesToScroll_mobile'] ?? null;
+		$lcake_testimonial_slidesToScroll_tablet      = $settings['lcake_testimonial_slidesToScroll_tablet'] ?? null;
+		$lcake_testimonial_slidetoshow                = $settings['lcake_testimonial_slidetoshow'] ?? null;
+		$lcake_testimonial_slidetoshow_mobile         = $settings['lcake_testimonial_slidetoshow_mobile'] ?? null;
+		$lcake_testimonial_slidetoshow_tablet         = $settings['lcake_testimonial_slidetoshow_tablet'] ?? null;
+		$lcake_testimonial_speed                      = $settings['lcake_testimonial_speed'] ?? null;
+		$lcake_testimonial_style                      = $settings['lcake_testimonial_style'] ?? null;
+		$lcake_testimonial_title_separetor            = $settings['lcake_testimonial_title_separetor'] ?? null;
+		$lcake_testimonial_wartermark_custom_position = $settings['lcake_testimonial_wartermark_custom_position'] ?? null;
+		$lcake_testimonial_wartermark_enable          = $settings['lcake_testimonial_wartermark_enable'] ?? null;
+		$lcake_testimonial_wartermark_mask_show_badge = $settings['lcake_testimonial_wartermark_mask_show_badge'] ?? null;
 
 		// Alias mappings: ensure legacy lcake_* vars exist from lcake_* settings
 		$lcake_testimonial_style                      = $settings['lcake_testimonial_style'] ?? ( $settings['lcake_testimonial_style'] ?? 'style1' );
@@ -2376,7 +2402,7 @@ class LCAKE_Kit_Testimonial extends \Elementor\Widget_Base {
 			'speed'          => $lcake_testimonial_speed ? $lcake_testimonial_speed : 1000,
 			'slidesPerGroup' => (int) $slides_to_scroll_count,
 			'slidesPerView'  => (int) $slides_to_show_count,
-			'loop'           => ( ! empty( $lcake_testimonial_loop ) && $lcake_testimonial_loop == 'yes' ) ? true : false,
+			'loop'           => ( ! empty( $lcake_testimonial_loop ) && 'yes' === $lcake_testimonial_loop ) ? true : false,
 			'spaceBetween'   => ! empty( $lcake_testimonial_left_right_spacing['size'] ) ?
 			intval( $lcake_testimonial_left_right_spacing['size'] ) * 2 : 30,
 			'breakpoints'    => array(
@@ -2411,16 +2437,11 @@ class LCAKE_Kit_Testimonial extends \Elementor\Widget_Base {
 		);
 
 		$style = isset( $lcake_testimonial_style ) ? sanitize_text_field( $lcake_testimonial_style ) : 'style1';
-		// Swiper container
+		// Swiper container. Slide spacing comes from the "Spacing Left Right" control selectors.
 		$this->add_render_attribute(
 			'swiper-container',
 			array(
 				'class' => \LCAKE_Kit_Utils::swiper_class( $style ),
-				'style' => sprintf(
-					'--lcake-testimonial-spacing: %spx;',
-					! empty( $lcake_testimonial_left_right_spacing['size'] ) ?
-					intval( $lcake_testimonial_left_right_spacing['size'] ) : 15
-				),
 			)
 		);
 

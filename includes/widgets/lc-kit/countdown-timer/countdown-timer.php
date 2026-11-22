@@ -32,7 +32,7 @@ class LCAKE_Kit_Countdown_Timer extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return array( 'lcake-kit-countdown-timer-css' );
+		return array( 'lcake-btsp-css', 'lcake-kit-countdown-timer-css' );
 	}
 
 	public function get_name() {
@@ -1671,7 +1671,16 @@ class LCAKE_Kit_Countdown_Timer extends Widget_Base {
 
 	protected function render_raw() {
 		$settings = $this->get_settings_for_display();
-		extract( $settings );
+		// Settings used by the template below (explicit instead of extract()).
+		$lcake_countdown_timer_days_label          = $settings['lcake_countdown_timer_days_label'] ?? null;
+		$lcake_countdown_timer_due_time            = $settings['lcake_countdown_timer_due_time'] ?? null;
+		$lcake_countdown_timer_expiry_content      = $settings['lcake_countdown_timer_expiry_content'] ?? null;
+		$lcake_countdown_timer_hours_label         = $settings['lcake_countdown_timer_hours_label'] ?? null;
+		$lcake_countdown_timer_minutes_hours_label = $settings['lcake_countdown_timer_minutes_hours_label'] ?? null;
+		$lcake_countdown_timer_seconds_hours_label = $settings['lcake_countdown_timer_seconds_hours_label'] ?? null;
+		$lcake_countdown_timer_style               = $settings['lcake_countdown_timer_style'] ?? null;
+		$lcake_countdown_timer_title               = $settings['lcake_countdown_timer_title'] ?? null;
+		$lcake_countdown_timer_weeks_label         = $settings['lcake_countdown_timer_weeks_label'] ?? null;
 
 		if ( isset( $lcake_countdown_timer_weeks_label ) ) {
 			$this->add_render_attribute( 'lcake_countdown_timer', 'data-date-lcake-week', esc_attr( wp_strip_all_tags( $lcake_countdown_timer_weeks_label ) ) );
@@ -1726,7 +1735,7 @@ class LCAKE_Kit_Countdown_Timer extends Widget_Base {
 				break;
 		}
 
-		if ( $lcake_countdown_timer_style != 'style6' ) {
+		if ( 'style6' !== $lcake_countdown_timer_style ) {
 			$markup = sprintf( '<div %s></div>', $this->get_render_attribute_string( 'lcake_countdown_timer' ) );
 		} else {
 			$markup = sprintf( '<div class="lcake-countdown-container text-center"><div %s></div></div>', $this->get_render_attribute_string( 'lcake_countdown_timer' ) );
