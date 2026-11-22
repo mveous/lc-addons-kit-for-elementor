@@ -140,14 +140,7 @@ class LCAKE_Kit_Post_Timeline extends \Elementor\Widget_Base {
 			)
 		);
 
-		$post_types        = get_post_types( array( 'public' => true ), 'objects' );
-		$post_type_options = array();
-		foreach ( $post_types as $post_type ) {
-			if ( 'attachment' === $post_type->name ) {
-				continue;
-			}
-			$post_type_options[ $post_type->name ] = $post_type->label;
-		}
+		$post_type_options = LCAKE_Kit_Utils::get_public_post_type_options();
 
 		$this->add_control(
 			'post_type',

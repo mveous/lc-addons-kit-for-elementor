@@ -496,9 +496,12 @@ class LCAKE_Header_Footer_Builder {
 
 		// Enqueue Header & Footer Elementor CSS in <head>
 		LCAKE_Kit_Utils::render_elementor_content_css( $template->ID );
+		LCAKE_Kit_Utils::enqueue_elementor_widget_depends( $template->ID );
+
 		$footer_template = $this->matching_footer ? $this->matching_footer : $this->get_matching_template( 'footer' );
 		if ( $footer_template ) {
 			LCAKE_Kit_Utils::render_elementor_content_css( $footer_template->ID );
+			LCAKE_Kit_Utils::enqueue_elementor_widget_depends( $footer_template->ID );
 		}
 
 		?>
