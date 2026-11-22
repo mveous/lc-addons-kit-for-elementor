@@ -62,7 +62,7 @@ class LCAKE_Kit_Widget_Loader {
 			// Get all PHP files including those in subdirectories
 			$files        = glob( $path . '*.php' );
 			$subdir_files = glob( $path . '*/*.php' );
-			$all_files    = array_merge( $files ?: array(), $subdir_files ?: array() );
+			$all_files    = array_merge( $files ? $files : array(), $subdir_files ? $subdir_files : array() );
 
 			foreach ( $all_files as $file ) {
 				require_once $file;
@@ -220,7 +220,7 @@ class LCAKE_Kit_Widget_Loader {
 			$folder      = $data['folder'];
 
 			// If no specific selection saved (first run / never saved), register all by default
-			if ( $enabled_widgets === null ) {
+			if ( null === $enabled_widgets ) {
 				$widgets_manager->register( new $class() );
 				continue;
 			}
@@ -242,6 +242,12 @@ class LCAKE_Kit_Widget_Loader {
 
 		if ( ! wp_script_is( 'smartmenus', 'registered' ) ) {
 			wp_register_script( 'smartmenus', LCAKE_EAK_URL . 'assets/lib/smartmenus/lc-jquery.smartmenus.min.js', array( 'jquery' ), '1.0.1', true );
+		}
+
+		// lottie-web for the Lottie widget. Elementor Pro registers the same handle;
+		// only register our bundled copy when nothing else has.
+		if ( ! wp_script_is( 'lottie', 'registered' ) ) {
+			wp_register_script( 'lottie', LCAKE_EAK_URL . 'assets/js/lc-lottie.min.js', array(), '5.12.2', true );
 		}
 
 		$scripts = array(
@@ -315,13 +321,7 @@ class LCAKE_Kit_Widget_Loader {
 			'lcake-btsp-js'                     => array(
 				'file'    => 'lc-bootstrap.bundle.min.js',
 				'deps'    => array( 'jquery' ),
-				'enqueue' => true,
-				'path'    => '',
-			),
-			'lcake-dialog-js'                   => array(
-				'file'    => 'lc-dialog.min.js',
-				'deps'    => array( 'jquery' ),
-				'enqueue' => false, // Not used by any widget; kept registered for compatibility.
+				'enqueue' => false, // Loaded only by widgets that declare it (Team, Testimonial).
 				'path'    => '',
 			),
 			'lcake-kit-image-accordion'         => array(
@@ -356,7 +356,7 @@ class LCAKE_Kit_Widget_Loader {
 			),
 			'lcake-kit-lottie-js'               => array(
 				'file'    => 'lcake-kit-lottie.js',
-				'deps'    => array( 'jquery', 'elementor-frontend' ),
+				'deps'    => array( 'jquery', 'elementor-frontend', 'lottie' ),
 				'enqueue' => false,
 				'path'    => '',
 			),
@@ -545,7 +545,7 @@ class LCAKE_Kit_Widget_Loader {
 			),
 			'lcake-btsp-css'                              => array(
 				'file'    => 'lc-bootstrap.min.css',
-				'enqueue' => true,
+				'enqueue' => false, // Loaded only by widgets that use Bootstrap classes (Tab, Countdown Timer, Pricing Table, Team, Testimonial).
 				'path'    => '',
 			),
 			'lcake-swiper-css'                            => array(

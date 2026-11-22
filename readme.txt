@@ -1,7 +1,7 @@
 === LC Addons Kit for Elementor ===
 Contributors: deep7197
 Tags: elementor, widgets, addons, page-builder, lc-kit
-Requires at least: 5.0
+Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 1.2.1
@@ -171,6 +171,19 @@ This plugin is specifically designed for Elementor and requires Elementor to be 
 1. Admin Dashboard
 2. LC Widgets
 3. LC Header Footer Kit Widgets
+
+== Third-Party Libraries ==
+
+This plugin bundles the following libraries:
+
+* Bootstrap v5.3.7 - MIT License - https://getbootstrap.com/
+* Swiper 11.2.10 - MIT License - https://swiperjs.com/
+* Chart.js v4.5.1 - MIT License - https://www.chartjs.org/
+* lottie-web v5.12.2 - MIT License - https://github.com/airbnb/lottie-web
+* SmartMenus jQuery Plugin v1.2.1 - MIT License - https://www.smartmenus.org/
+* The Final Countdown for jQuery v2.2.0 - MIT License - https://hilios.github.io/jQuery.countdown/
+* TwentyTwenty - https://github.com/zurb/twentytwenty
+* jquery.event.move - https://github.com/stephband/jquery.event.move
 
 == Changelog ==
 = 1.2.1 =
