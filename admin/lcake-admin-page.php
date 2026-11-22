@@ -14,20 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class LCAKE_Kit_Admin_Settings {
 
-	private $widgets   = array();
+	private $widgets   = null;
 	private $menu_slug = 'lcake_menu';
 	private $page_hook = '';
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * Hooks into WordPress admin initialization and REST API actions.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->load_widget_info();
-
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'admin_init', array( $this, 'remove_wordpress_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
@@ -169,16 +167,34 @@ class LCAKE_Kit_Admin_Settings {
 	}
 
 	/**
+	 * Returns every widget shown in the Widget Manager, keyed by composite ID.
+	 *
+	 * Built on first use (not in the constructor) so add-ons that load after this
+	 * plugin, such as LC Addons Kit Pro, can add their widgets through the
+	 * `lcake_kit_admin_widgets` filter.
+	 *
+	 * @since 1.3.0
+	 * @return array
+	 */
+	private function get_widgets() {
+		if ( null === $this->widgets ) {
+			$this->widgets = $this->load_widget_info();
+		}
+
+		return $this->widgets;
+	}
+
+	/**
 	 * Parses all widget files to extract metadata for the admin interface.
-	 * 
+	 *
 	 * Scans the widget directories, reads file contents to extract icons, and
 	 * maps widgets to their respective categories and third-party plugin dependencies.
 	 *
 	 * @since 1.0.0
-	 * @return void
+	 * @return array Widget metadata keyed by composite ID, sorted by category then label.
 	 */
 	private function load_widget_info() {
-		$this->widgets = array();
+		$widgets       = array();
 		$folders       = array( 'lc-kit', 'lc-header-footer' );
 		$category_map  = $this->get_category_map();
 		$category_meta = $this->get_category_meta();
@@ -192,7 +208,7 @@ class LCAKE_Kit_Admin_Settings {
 			// Find PHP files inside folder and subfolders
 			$files        = glob( $path . '*.php' );
 			$subdir_files = glob( $path . '*/*.php' );
-			$all_files    = array_merge( $files, $subdir_files );
+			$all_files    = array_merge( (array) $files, (array) $subdir_files );
 
 			foreach ( $all_files as $file ) {
 				$base  = basename( $file, '.php' ); // file name without .php
@@ -258,7 +274,7 @@ class LCAKE_Kit_Admin_Settings {
 					}
 				}
 
-				$this->widgets[ $id ] = array(
+				$widgets[ $id ] = array(
 					'id'          => $id,
 					'label'       => $label,
 					'description' => $meta['description'],
@@ -270,13 +286,28 @@ class LCAKE_Kit_Admin_Settings {
 			}
 		}
 
-		// Sort widgets by category, then alphabetically by label within each category
+		/**
+		 * Filters the widgets listed in the Widget Manager.
+		 *
+		 * Add-ons append entries with the same shape (id, label, description, icon,
+		 * category, plugin_name, plugin_link; optionally 'pro' => true), keyed by
+		 * the composite ID that LCAKE_Kit_Widget_Loader checks when registering.
+		 *
+		 * @since 1.3.0
+		 * @param array $widgets Widget metadata keyed by composite ID.
+		 */
+		$widgets = (array) apply_filters( 'lcake_kit_admin_widgets', $widgets );
+
+		// Sort widgets by category, then alphabetically by label within each category.
 		uasort(
-			$this->widgets,
+			$widgets,
 			function ( $a, $b ) {
-				return 0 !== ( $cat_cmp = strcmp( $a['category'], $b['category'] ) ) ? $cat_cmp : strcmp( $a['label'], $b['label'] );
+				$cat_cmp = strcmp( $a['category'], $b['category'] );
+				return 0 !== $cat_cmp ? $cat_cmp : strcmp( $a['label'], $b['label'] );
 			}
 		);
+
+		return $widgets;
 	}
 
 	/**
@@ -286,40 +317,25 @@ class LCAKE_Kit_Admin_Settings {
 	 * @return void
 	 */
 	public function add_settings_page() {
-
-		/**
-		 * When LC Addons Kit Pro is active, its own admin-settings class registers
-		 * the single "Widget Manager" submenu at this same slug instead (its widget
-		 * list already includes everything Free's own list below would show, plus
-		 * Pro's widgets). Registering a callback here too would still run — WordPress
-		 * doesn't dedupe by slug, it fires every callback added to a matching admin
-		 * page hook — producing two "#lcake-kit-react-root" containers on the same
-		 * page and two "Loading Widget Manager" placeholders (only one of which a
-		 * React app ever mounts into). Passing no callback to add_menu_page() in that
-		 * case leaves rendering solely to Pro's submenu registration.
-		 */
-		$is_pro_active = class_exists( 'LCAKE_Pro_Admin_Settings' );
-		$top_callback  = $is_pro_active ? '' : array( $this, 'render_settings_page' );
-
+		// Add-ons (e.g. Pro) add their widgets via the lcake_kit_admin_widgets filter,
+		// so this single page lists every widget.
 		add_menu_page(
 			esc_html__( 'LC Kit', 'lc-addons-kit-for-elementor' ),
 			esc_html__( 'LC Kit', 'lc-addons-kit-for-elementor' ),
 			'manage_options',
 			$this->menu_slug,
-			$top_callback,
+			array( $this, 'render_settings_page' ),
 			'dashicons-screenoptions'
 		);
 
-		if ( ! $is_pro_active ) {
-			$this->page_hook = add_submenu_page(
-				$this->menu_slug,
-				esc_html__( 'LC Kit Widget Manager', 'lc-addons-kit-for-elementor' ),
-				esc_html__( 'Widget Manager', 'lc-addons-kit-for-elementor' ),
-				'manage_options',
-				$this->menu_slug,
-				array( $this, 'render_settings_page' )
-			);
-		}
+		$this->page_hook = add_submenu_page(
+			$this->menu_slug,
+			esc_html__( 'LC Kit Widget Manager', 'lc-addons-kit-for-elementor' ),
+			esc_html__( 'Widget Manager', 'lc-addons-kit-for-elementor' ),
+			'manage_options',
+			$this->menu_slug,
+			array( $this, 'render_settings_page' )
+		);
 	}
 
 	public function remove_wordpress_notices() {
@@ -374,10 +390,11 @@ class LCAKE_Kit_Admin_Settings {
 		$enabled_widgets   = $request->get_param( 'enabled_widgets' );
 		$sanitized_enabled = array();
 		if ( is_array( $enabled_widgets ) ) {
-			$all_widget_keys = array_keys( $this->widgets );
-			foreach ( $enabled_widgets as $widget_class ) {
-				if ( in_array( trim( $widget_class ), $all_widget_keys ) ) {
-					$sanitized_enabled[] = trim( $widget_class );
+			$all_widget_keys = array_keys( $this->get_widgets() );
+			foreach ( $enabled_widgets as $widget_id ) {
+				$widget_id = trim( (string) $widget_id );
+				if ( in_array( $widget_id, $all_widget_keys, true ) ) {
+					$sanitized_enabled[] = $widget_id;
 				}
 			}
 		}
@@ -385,7 +402,7 @@ class LCAKE_Kit_Admin_Settings {
 		return new WP_REST_Response(
 			array(
 				'success' => true,
-				'message' => 'Settings saved successfully.',
+				'message' => __( 'Settings saved successfully.', 'lc-addons-kit-for-elementor' ),
 			),
 			200
 		);
@@ -401,7 +418,7 @@ class LCAKE_Kit_Admin_Settings {
 	 * @return void
 	 */
 	public function enqueue_admin_assets( $hook ) {
-		if ( $hook !== $this->page_hook ) {
+		if ( $this->page_hook !== $hook ) {
 			return;
 		}
 
@@ -412,12 +429,10 @@ class LCAKE_Kit_Admin_Settings {
 			'version'      => filemtime( LCAKE_EAK_PATH . $script_path ),
 		);
 
-		// The wp_enqueue_script for react-beautiful-dnd has been removed as requested.
-
 		wp_enqueue_script(
 			'lcake-kit-react-app',
 			LCAKE_EAK_URL . $script_path,
-			$script_asset['dependencies'], // Dependency on dnd script is removed.
+			$script_asset['dependencies'],
 			$script_asset['version'],
 			true
 		);
@@ -431,16 +446,17 @@ class LCAKE_Kit_Admin_Settings {
 
 		wp_enqueue_style( 'elementor-icons' );
 
+		$widgets         = $this->get_widgets();
 		$enabled_widgets = get_option( 'lcake_kit_enabled_widgets', null );
 		if ( null === $enabled_widgets ) {
-			$enabled_widgets = array_keys( $this->widgets );
+			$enabled_widgets = array_keys( $widgets );
 		}
 
 		wp_localize_script(
 			'lcake-kit-react-app',
 			'LCAKE_SETTINGS',
 			array(
-				'all_widgets'     => array_values( $this->widgets ),
+				'all_widgets'     => array_values( $widgets ),
 				'enabled_widgets' => $enabled_widgets,
 				'api_url'         => rest_url( 'lcake-kit/v1/save-settings' ),
 				'nonce'           => wp_create_nonce( 'wp_rest' ),
