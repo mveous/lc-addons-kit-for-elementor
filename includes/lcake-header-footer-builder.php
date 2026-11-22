@@ -275,7 +275,7 @@ class LCAKE_Header_Footer_Builder {
 
 		update_post_meta( $post_id, '_lcake_hf_enabled', ! empty( $_POST['lcake_hf_enabled'] ) ? '1' : '' );
 
-		$priority = isset( $_POST['lcake_hf_priority'] ) ? (int) wp_unslash( $_POST['lcake_hf_priority'] ) : 10;
+		$priority = isset( $_POST['lcake_hf_priority'] ) ? intval( wp_unslash( $_POST['lcake_hf_priority'] ) ) : 10;
 		update_post_meta( $post_id, '_lcake_hf_priority', $priority );
 
 		$condition = isset( $_POST['lcake_hf_condition'] ) ? sanitize_key( wp_unslash( $_POST['lcake_hf_condition'] ) ) : 'entire_site';
