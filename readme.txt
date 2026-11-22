@@ -182,8 +182,8 @@ This plugin bundles the following libraries:
 * lottie-web v5.12.2 - MIT License - https://github.com/airbnb/lottie-web
 * SmartMenus jQuery Plugin v1.2.1 - MIT License - https://www.smartmenus.org/
 * The Final Countdown for jQuery v2.2.0 - MIT License - https://hilios.github.io/jQuery.countdown/
-* TwentyTwenty - https://github.com/zurb/twentytwenty
-* jquery.event.move - https://github.com/stephband/jquery.event.move
+* TwentyTwenty - ISC License - https://github.com/zurb/twentytwenty
+* jquery.event.move - WTFPL - https://github.com/stephband/jquery.event.move
 
 == Changelog ==
 = 1.2.1 =
