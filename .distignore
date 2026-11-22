@@ -10,6 +10,7 @@ gitattributes.txt
 distignore.txt
 README.md
 LICENSE
+phpcs.xml.dist
 
 # Local & OS Files
 .DS_Store

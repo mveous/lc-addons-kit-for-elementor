@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruleset name="LC Addons Kit for Elementor">
+	<description>WordPress Coding Standards for LC Addons Kit for Elementor.</description>
+
+	<file>.</file>
+
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/admin/build/*</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
+	<exclude-pattern>*.min.css</exclude-pattern>
+	<exclude-pattern>/assets/lib/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<config name="minimum_wp_version" value="6.5"/>
+	<config name="testVersion" value="7.4-"/>
+
+	<rule ref="WordPress"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="lc-addons-kit-for-elementor"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="lcake"/>
+				<element value="lc_header_footer"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Widget files follow Elementor's naming (one class per widget folder), not WordPress' class-*.php convention. -->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="is_theme" value="false"/>
+		</properties>
+		<exclude-pattern>/includes/*</exclude-pattern>
+		<exclude-pattern>/admin/*</exclude-pattern>
+	</rule>
+</ruleset>
