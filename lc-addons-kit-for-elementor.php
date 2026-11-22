@@ -8,7 +8,7 @@
  * Author: Mveous
  * Author URI: https://mveous.com
  * Text Domain: lc-addons-kit-for-elementor
- * Requires at least: 5.0
+ * Requires at least: 6.5
  * Tested up to: 7.1
  * Requires PHP: 7.4
  * License: GPL v2 or later
