@@ -4,7 +4,7 @@ Tags: elementor, widgets, addons, header footer builder, woocommerce
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -258,6 +258,11 @@ This plugin bundles the following libraries:
 * jquery.event.move - WTFPL - https://github.com/stephband/jquery.event.move
 
 == Changelog ==
+= 1.2.2 =
+* Compatible with LC Addons Kit for Elementor Pro.
+* Improved performance and coding standards.
+* Fixed minor issues.
+
 = 1.2.1 =
 * Tested upto WP 7.1
 
