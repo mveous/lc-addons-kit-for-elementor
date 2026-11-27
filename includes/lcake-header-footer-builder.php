@@ -105,7 +105,7 @@ class LCAKE_Header_Footer_Builder {
 	/**
 	 * Enqueues the "Display Settings" meta box assets on the template edit screen only.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @param string $hook_suffix The current admin page hook suffix.
 	 * @return void
 	 */
@@ -155,7 +155,7 @@ class LCAKE_Header_Footer_Builder {
 	/**
 	 * Returns a template's meta value, or a default when it is empty.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @param int        $post_id  Template post ID.
 	 * @param string     $key      Meta key.
 	 * @param string|int $fallback Value used when the meta is empty.

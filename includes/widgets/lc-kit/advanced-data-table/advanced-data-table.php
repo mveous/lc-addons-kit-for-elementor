@@ -253,7 +253,7 @@ class LCAKE_Kit_Advanced_Data_Table extends \Elementor\Widget_Base {
 		 * this widget's manually-authored Rows repeater) replace $rows without forking
 		 * render() — same shape the widget already builds ({row_cells: 'a, b, c'}).
 		 *
-		 * @since 1.3.0
+		 * @since 1.2.2
 		 * @param array $rows
 		 * @param array $columns
 		 * @param array $settings This widget's settings_for_display().

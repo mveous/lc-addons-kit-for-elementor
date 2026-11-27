@@ -175,7 +175,7 @@ class LCAKE_Kit_Admin_Settings {
 	 * plugin, such as LC Addons Kit Pro, can add their widgets through the
 	 * `lcake_kit_admin_widgets` filter.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @return array
 	 */
 	private function get_widgets() {
@@ -295,7 +295,7 @@ class LCAKE_Kit_Admin_Settings {
 		 * category, plugin_name, plugin_link; optionally 'pro' => true), keyed by
 		 * the composite ID that LCAKE_Kit_Widget_Loader checks when registering.
 		 *
-		 * @since 1.3.0
+		 * @since 1.2.2
 		 * @param array $widgets Widget metadata keyed by composite ID.
 		 */
 		$widgets = (array) apply_filters( 'lcake_kit_admin_widgets', $widgets );
@@ -344,7 +344,7 @@ class LCAKE_Kit_Admin_Settings {
 	/**
 	 * Whether LC Addons Kit Pro is active.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @return bool
 	 */
 	private function is_pro_active() {
@@ -358,7 +358,7 @@ class LCAKE_Kit_Admin_Settings {
 	 * (Header / Footer, etc.). A full URL as the menu slug makes WordPress
 	 * output it as a plain external link.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @return void
 	 */
 	public function add_get_pro_link() {
@@ -380,7 +380,7 @@ class LCAKE_Kit_Admin_Settings {
 	 *
 	 * The LC Kit menu is visible across wp-admin.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @return void
 	 */
 	public function enqueue_menu_styles() {
