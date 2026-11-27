@@ -1,6 +1,6 @@
 === LC Addons Kit for Elementor ===
 Contributors: deep7197
-Tags: elementor, widgets, addons, page-builder, lc-kit
+Tags: elementor, widgets, addons, header footer builder, woocommerce
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,21 +8,29 @@ Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A powerful Elementor addon plugin that offers 83 widgets categorized into 'LC Kit' and 'LC Header & Footer kit' with a dashboard control panel.
+Free Elementor widgets, a Header & Footer Builder with display conditions, WooCommerce widgets and a Widget Manager to turn off what you don't use.
 
 == Description ==
 
-**LC Elementor Addons Kit** is a comprehensive Elementor addon plugin that provides a wide range of professional widgets to enhance your Elementor page building experience.
+**LC Addons Kit for Elementor** adds a large set of widgets to Elementor, plus a Header & Footer Builder and a Widget Manager. Widgets appear in two Elementor panel categories: **LC Kit** and **LC Header & Footer Kit**.
 
-**Core Features** 
+**[Upgrade to Pro!](https://mveous.com/products/lc-addons-kit-for-elementor-pro/)**
 
-* **Widget Category**: 'LC Kit'
-* **Dashboard Control Panel**: Enable/disable individual widgets
-* **Conditional Widget Loading**: Only loads enabled widgets in Elementor
-* **Modern UI**: Beautiful and responsive admin interface
-* **Performance Optimized**: Lightweight and fast loading
+---
 
-**LC Header & Footer Widgets (8 Widgets)**
+### Key Features
+
+* **Free Widgets**: Content, marketing, posts, media, forms, WooCommerce and header/footer widgets.
+* **Header & Footer Builder**: Design headers and footers in Elementor and choose where they show: entire site, front page, blog page, all posts & pages, specific pages, a specific post type, archives, search results or the 404 page. Set a priority when more than one template matches.
+* **Widget Manager**: Turn individual widgets on or off from **LC Kit > Widget Manager**. Disabled widgets are not loaded in the editor.
+* **Loads Only What You Use**: Widget CSS and JavaScript load only on pages that use that widget.
+* **WooCommerce Ready**: Product grids, carousels, single-product parts, cart and checkout widgets.
+* **Form Styling**: Style Contact Form 7, WPForms, Gravity Forms, Ninja Forms, Fluent Forms, weForms, Formstack and Typeform from Elementor.
+* **Responsive**: Every widget includes desktop, tablet and mobile controls.
+
+---
+
+### LC Header & Footer Kit Widgets
 
 * Cart Icon
 * Category List
@@ -33,67 +41,91 @@ A powerful Elementor addon plugin that offers 83 widgets categorized into 'LC Ki
 * Site Logo
 * Site Title
 
-**LC Kit Widgets (73 Widgets)** 
+### LC Kit Widgets
+
+**Content & Layout**
 
 * Accordion
 * Advanced Data Table
+* Breadcrumbs
+* Business Hours
+* Button
+* Code Snippet
+* Content Ticker
+* Data Table
+* Drop Caps
+* Dual Color Header
+* Fancy Text
+* FAQ
+* Feature List
+* Flip Box
+* Heading
+* Icon Box
+* Interactive Circle
+* Simple Menu
+* Social Icons
+* Tab
+* Team
+* Tooltip
+
+**Marketing**
+
+* Business Reviews
+* Countdown Timer
+* CTA Box
+* Funfact
+* Pie Chart
+* Pricing Table
+* Progress Bar
+* Testimonial
+
+**Posts & Events**
+
+* Event Calendar
+* Post Grid
+* Post Timeline
+
+**Media & Creative**
+
+* Embed Press
+* Filterable Gallery
+* Image Accordion
+* Image Box
+* Image Comparison
+* Lottie
+* NFT Gallery
+* Sticky Video
+* SVG Draw
+* Video
+
+**Social Feeds**
+
+* Facebook Feed
+* Twitter Feed
+
+**Forms & Login**
+
+* Contact Form 7
+* Fluent Form
+* Formstack
+* Gravity Forms
+* Login Register
+* Mailchimp
+* Ninja Forms
+* Type Form
+* We Forms
+* WP Forms
+
+**Documentation & Payments**
+
 * Better Payment
 * Betterdocs Category Box
 * Betterdocs Category Grid
 * Betterdocs Search Form
-* Breadcrumbs
-* Business Hours
-* Business Reviews
-* Button
-* Code Snippet
-* Contact Form 7
-* Content Ticker
-* Countdown Timer
-* CTA Box
-* Data Table
-* Drop Caps
-* Dual Color Header
-* Embed Press
-* Event Calendar
-* Facebook Feed
-* Fancy Text
-* FAQ
-* Feature List
-* Filterable Gallery
-* Flip Box
-* Fluent Form
-* Formstack
-* Funfact
-* Gravity Forms
-* Heading
-* Icon Box
-* Image Accordion
-* Image Box
-* Image Comparison
-* Interactive Circle
-* Login Register
-* Lottie
-* Mailchimp
-* NFT Gallery
-* Ninja Forms
-* Pie Chart
-* Post Grid
-* Post Timeline
-* Pricing Table
+
+**WooCommerce**
+
 * Product Grid
-* Progress Bar
-* Simple Menu
-* Social Icons
-* Sticky Video
-* SVG Draw
-* Tab
-* Team
-* Testimonial
-* Tooltip
-* Twitter Feed
-* Type Form
-* Video
-* We Forms
 * Woo Add To Cart
 * Woo Cart
 * Woo Checkout
@@ -108,63 +140,103 @@ A powerful Elementor addon plugin that offers 83 widgets categorized into 'LC Ki
 * Woo Product Short Description
 * Woo Product Tabs
 * Woo Product Title
-* WP Forms
 
-**Key Benefits**
+Some widgets need the matching third-party plugin to be active, such as WooCommerce, a supported form plugin, BetterDocs or Better Payment.
 
-* **Easy Management**: Control which widgets appear in Elementor editor
-* **Performance**: Only loads enabled widgets for optimal speed
-* **Professional**: High-quality widgets for modern websites
-* **Flexible**: Works with all Elementor themes and layouts
-* **Developer Friendly**: Clean code structure with hooks and filters
+---
 
-**Perfect For**
+### FREE v/s Pro Comparison
+
+LC Addons Kit for Elementor Pro is a separate plugin that runs alongside this free plugin. Your free widgets, headers and footers keep working when you upgrade.
+
+#### Free License
+✅ **All free Elementor widgets**: Available
+✅ **Header & Footer Builder (with display conditions)**: Available
+✅ **Widget Manager (turn unused widgets off)**: Available
+✅ **WooCommerce widgets (product grids, cart & checkout)**: Available
+✅ **Form styling (Contact Form 7, WPForms, Gravity Forms & more)**: Available
+✅ **Community support on WordPress.org**: Available
+❌ **Pro-only widgets**: Pro Only
+❌ **AI Website Builder (build pages with Claude or ChatGPT)**: Pro Only
+❌ **Popups (open any template with Popup Trigger)**: Pro Only
+❌ **Dynamic tags (ACF fields & WooCommerce prices)**: Pro Only
+❌ **Extra options for free widgets (filters, hover effects, autoplay & more)**: Pro Only
+
+#### Pro License
+✅ **Everything in Free**: Included
+✅ **Extra Pro-only widgets**: Available
+✅ **Posts & Query**: Blog Posts, Post Carousel, Post List, Related Posts
+✅ **Content**: Advanced Accordion, Advanced Tabs, Toggle, Timeline, Comparison Table, Pricing Grid, Price Menu, Progress Circle, Chart
+✅ **Media**: Advanced Slider, Masonry Gallery, Logo Carousel, Google Maps Pro
+✅ **Creative**: Image Hotspot, Image Hover, Interactive Card, Interactive Links, Stacked Cards, Circle Menu, Unfold, Table of Contents
+✅ **Marketing & Social**: Notification Bar, Evergreen Countdown, Coupon, WhatsApp Chat, Google Reviews, Yelp Reviews, Advanced Search
+✅ **AI Website Builder**: Connect Claude or ChatGPT over MCP to build and edit pages, headers and footers as drafts
+✅ **Popups**: Open any Elementor template as a popup from any element
+✅ **Dynamic tags**: ACF field values and WooCommerce prices
+✅ **Extra options for free widgets**: Post Grid filtering & Reveal More, Advanced Data Table from live data, Countdown Timer expiry actions, Fancy Text typewriter, Button & Icon Box hover effects, Image Accordion autoplay, Image Comparison auto demo
+✅ **Priority support**: Available
+
+**[Upgrade to LC Addons Kit for Elementor Pro](https://mveous.com/products/lc-addons-kit-for-elementor-pro/)**
+
+---
+
+### Perfect For
 
 * Web developers and designers
 * Marketing agencies
-* Business websites
-* E-commerce stores
-* Portfolio sites
-* Corporate websites
-* Any site using Elementor
+* Business and corporate websites
+* WooCommerce stores
+* Blogs, portfolios and documentation sites
 
 == Installation ==
 
-1. **Download** the plugin files
-2. **Upload** to `/wp-content/plugins/lc-addons-kit-for-elementor/`
-3. **Activate** the plugin through the 'Plugins' menu in WordPress
-4. **Configure** widget settings via 'LC Kit' menu in admin dashboard
+1. Install and activate **Elementor**.
+2. Upload the `lc-addons-kit-for-elementor` folder to `/wp-content/plugins/`, or install it from **Plugins > Add New**.
+3. Activate the plugin through the **Plugins** menu in WordPress.
+4. Go to **LC Kit > Widget Manager** to turn widgets on or off.
+5. Open any page in Elementor and look for the **LC Kit** and **LC Header & Footer Kit** categories.
 
 == Frequently Asked Questions ==
 
 = What is required to use this plugin? =
 
-* WordPress 5.0 or higher
-* Elementor 3.0.0 or higher
+* WordPress 6.5 or higher
 * PHP 7.4 or higher
+* Elementor (installed and active)
 
 = How do I enable/disable widgets? =
 
-1. Go to **LC Kit > Widget Manager** in your WordPress admin menu
-2. Select the widgets to enable or disable.
-3. Widgets are organized by category for easy management
-4. Save settings to apply changes
+1. Go to **LC Kit > Widget Manager** in your WordPress admin menu.
+2. Turn the widgets you want on or off. Widgets are grouped by category.
+3. Save your settings.
 
-= Can I use this with any Elementor theme? =
+= How do I create a custom header or footer? =
 
-Yes! This plugin works with all Elementor themes and layouts. The widgets integrate seamlessly with Elementor's editor.
+Go to **LC Kit > Header / Footer**, add a new template, choose Header or Footer, pick a display condition (for example Entire Site) and design it in Elementor using the LC Header & Footer Kit widgets.
+
+= Does this plugin slow down my site? =
+
+No. Disabled widgets are not loaded, and each widget's CSS and JavaScript load only on pages where that widget is used.
+
+= Can I use this with any theme? =
+
+Yes. The widgets work with any theme that supports Elementor.
 
 = Are the widgets mobile responsive? =
 
-Absolutely! All widgets are built with responsive design principles and work perfectly on all devices.
+Yes. All widgets include responsive controls for desktop, tablet and mobile.
 
-= Can I customize the widget styles? =
+= Why don't I see some widgets, like the WooCommerce or form widgets? =
 
-Yes, you can customize widget styles through the Elementor editor or by modifying the CSS files in the plugin's assets folder.
+Some widgets need a third-party plugin to work, such as WooCommerce, Contact Form 7, WPForms, Gravity Forms, BetterDocs or Better Payment. Install and activate the matching plugin.
+
+= What does LC Addons Kit for Elementor Pro add? =
+
+Pro adds many more widgets, an AI Website Builder that works with Claude or ChatGPT, Popups, dynamic tags for ACF and WooCommerce, and extra options for free widgets. See the Free v/s Pro comparison above or [view Pro pricing](https://mveous.com/products/lc-addons-kit-for-elementor-pro/).
 
 = Is this plugin compatible with other page builders? =
 
-This plugin is specifically designed for Elementor and requires Elementor to be installed and activated.
+No. This plugin is built for Elementor and requires Elementor to be installed and active.
 
 == Screenshots ==
 
@@ -208,15 +280,3 @@ This plugin bundles the following libraries:
 
 = 1.0.0 =
 * Initial release
-
-== License ==
-
-This project is licensed under the **GNU General Public License v2.0 or later**.
-
-**GPL v2 or later** - This means you can use, modify, and distribute this software under the terms of the GNU General Public License version 2 or any later version published by the Free Software Foundation.
-
-**License Compatibility**: This license is compatible with WordPress and Elementor plugin requirements.
-
----
-
-**Note**: This plugin requires Elementor to be installed and activated. Make sure you have a compatible version of Elementor before installing this plugin.
