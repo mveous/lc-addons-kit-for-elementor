@@ -75,7 +75,7 @@ class LCAKE_Elementor_Addons_Kit {
 		define( 'LCAKE_EAK_VERSION', '1.2.1' );
 		define( 'LCAKE_EAK_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'LCAKE_EAK_URL', plugin_dir_url( __FILE__ ) );
-		define( 'LCAKE_EAK_PRO_URL', 'https://www.mveous.com' ); // "Get Pro" / "Buy Pro" destination.
+		define( 'LCAKE_EAK_PRO_URL', 'https://mveous.com/products/lc-addons-kit-for-elementor-pro/' ); // "Get Pro" / "Buy Pro" destination.
 	}
 
 	/**

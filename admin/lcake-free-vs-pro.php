@@ -91,85 +91,49 @@ class LCAKE_Kit_Free_Vs_Pro {
 	}
 
 	/**
-	 * Feature rows for the comparison table.
+	 * Feature rows for the comparison table, grouped by section.
 	 *
-	 * @return array[] Feature rows grouped by section.
+	 * Cell values: true = included, false = not included, int = widget count,
+	 * string = short text.
+	 *
+	 * @param int $free_count Free widget count.
+	 * @param int $pro_count  Total widget count with Pro.
+	 * @return array<string, array[]>
 	 */
-	private function get_features() {
-		return array(
-			__( 'Builder and extensions', 'lc-addons-kit-for-elementor' ) => array(
-				array(
-					'label'       => __( 'AI Website Builder', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Connect Claude or ChatGPT to build and edit Elementor pages, headers and footers as drafts.', 'lc-addons-kit-for-elementor' ),
-					'free'        => false,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'Popups', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Open an Elementor template as a popup using the Popup Trigger extension.', 'lc-addons-kit-for-elementor' ),
-					'free'        => false,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'Extra features for free widgets', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Post Grid filtering and Reveal More, dynamic sources for Advanced Data Table, Countdown Timer expiry actions, Fancy Text typewriter effects, Button hover effects, Icon Box hover animations and ribbons, Image Accordion autoplay, and Image Comparison auto demo.', 'lc-addons-kit-for-elementor' ),
-					'free'        => false,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'Dynamic tags', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Use ACF field values and WooCommerce prices in Elementor controls that support dynamic tags.', 'lc-addons-kit-for-elementor' ),
-					'free'        => false,
-					'pro'         => true,
-				),
+	private function get_features( $free_count, $pro_count ) {
+		$sections = array(
+			__( 'General', 'lc-addons-kit-for-elementor' ) => array(
+				array( __( 'Total Elementor widgets', 'lc-addons-kit-for-elementor' ), $free_count, $pro_count ),
+				array( __( 'Widget Manager (turn unused widgets off)', 'lc-addons-kit-for-elementor' ), true, true ),
+				array( __( 'Header & Footer Builder (with display conditions)', 'lc-addons-kit-for-elementor' ), true, true ),
+				array( __( 'WooCommerce widgets (product grids, cart & checkout)', 'lc-addons-kit-for-elementor' ), true, true ),
+				array( __( 'Form styling (Contact Form 7, WPForms, Gravity Forms & more)', 'lc-addons-kit-for-elementor' ), true, true ),
 			),
-			__( 'Core tools', 'lc-addons-kit-for-elementor' ) => array(
-				array(
-					'label'       => __( 'Header & Footer Builder', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Design site-wide headers and footers in Elementor, with display conditions.', 'lc-addons-kit-for-elementor' ),
-					'free'        => true,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'Widget Manager', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Turn individual widgets on or off to keep the editor fast.', 'lc-addons-kit-for-elementor' ),
-					'free'        => true,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'WooCommerce widgets', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Product grids, carousels, cart, checkout and single-product parts.', 'lc-addons-kit-for-elementor' ),
-					'free'        => true,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'Form integrations', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Style forms from plugins such as Contact Form 7, Fluent Forms, Gravity Forms and WPForms.', 'lc-addons-kit-for-elementor' ),
-					'free'        => true,
-					'pro'         => true,
-				),
+			__( 'Content & Marketing', 'lc-addons-kit-for-elementor' ) => array(
+				array( __( 'Post layouts (Post Grid, Timeline, Blog Posts, Carousel & more)', 'lc-addons-kit-for-elementor' ), 2, 6 ),
+				array( __( 'Marketing widgets (CTA, countdowns, coupons & notification bar)', 'lc-addons-kit-for-elementor' ), 3, 7 ),
+				array( __( 'Review widgets (testimonials, Google & Yelp reviews)', 'lc-addons-kit-for-elementor' ), 2, 4 ),
 			),
-			__( 'Content and marketing', 'lc-addons-kit-for-elementor' ) => array(
-				array(
-					'label'       => __( 'Post layouts', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Blog Posts supports AJAX Load More and Infinite Scroll.', 'lc-addons-kit-for-elementor' ),
-					'free'        => __( 'Post Grid and Post Timeline', 'lc-addons-kit-for-elementor' ),
-					'pro'         => __( 'Adds Blog Posts, Post Carousel, Post List and Related Posts', 'lc-addons-kit-for-elementor' ),
-				),
-				array(
-					'label'       => __( 'Marketing widgets', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Calls to action, countdowns and promotional widgets.', 'lc-addons-kit-for-elementor' ),
-					'free'        => __( 'CTA Box, Countdown Timer and Pricing Table', 'lc-addons-kit-for-elementor' ),
-					'pro'         => __( 'Adds Notification Bar, Evergreen Countdown, Coupon and WhatsApp Chat', 'lc-addons-kit-for-elementor' ),
-				),
-				array(
-					'label'       => __( 'Review widgets', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Display testimonials or business reviews.', 'lc-addons-kit-for-elementor' ),
-					'free'        => __( 'Testimonial and Business Reviews', 'lc-addons-kit-for-elementor' ),
-					'pro'         => __( 'Adds Google Reviews and Yelp Reviews', 'lc-addons-kit-for-elementor' ),
-				),
+			__( 'Advanced Features', 'lc-addons-kit-for-elementor' ) => array(
+				array( __( 'AI Website Builder (build pages with Claude or ChatGPT)', 'lc-addons-kit-for-elementor' ), false, true ),
+				array( __( 'Popups (open any template with Popup Trigger)', 'lc-addons-kit-for-elementor' ), false, true ),
+				array( __( 'Dynamic tags (ACF fields & WooCommerce prices)', 'lc-addons-kit-for-elementor' ), false, true ),
+				array( __( 'Extra options for free widgets (filters, hover effects, autoplay & more)', 'lc-addons-kit-for-elementor' ), false, true ),
 			),
 		);
+
+		$widget_rows = array();
+		foreach ( $this->get_pro_widgets() as $group => $widgets ) {
+			$widget_rows[] = array(
+				/* translators: 1: widget category, 2: list of widget names. */
+				sprintf( __( '%1$s (%2$s)', 'lc-addons-kit-for-elementor' ), $group, wp_sprintf( '%l', $widgets ) ),
+				false,
+				count( $widgets ),
+			);
+		}
+		$sections[ __( 'Pro Widgets', 'lc-addons-kit-for-elementor' ) ] = $widget_rows;
+
+		return $sections;
 	}
 
 	/**
@@ -225,18 +189,37 @@ class LCAKE_Kit_Free_Vs_Pro {
 	}
 
 	/**
-	 * Prints a table cell value: a check/cross icon for booleans, text otherwise.
+	 * Prints a table cell value.
 	 *
-	 * @param bool|string $value Cell value.
+	 * @param bool|int|string $value Cell value.
 	 * @return void
 	 */
 	private function print_cell( $value ) {
 		if ( true === $value ) {
-			echo '<span class="lcake-fvp-included"><span aria-hidden="true">✓</span> ' . esc_html__( 'Included', 'lc-addons-kit-for-elementor' ) . '</span>';
+			echo '<svg class="lcake-fvp-check" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="12"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+			echo '<span class="screen-reader-text">' . esc_html__( 'Included', 'lc-addons-kit-for-elementor' ) . '</span>';
 		} elseif ( false === $value ) {
-			echo '<span class="lcake-fvp-unavailable">' . esc_html__( 'Pro only', 'lc-addons-kit-for-elementor' ) . '</span>';
+			echo '<span class="lcake-fvp-dash" aria-hidden="true"></span>';
+			echo '<span class="screen-reader-text">' . esc_html__( 'Not included', 'lc-addons-kit-for-elementor' ) . '</span>';
+		} elseif ( is_int( $value ) ) {
+			echo '<span class="lcake-fvp-value">' . esc_html( number_format_i18n( $value ) ) . '</span>';
 		} else {
 			echo '<span class="lcake-fvp-value">' . esc_html( $value ) . '</span>';
+		}
+	}
+
+	/**
+	 * Prints a feature label, showing any trailing "(details)" as muted text.
+	 *
+	 * @param string $label Feature label.
+	 * @return void
+	 */
+	private function print_feature( $label ) {
+		if ( preg_match( '/^(.+?)\s*\((.+)\)$/u', $label, $m ) ) {
+			echo '<span class="lcake-fvp-name">' . esc_html( $m[1] ) . '</span>';
+			echo '<span class="lcake-fvp-detail">' . esc_html( $m[2] ) . '</span>';
+		} else {
+			echo '<span class="lcake-fvp-name">' . esc_html( $label ) . '</span>';
 		}
 	}
 
@@ -246,107 +229,84 @@ class LCAKE_Kit_Free_Vs_Pro {
 	 * @return void
 	 */
 	public function render_page() {
-		$pro_url     = LCAKE_EAK_PRO_URL;
-		$free_count  = $this->free_widget_count();
-		$pro_widgets = $this->get_pro_widgets();
-		$pro_count   = array_sum( array_map( 'count', $pro_widgets ) );
+		$free_count = $this->free_widget_count();
+		$extra      = array_sum( array_map( 'count', $this->get_pro_widgets() ) );
+		$pro_count  = $free_count + $extra;
+		$pro_url    = LCAKE_EAK_PRO_URL;
 		?>
 		<div class="wrap lcake-fvp">
-			<header class="lcake-fvp-hero">
-				<div>
-					<span class="lcake-fvp-badge"><?php esc_html_e( 'Feature Breakdown', 'lc-addons-kit-for-elementor' ); ?></span>
-					<h1><?php esc_html_e( 'LC Kit: Free vs Pro', 'lc-addons-kit-for-elementor' ); ?></h1>
-					<p><?php esc_html_e( 'Compare the widgets, builder tools, and Elementor extensions included in each edition.', 'lc-addons-kit-for-elementor' ); ?></p>
+			<header class="lcake-fvp-header">
+				<div class="lcake-fvp-intro">
+					<span class="lcake-fvp-eyebrow"><?php esc_html_e( 'Compare plans', 'lc-addons-kit-for-elementor' ); ?></span>
+					<h1><?php esc_html_e( 'LC Kit Free vs Pro', 'lc-addons-kit-for-elementor' ); ?></h1>
+					<p><?php esc_html_e( 'See what you get today and what Pro adds to your Elementor workflow.', 'lc-addons-kit-for-elementor' ); ?></p>
 				</div>
-				<a class="button lcake-fvp-cta" href="<?php echo esc_url( $pro_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Get LC Kit Pro', 'lc-addons-kit-for-elementor' ); ?> <span aria-hidden="true">→</span></a>
+				<a class="lcake-fvp-cta" href="<?php echo esc_url( $pro_url ); ?>" target="_blank" rel="noopener noreferrer">
+					<?php esc_html_e( 'View Pro Pricing', 'lc-addons-kit-for-elementor' ); ?>
+					<span aria-hidden="true">&rarr;</span>
+				</a>
 			</header>
+			<hr class="wp-header-end">
 
-			<p class="lcake-fvp-note">
-				<span class="dashicons dashicons-info-outline" aria-hidden="true"></span>
-				<span><strong><?php esc_html_e( 'Pro runs alongside Free.', 'lc-addons-kit-for-elementor' ); ?></strong> <?php esc_html_e( 'Some widgets require third-party plugins, such as WooCommerce or a supported form plugin.', 'lc-addons-kit-for-elementor' ); ?></span>
-			</p>
+			<ul class="lcake-fvp-stats">
+				<li>
+					<strong><?php echo esc_html( number_format_i18n( $pro_count ) ); ?></strong>
+					<span><?php esc_html_e( 'Widgets in Pro', 'lc-addons-kit-for-elementor' ); ?></span>
+				</li>
+				<li>
+					<strong>+<?php echo esc_html( number_format_i18n( $extra ) ); ?></strong>
+					<span><?php esc_html_e( 'Pro-only widgets', 'lc-addons-kit-for-elementor' ); ?></span>
+				</li>
+				<li>
+					<strong><?php esc_html_e( 'AI', 'lc-addons-kit-for-elementor' ); ?></strong>
+					<span><?php esc_html_e( 'Website Builder', 'lc-addons-kit-for-elementor' ); ?></span>
+				</li>
+			</ul>
 
-			<div class="lcake-fvp-editions">
-				<div class="lcake-fvp-edition">
-					<span class="lcake-fvp-edition-label"><?php esc_html_e( 'Installed', 'lc-addons-kit-for-elementor' ); ?></span>
-					<h2><?php esc_html_e( 'LC Kit Free', 'lc-addons-kit-for-elementor' ); ?></h2>
-					<p><strong><?php echo esc_html( number_format_i18n( $free_count ) ); ?></strong> <?php esc_html_e( 'Widgets', 'lc-addons-kit-for-elementor' ); ?></p>
-					<span class="lcake-fvp-shared"><?php esc_html_e( '✓ Core features included', 'lc-addons-kit-for-elementor' ); ?></span>
-				</div>
-				<div class="lcake-fvp-edition lcake-fvp-edition-pro">
-					<span class="lcake-fvp-badge"><?php esc_html_e( 'Supercharged', 'lc-addons-kit-for-elementor' ); ?></span>
-					<h2><?php esc_html_e( 'LC Kit Pro', 'lc-addons-kit-for-elementor' ); ?></h2>
-					<p><strong><?php echo esc_html( number_format_i18n( $free_count + $pro_count ) ); ?></strong> <?php esc_html_e( 'Widgets', 'lc-addons-kit-for-elementor' ); ?></p>
-					<?php
-					/* translators: %s: number of additional Pro widgets. */
-					echo esc_html( sprintf( __( '+%s Pro-exclusive widgets', 'lc-addons-kit-for-elementor' ), number_format_i18n( $pro_count ) ) );
-					?>
-				</div>
+			<div class="lcake-fvp-card">
+				<table class="lcake-fvp-table">
+					<caption class="screen-reader-text"><?php esc_html_e( 'LC Kit Free vs Pro feature comparison', 'lc-addons-kit-for-elementor' ); ?></caption>
+					<thead>
+						<tr>
+							<th scope="col"><?php esc_html_e( 'Feature', 'lc-addons-kit-for-elementor' ); ?></th>
+							<th scope="col" class="lcake-fvp-col">
+								<?php esc_html_e( 'Free', 'lc-addons-kit-for-elementor' ); ?>
+								<span class="lcake-fvp-tag"><?php esc_html_e( 'Installed', 'lc-addons-kit-for-elementor' ); ?></span>
+							</th>
+							<th scope="col" class="lcake-fvp-col lcake-fvp-pro">
+								<?php esc_html_e( 'Pro', 'lc-addons-kit-for-elementor' ); ?>
+								<span class="lcake-fvp-tag"><?php esc_html_e( 'Recommended', 'lc-addons-kit-for-elementor' ); ?></span>
+							</th>
+						</tr>
+					</thead>
+					<?php foreach ( $this->get_features( $free_count, $pro_count ) as $section => $rows ) : ?>
+						<tbody>
+							<tr class="lcake-fvp-section">
+								<th scope="colgroup" colspan="2"><?php echo esc_html( $section ); ?></th>
+								<td class="lcake-fvp-pro"></td>
+							</tr>
+							<?php foreach ( $rows as $row ) : ?>
+								<tr>
+									<th scope="row"><?php $this->print_feature( $row[0] ); ?></th>
+									<td class="lcake-fvp-col"><?php $this->print_cell( $row[1] ); ?></td>
+									<td class="lcake-fvp-col lcake-fvp-pro"><?php $this->print_cell( $row[2] ); ?></td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					<?php endforeach; ?>
+					<tfoot>
+						<tr>
+							<th scope="row"><?php esc_html_e( 'Ready to unlock everything?', 'lc-addons-kit-for-elementor' ); ?></th>
+							<td class="lcake-fvp-col"><span class="lcake-fvp-current"><?php esc_html_e( 'Current plan', 'lc-addons-kit-for-elementor' ); ?></span></td>
+							<td class="lcake-fvp-col lcake-fvp-pro">
+								<a class="lcake-fvp-upgrade" href="<?php echo esc_url( $pro_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Get Pro', 'lc-addons-kit-for-elementor' ); ?></a>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
 			</div>
 
-			<?php
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only navigation.
-			$show_widgets = isset( $_GET['view'] ) && 'widgets' === $_GET['view'];
-			$page_url     = add_query_arg( 'page', self::PAGE_SLUG, admin_url( 'admin.php' ) );
-			?>
-			<nav class="lcake-fvp-nav" aria-label="<?php esc_attr_e( 'Comparison views', 'lc-addons-kit-for-elementor' ); ?>">
-				<a href="<?php echo esc_url( $page_url ); ?>" <?php if ( ! $show_widgets ) { echo 'aria-current="page"'; } ?>><?php esc_html_e( 'Compare Features', 'lc-addons-kit-for-elementor' ); ?></a>
-				<a href="<?php echo esc_url( add_query_arg( 'view', 'widgets', $page_url ) ); ?>" <?php if ( $show_widgets ) { echo 'aria-current="page"'; } ?>>
-					<?php
-					/* translators: %s: number of additional Pro widgets. */
-					echo esc_html( sprintf( __( '%s Pro Widgets', 'lc-addons-kit-for-elementor' ), number_format_i18n( $pro_count ) ) );
-					?>
-				</a>
-			</nav>
-
-			<?php if ( $show_widgets ) : ?>
-				<div class="lcake-fvp-groups">
-					<?php foreach ( $pro_widgets as $group => $widgets ) : ?>
-						<section class="lcake-fvp-panel">
-							<h2><?php echo esc_html( $group ); ?></h2>
-							<ul>
-								<?php foreach ( $widgets as $widget ) : ?>
-									<li><?php echo esc_html( $widget ); ?></li>
-								<?php endforeach; ?>
-							</ul>
-						</section>
-					<?php endforeach; ?>
-				</div>
-			<?php else : ?>
-				<?php foreach ( $this->get_features() as $section => $features ) : ?>
-					<section class="lcake-fvp-panel">
-						<h2><?php echo esc_html( $section ); ?></h2>
-						<table class="lcake-fvp-table" role="table">
-							<caption class="screen-reader-text"><?php echo esc_html( $section ); ?></caption>
-							<thead role="rowgroup">
-								<tr role="row">
-									<th role="columnheader" scope="col"><?php esc_html_e( 'Feature', 'lc-addons-kit-for-elementor' ); ?></th>
-									<th role="columnheader" scope="col"><?php esc_html_e( 'LC Kit Free', 'lc-addons-kit-for-elementor' ); ?></th>
-									<th role="columnheader" scope="col"><?php esc_html_e( 'LC Kit Pro', 'lc-addons-kit-for-elementor' ); ?></th>
-								</tr>
-							</thead>
-							<tbody role="rowgroup">
-								<?php foreach ( $features as $feature ) : ?>
-									<tr role="row">
-										<th role="rowheader" scope="row">
-											<span class="lcake-fvp-feature"><?php echo esc_html( $feature['label'] ); ?></span>
-											<span class="lcake-fvp-desc"><?php echo esc_html( $feature['description'] ); ?></span>
-										</th>
-										<td role="cell">
-											<span class="lcake-fvp-mobile-label" aria-hidden="true"><?php esc_html_e( 'LC Kit Free', 'lc-addons-kit-for-elementor' ); ?></span>
-											<?php $this->print_cell( $feature['free'] ); ?>
-										</td>
-										<td role="cell" class="lcake-fvp-pro-cell">
-											<span class="lcake-fvp-mobile-label" aria-hidden="true"><?php esc_html_e( 'LC Kit Pro', 'lc-addons-kit-for-elementor' ); ?></span>
-											<?php $this->print_cell( $feature['pro'] ); ?>
-										</td>
-									</tr>
-								<?php endforeach; ?>
-							</tbody>
-						</table>
-					</section>
-				<?php endforeach; ?>
-			<?php endif; ?>
+			<p class="lcake-fvp-footnote"><?php esc_html_e( 'Pro runs alongside Free. Some widgets require third-party plugins, such as WooCommerce or a supported form plugin.', 'lc-addons-kit-for-elementor' ); ?></p>
 		</div>
 		<?php
 	}
