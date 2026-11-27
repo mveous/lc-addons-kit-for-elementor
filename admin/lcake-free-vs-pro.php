@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Adds an LC Kit > Free vs Pro page comparing the free plugin with
  * LC Addons Kit Pro. Shown only while Pro is not active.
  *
- * @since 1.3.0
+ * @since 1.2.2
  */
 class LCAKE_Kit_Free_Vs_Pro {
 

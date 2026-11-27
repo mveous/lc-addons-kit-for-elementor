@@ -255,7 +255,7 @@ class LCAKE_Kit_Utils {
 	 * widget's declared dependencies directly, so it stays correct for any
 	 * widget added to the header/footer in future — not just icon-list.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @param int $content_id The Elementor document/template post ID.
 	 * @return void
 	 */
@@ -276,7 +276,7 @@ class LCAKE_Kit_Utils {
 	 * Walks an Elementor element tree and enqueues every widget's declared
 	 * style and script dependencies.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @param array $elements Elementor elements data (nested via 'elements').
 	 * @return void
 	 */
@@ -600,7 +600,7 @@ class LCAKE_Kit_Utils {
 	 *                         this loop.
 	 * @param string $version  Asset version for cache-busting. Defaults to this plugin's
 	 *                         version; pass the other plugin's version with $base_url.
-	 * @since 1.3.0 Added the `$base_url` and `$version` parameters.
+	 * @since 1.2.2 Added the `$base_url` and `$version` parameters.
 	 * @return void
 	 */
 	public static function lcake_file_enqueue( $scripts, $file, $base_url = null, $version = null ) {

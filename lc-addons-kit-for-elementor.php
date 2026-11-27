@@ -47,7 +47,7 @@ class LCAKE_Elementor_Addons_Kit {
 	 * Adds a "Buy Pro" link to this plugin's row on the Plugins screen while
 	 * LC Addons Kit Pro is not active.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.2
 	 * @param string[] $links Existing action links.
 	 * @return string[]
 	 */

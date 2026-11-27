@@ -575,7 +575,7 @@ class LCAKE_Kit_Post_Grid extends \Elementor\Widget_Base {
 		 * extra query args without forking this widget's render() — the add-on's
 		 * controls land in the same $settings array Free already builds args from.
 		 *
-		 * @since 1.3.0
+		 * @since 1.2.2
 		 * @param array $args
 		 * @param array $settings This widget's settings_for_display().
 		 */
