@@ -1,11 +1,11 @@
 name: Plugin asset/readme update
 on:
   push:
-    tags:
-    - "rv*"
+    branches:
+    - main
 jobs:
   trunk:
-    name: New tag
+    name: Push to trunk
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
