@@ -258,6 +258,7 @@ This plugin bundles the following libraries:
 * jquery.event.move - WTFPL - https://github.com/stephband/jquery.event.move
 
 == Changelog ==
+
 = 1.2.2 =
 * Compatible with LC Addons Kit for Elementor Pro.
 * Improved performance and coding standards.
