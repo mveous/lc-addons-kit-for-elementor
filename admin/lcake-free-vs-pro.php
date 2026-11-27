@@ -97,6 +97,32 @@ class LCAKE_Kit_Free_Vs_Pro {
 	 */
 	private function get_features() {
 		return array(
+			__( 'Builder and extensions', 'lc-addons-kit-for-elementor' ) => array(
+				array(
+					'label'       => __( 'AI Website Builder', 'lc-addons-kit-for-elementor' ),
+					'description' => __( 'Connect Claude or ChatGPT to build and edit Elementor pages, headers and footers as drafts.', 'lc-addons-kit-for-elementor' ),
+					'free'        => false,
+					'pro'         => true,
+				),
+				array(
+					'label'       => __( 'Popups', 'lc-addons-kit-for-elementor' ),
+					'description' => __( 'Open an Elementor template as a popup using the Popup Trigger extension.', 'lc-addons-kit-for-elementor' ),
+					'free'        => false,
+					'pro'         => true,
+				),
+				array(
+					'label'       => __( 'Extra features for free widgets', 'lc-addons-kit-for-elementor' ),
+					'description' => __( 'Post Grid filtering and Reveal More, dynamic sources for Advanced Data Table, Countdown Timer expiry actions, Fancy Text typewriter effects, Button hover effects, Icon Box hover animations and ribbons, Image Accordion autoplay, and Image Comparison auto demo.', 'lc-addons-kit-for-elementor' ),
+					'free'        => false,
+					'pro'         => true,
+				),
+				array(
+					'label'       => __( 'Dynamic tags', 'lc-addons-kit-for-elementor' ),
+					'description' => __( 'Use ACF field values and WooCommerce prices in Elementor controls that support dynamic tags.', 'lc-addons-kit-for-elementor' ),
+					'free'        => false,
+					'pro'         => true,
+				),
+			),
 			__( 'Core tools', 'lc-addons-kit-for-elementor' ) => array(
 				array(
 					'label'       => __( 'Header & Footer Builder', 'lc-addons-kit-for-elementor' ),
@@ -141,32 +167,6 @@ class LCAKE_Kit_Free_Vs_Pro {
 					'description' => __( 'Display testimonials or business reviews.', 'lc-addons-kit-for-elementor' ),
 					'free'        => __( 'Testimonial and Business Reviews', 'lc-addons-kit-for-elementor' ),
 					'pro'         => __( 'Adds Google Reviews and Yelp Reviews', 'lc-addons-kit-for-elementor' ),
-				),
-			),
-			__( 'Builder and extensions', 'lc-addons-kit-for-elementor' ) => array(
-				array(
-					'label'       => __( 'AI Website Builder', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Connect Claude or ChatGPT to build and edit Elementor pages, headers and footers as drafts.', 'lc-addons-kit-for-elementor' ),
-					'free'        => false,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'Popups', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Open an Elementor template as a popup using the Popup Trigger extension.', 'lc-addons-kit-for-elementor' ),
-					'free'        => false,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'Extra features for free widgets', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Post Grid filtering and Reveal More, dynamic sources for Advanced Data Table, Countdown Timer expiry actions, Fancy Text typewriter effects, Button hover effects, Icon Box hover animations and ribbons, Image Accordion autoplay, and Image Comparison auto demo.', 'lc-addons-kit-for-elementor' ),
-					'free'        => false,
-					'pro'         => true,
-				),
-				array(
-					'label'       => __( 'Dynamic tags', 'lc-addons-kit-for-elementor' ),
-					'description' => __( 'Use ACF field values and WooCommerce prices in Elementor controls that support dynamic tags.', 'lc-addons-kit-for-elementor' ),
-					'free'        => false,
-					'pro'         => true,
 				),
 			),
 		);

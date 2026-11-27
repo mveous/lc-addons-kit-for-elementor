@@ -327,7 +327,8 @@ class LCAKE_Kit_Admin_Settings {
 			'manage_options',
 			$this->menu_slug,
 			array( $this, 'render_settings_page' ),
-			'dashicons-screenoptions'
+			'dashicons-screenoptions',
+			'4'
 		);
 
 		$this->page_hook = add_submenu_page(
